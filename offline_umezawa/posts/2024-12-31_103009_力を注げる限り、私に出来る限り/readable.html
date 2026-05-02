@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>力を注げる限り、私に出来る限り</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/103009?ima=4930&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>力を注げる限り、私に出来る限り</h1>
+        <div class="date">2024.12.31 23:23</div>
+      </header>
+
+      <main class="body">
+        <p>大変お世話になりました。</p>
+<figure><img src="images/image_001.jpg" alt=""></figure>
+<p>寝顔ハンター(^^)</p>
+<p>あまりにも大切な毎日 、過ごしてました！</p>
+<p>あたふたしていた年末も</p>
+<p>本日で落ち着いてしまいますねえ</p>
+<p>すきなんだよなあ、</p>
+<p>このあたふた感</p>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<p>さっき撮りました。</p>
+<p>つんつんってしてきたから</p>
+<p>追いかけました。いつもありがと</p>
+<p>年末、バタバタとしているようで</p>
+<p>いつもと変わらない気もして</p>
+<p>すごく楽しいです。</p>
+<p>楽しかった！です。</p>
+<p>今年が終わるのは、安心なのだけど</p>
+<p>新年が始まってしまう事に対しては、まだ不安。</p>
+<p>はやいよー。</p>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<p>皆様、改めて 今年も１年温かい応援を</p>
+<p>本当にありがとうございました。</p>
+<p>振り返ってみると</p>
+<p>たくさん挑戦したな、今年は。と感じています。</p>
+<p>攻めることをやめずに過ごした１年！</p>
+<p>未来を見据えた活動を</p>
+<p>色んな方が、多方面から、私たちに与えてくれました。</p>
+<p>やり切ったー！と思える時もあれば</p>
+<p>もっと出来たなー、と感じた日もありました。</p>
+<p>これは、どんなときも！！</p>
+<p>個人的には、新たな悩みに</p>
+<p>ぶつかることだらけでした！</p>
+<p>この、今の体制になって２年目、</p>
+<p>２年目ってすごく難しいし</p>
+<p>プレッシャーも凄まじかったです。</p>
+<p>でも、やり遂げられたとき、</p>
+<p>みんなと気持ちが重なったー！と感じられた時は</p>
+<p>とてつもない高揚感。</p>
+<p>こうした葛藤が</p>
+<p>乃木坂のキャプテンとして生きてるって感じがして</p>
+<p>なんだか尊かったです。</p>
+<p>新年になれば６期生に会えるのかな。</p>
+<p>楽しみだね(^^)</p>
+<p>３期生には</p>
+<p>ここまで来たからこそ もっと共に頑張りたいことたくさんあるし</p>
+<p>４期生とは 同じ目線でいたい。</p>
+<p>信頼しまくっているからこそ、私たちにはもっと甘えてこい！の気持ち。</p>
+<p>皆の後輩が増えたとて、私たちにとっては永遠のかわいい後輩たちだから(^^)</p>
+<p>５期生には</p>
+<p>まだまだ教えたいこともたくさんあるし</p>
+<p>みんなに期待していることもたくさんあります。</p>
+<p>先輩になり、更に逞しくっていくであろうみんなの姿が楽しみで仕方ない！</p>
+<p>大切なみんなと、</p>
+<p>大切な思い出、たくさん残していけますようにー！</p>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<figure><img src="images/image_005.jpg" alt=""></figure>
+<p>ドーナツわけっ子</p>
+<p>個人的にも</p>
+<p>挑戦的な２０２５年になる気がしています。</p>
+<p>今から、ちょっと怖い。</p>
+<p>前向きに、前向きに、</p>
+<p>頑張らなきゃです！！</p>
+<p>今年も紅白歌合戦の出演が叶いました。</p>
+<p>心から、ありがとうございました。</p>
+<p>皆様のおかげで</p>
+<p>１０年連続、繋げることができました。</p>
+<p>繋げることも難しいけれど</p>
+<p>０から１にするのはきっともっと大変だったはす</p>
+<p>初心を忘れず、感謝を忘れず、</p>
+<p>２０２５年もがんばります。</p>
+<p>引き続き紅白歌合戦お楽しみください！</p>
+<p>皆様！良いお年を！</p>
+<p>お見逃し無く！！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/103009?ima=4930&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/103009?ima=4930&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2024-12-15_102965_抑えられない気持ちも あるよね/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">抑えられない気持ちも あるよね</span>
+      <span class="nav-date">2024-12-15</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2025-05-13_103436_傘になるよ/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">傘になるよ</span>
+      <span class="nav-date">2025-05-13</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

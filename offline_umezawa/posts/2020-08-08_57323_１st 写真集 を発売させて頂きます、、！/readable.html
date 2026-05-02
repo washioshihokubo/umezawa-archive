@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>１st 写真集 を発売させて頂きます、、！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/57323?ima=4938&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>１st 写真集 を発売させて頂きます、、！</h1>
+        <div class="date">2020.08.08 19:36</div>
+      </header>
+
+      <main class="body">
+        <p>先日解禁になりました</p>
+<p>９月２９日に</p>
+<p>１</p>
+<p>st</p>
+<p>写真集を発売させていただくことになりました！</p>
+<p>ありがとうございます。</p>
+<p>本当にありがとうございます、、！</p>
+<p>いつもお世話になっている</p>
+<p>with</p>
+<p>チームに作って頂きました</p>
+<p>❤︎</p>
+<p>撮影地はオーストラリア。</p>
+<p>サーフィンが有名なバイロンベイと</p>
+<p>ゴールドコーストにて撮影してきました！</p>
+<p>バイロンベイはとにかく海が綺麗で</p>
+<p>オーガニックフードが有名な地でもあり</p>
+<p>何を食べても美味しくてたまりませんでした、、</p>
+<p>何より現地の方達の優しさに触れ</p>
+<p>とにかく癒しの旅でした。</p>
+<p>最高に楽しかった！！</p>
+<p>撮影を終えてから約半年経っていますが</p>
+<p>日本に帰ってきてからというもの</p>
+<p>ほぼ毎日</p>
+<p>オーストラリアでの</p>
+<p>写真や動画、オフショットを見返してしまうくらい</p>
+<p>常に頭には写真集の事がありました。</p>
+<p>それくらい楽しくて</p>
+<p>私の中で特別な時間になりました！</p>
+<p>その時間の一コマ一コマを</p>
+<p>写真として、写真集として残せることがとても幸せでなりません。</p>
+<p>そして何より、早く皆様に伝えたくてうずうずしておりました。</p>
+<p>先日解禁になったカット達です</p>
+<p>☀︎</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>そして写真集の発売を記念して</p>
+<p>公式</p>
+<p>Twitter</p>
+<p>、公式</p>
+<p>Instagram</p>
+<p>を開設致しました！</p>
+<p>アカウントはこちら</p>
+<p>↓</p>
+<p>Twitter → @ume1st_minami</p>
+<p>Instagram → ume1st_minami</p>
+<p>既にフォローして下さっている皆様、</p>
+<p>ありがとうございます</p>
+<p>☀︎</p>
+<p>写真集に関する情報や</p>
+<p>オフショット、動画など日々更新されていきますので</p>
+<p>ぜひ皆様チェックよろしくお願い致します！</p>
+<p>Instagram</p>
+<p>のストーリーズは</p>
+<p>私、梅澤が担当させていただだいております！</p>
+<p>写真集の事はもちろん、</p>
+<p>普段の活動、オフショット、告知、動画、</p>
+<p>日常のちょっとした一コマなど</p>
+<p>私なりに頑張っていきますので</p>
+<p>不慣れな点もございますが</p>
+<p>皆様お付き合いよろしくお願いします︎︎︎︎✌︎！</p>
+<p>今回このような報告が出来たのは</p>
+<p>いつも応援して下さっている皆様のおかげです。</p>
+<p>本当に、本当にありがとうございます、、！</p>
+<p>感謝の気持ちでいっぱいです。</p>
+<p>今年に入ってからは特に</p>
+<p>皆様と直接お話出来る交流の場が無い中、</p>
+<p>ファンの皆様はいつも</p>
+<p>色んな形で</p>
+<p>素敵な言葉を届けてくださいます。</p>
+<p>いつも、どんなときも味方でいて下さり</p>
+<p>本当にありがとうございます。</p>
+<p>ただ、正直今は</p>
+<p>このような状況で</p>
+<p>明日のことさえ分からないような</p>
+<p>不安な日々が続いています。</p>
+<p>そんな中での発表はちょっぴり怖さもありました。</p>
+<p>でも、だからこそ</p>
+<p>皆様が喜んでくれるような</p>
+<p>、</p>
+<p>一緒に笑顔を共有できるようなことを提供していきたいし</p>
+<p>皆様が毎日を過ごす中での楽しみを届けられたらなと思っています！</p>
+<p>写真集の発売や</p>
+<p>映画</p>
+<p>映像研の公開など</p>
+<p>未来にはたくさんの楽しみが待っています！</p>
+<p>そんな中で活動できる今は</p>
+<p>とても楽しくて仕方ありません！</p>
+<p>人生において同じシチュエーションは二度とないので</p>
+<p>この期間をめいっぱい楽しんで</p>
+<p>沢山の方に感謝をしながら 、</p>
+<p>しっかり噛み締めながら</p>
+<p>一日一日を大切に過ごしていきたいと思います。</p>
+<p>ご予約はこちらからできます！</p>
+<p>▽Amazon</p>
+<p>様</p>
+<p>https://amzn.to/31i2Tlo</p>
+<p>▽</p>
+<p>セブンネット様</p>
+<p>(</p>
+<p>セブンネット限定表紙</p>
+<p>Ver.)</p>
+<p>https://bit.ly/3frKmrO</p>
+<p>(</p>
+<p>通常</p>
+<p>Ver.)</p>
+<p>https://7net.omni7.jp/detail/1107119142</p>
+<p>▽</p>
+<p>楽天ブックス様</p>
+<p>(</p>
+<p>楽天ブックス限定表紙</p>
+<p>Ver.)</p>
+<p>https://bit.ly/3a09rcw</p>
+<p>(</p>
+<p>通常</p>
+<p>Ver.)</p>
+<p>https://books.rakuten.co.jp/rb/16415246/?l-id=search-c-item-text-03</p>
+<p>発売まであと</p>
+<p>1</p>
+<p>ヶ月半ちょっと、</p>
+<p>一人でも多くの方に手に取っていただけたら嬉しいです。</p>
+<p>わたしも全力で頑張るぞ〜！！</p>
+<p>公式SNSでのコメントも</p>
+<p>たくさんありがとうございます❤︎</p>
+<p>皆様の笑顔がたくさん見られますように！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>では。</p>
+<p>また更新します！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>幸せを</p>
+<p>ありがとうございます</p>
+<p>宝物がまた一つ増えました❤︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/57323?ima=4938&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/57323?ima=4938&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-08-03_57257_オフショットカメラはどこか照れくさいようです/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">オフショットカメラはどこか照れくさいようです</span>
+      <span class="nav-date">2020-08-03</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-08-19_57443_食べるものは前日に決めちゃう人/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">食べるものは前日に決めちゃう人</span>
+      <span class="nav-date">2020-08-19</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>沈黙の意味</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/60074?ima=4935&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>沈黙の意味</h1>
+        <div class="date">2021.02.12 22:12</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>保湿に追われている日々です。</p>
+<p>お風呂上がっていかに早く</p>
+<p>顔のスキンケアと</p>
+<p>体の保湿が出来るかが勝負。</p>
+<p>皆様いかがお過ごしですか？</p>
+<p>僕は僕を好きになる</p>
+<p>発売になりました！</p>
+<p>選抜発表を受けてから数ヶ月、</p>
+<p>あっという間に迎えた発売日。</p>
+<p>何ができるか何をすべきか</p>
+<p>未来のことを考えましたが</p>
+<p>何よりまずは目先にあることへ熱を注ごうと</p>
+<p>そう決めて毎日過ごしてきました。</p>
+<p>自分とより見つめ合う期間だからこそ</p>
+<p>自分の嫌な部分もたくさん見えてきましたが</p>
+<p>この感情も自分を好きになる過程に必要な気持ちなんだと</p>
+<p>決して下を向くことなく 上を向いて進めている気がします！</p>
+<p>この曲が教えてくれたことも</p>
+<p>前を向かせてくれた時間もたくさんです！</p>
+<p>何より大切で素敵な曲だから</p>
+<p>そんな想いが届くようにと</p>
+<p>パフォーマンスを重ねてまいりました。</p>
+<p>まだまだもっとできると</p>
+<p>現状に 自分自身に満足せずにいたいと思っています。たくさん聴いて、たくさん愛してください！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>舞台に降りてすぐ撮ったので</p>
+<p>まだ目が赤いですね。（笑）</p>
+<p>朗読劇 「星の王子さま」</p>
+<p>朴璐美さんと下野紘さんと</p>
+<p>ご一緒させて頂きました。</p>
+<p>とっっっても緊張しました！</p>
+<p>このような状況なのもあり、</p>
+<p>前日のリモートでの読み合わせが一回きり。</p>
+<p>翌日はもう本番。</p>
+<p>緊張でどうにかなりそうでしたが</p>
+<p>御二方が引っ張って下さり、</p>
+<p>物語の世界に入り込むことが出来ました。</p>
+<p>いやあ、なんと言っても</p>
+<p>舞台上のあの高揚感はたまらなかったです。</p>
+<p>舞台袖の匂い、空の状態の客席、</p>
+<p>音声チェックの声、楽屋の緊張感、</p>
+<p>そしてお客様からの生で頂く拍手...</p>
+<p>２年ぶりでした。</p>
+<p>最高に素敵な経験をさせて頂きました。</p>
+<p>毛利亘宏さんと、またご一緒出来るよう</p>
+<p>力をつけて再会したいです！</p>
+<p>劇場に足を運んでくださった皆様、</p>
+<p>配信で観てくださった皆様、</p>
+<p>ありがとうございました。</p>
+<p>DVDも発売になりますので</p>
+<p>ぜひ。</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>楽しくお話させてもらってます！</p>
+<p>前髪 ぱっつん風にしてみたりしてます！</p>
+<p>会いに来て下さる皆様、</p>
+<p>本当にありがとうございます~</p>
+<p>工夫して 飾り付けしてくれていたり</p>
+<p>ケーキや私の好きなチョコを用意してくれていたり</p>
+<p>海や夕日、素敵な景色を見せてくれたり</p>
+<p>ペットやお子さんと一緒に参加してくれたり</p>
+<p>寝起きの普段は見られないような 髪の毛が少しぼさっとした特別な姿が見られたり。</p>
+<p>皆様とお話出来て とっても癒されてます！</p>
+<p>温かい言葉をたくさんかけていただき</p>
+<p>活力になっています。感謝！</p>
+<p>１４日にもあるので楽しみにしています。</p>
+<p>お洋服何着ようかな~☀︎</p>
+<p>「僕たちは居場所を探して」</p>
+<p>hulu様にて配信開始しました。</p>
+<p>山下、久保、梅澤の私たち３人が</p>
+<p>今までと、今と、これからと、</p>
+<p>長く、お話させて頂きました。</p>
+<p>自分自身のことをここまで話すのは</p>
+<p>初めてで中々上手く言葉を繋げることが出来ず</p>
+<p>言葉足らずな部分もあるかと思いますが</p>
+<p>ぜひ、観ていただけたら嬉しいです</p>
+<p>梅澤編、公開中です</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>幼い頃からの思い出が詰まりに詰まった公園！</p>
+<p>昔背中に乗らせてくれた子。</p>
+<p>小さい頃何度も乗った乗り物。</p>
+<p>今の環境に感謝して、</p>
+<p>頂いた経験 言葉 感謝をちゃんとお返しできるように</p>
+<p>甘えず、勘違いせず、</p>
+<p>しっかり自分を見定め 厳しくありたいなと思っています。</p>
+<p>少しずつ 何かを見つけ</p>
+<p>冷静に 慎重に 進んでいきたいな~！</p>
+<p>１４日は久保編、</p>
+<p>２１日は山下編と続きます。</p>
+<p>やまとくぼの言葉は</p>
+<p>意思が強くかっこよく逞しく、</p>
+<p>なんて誇らしい同期なんだと改めて感じました。</p>
+<p>ぜひ。</p>
+<p>さて！</p>
+<p>例年とは違った形ではありますが</p>
+<p>開催できること、とても嬉しく思います。</p>
+<p>リハーサルでは 想像力がかなり大切で</p>
+<p>映像に映し出された時、</p>
+<p>どうなるのかワクワクすることばかりです。</p>
+<p>ただただ、とにかく歌って踊れる喜び！</p>
+<p>初めましての方も多く来てくださり、</p>
+<p>笑顔で口にしてくださる方がたくさんいます。</p>
+<p>もちろん長く応援してくださる方からの</p>
+<p>今年はどうなるんだろう、楽しみにしているね！の声も。</p>
+<p>とても大切で 大事にしてきた日であり、</p>
+<p>新しいことへの挑戦をみんなで毎年続けてきました。</p>
+<p>乃木坂46に関わる全ての方の想いを背負って</p>
+<p>挑みたいと思っています！</p>
+<p>楽しみにしていてください！</p>
+<p>最近見る夢が</p>
+<p>歌番組で突然振りを忘れて頭が真っ白になって踊れなくなったり</p>
+<p>そんな夢ばっかりみます</p>
+<p>おかげで起きたら冷や汗でぐったりです。（笑）</p>
+<p>しっかり準備して私たち自身も楽しむぞ~！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>素敵な柄です。</p>
+<p>アクセサリーもシルエットも</p>
+<p>全部全部素敵な衣装。感謝。</p>
+<p>また、書きます</p>
+<p>おやすみなさい！</p>
+<p>気づいたら</p>
+<p>ダウンロードしている楽曲の数が</p>
+<p>２０００曲を超えていました。</p>
+<p>皆様は</p>
+<p>どれくらいあるのだろう？</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/60074?ima=4935&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/60074?ima=4935&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2021-01-08_59681_星の王子さま/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">星の王子さま</span>
+      <span class="nav-date">2021-01-08</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2021-03-09_60346_しわくちゃに傷んだ/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">しわくちゃに傷んだ</span>
+      <span class="nav-date">2021-03-09</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

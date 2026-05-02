@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>セーラージュピター！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/47302?ima=4949&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>セーラージュピター！</h1>
+        <div class="date">2018.10.09 20:12</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>今日はセラミュのお話を☺︎</p>
+<p>乃木坂46版 ミュージカル「美少女戦士セーラームーン」</p>
+<p>大千秋楽を終えました！</p>
+<p>５月から稽古が始まり</p>
+<p>約４ヶ月間、</p>
+<p>本当にあっという間でした！</p>
+<p>６月公演を経ての９月公演は</p>
+<p>七ステを挟んでいたので</p>
+<p>作品と改めて向き合い</p>
+<p>台本を改めて読み返した時、</p>
+<p>６月公演のときとは違う感じ方をする部分もありました</p>
+<p>それくらい七ステで学んだことが</p>
+<p>大きかった気がします☺︎</p>
+<p>以前より伸び伸びしていられた気がする！</p>
+<p>色々な想いが、メッセージが、</p>
+<p>強く込められたこの作品。</p>
+<p>小さい頃はビジュアルが好きで</p>
+<p>憧れのその姿を真似ていたけど</p>
+<p>今こうしてまたこの作品と向き合い</p>
+<p>改めて色々なことを教えられたなあと。☺︎</p>
+<p>舞台上で</p>
+<p>木野まこと、セーラージュピターとして</p>
+<p>生きてみんなと出逢いながらも</p>
+<p>梅澤美波としてこのカンパニーに出逢えたことの幸せを感じる期間でもありました。</p>
+<p>本当に最高に楽しい時間でした！</p>
+<p>みんなが本当に大好き！</p>
+<p>人見知りで壁を作りがちな私だったけど、、</p>
+<p>大好きな人達と</p>
+<p>大好きな作品の中で生きられることが</p>
+<p>本当に幸せだった☺︎</p>
+<p>もっとお話したかったなあなんて( .. )</p>
+<p>今思っても遅いですが。</p>
+<p>始まった頃はどうなる事かと思ったけど</p>
+<p>今はみんなで笑えてる☺︎</p>
+<p>楽しかった、終わりたくない、寂しい、</p>
+<p>こう思えてることが全てだと思います☺︎</p>
+<p>物心ついて初めて</p>
+<p>自分の意思で好きになったこの作品。</p>
+<p>幼い私に夢をくれたこの作品に</p>
+<p>こうして今携われていること、</p>
+<p>奇跡のようなことだと思います。</p>
+<p>ああ、書きながら泣きそうなんですけど</p>
+<p>本当に人生何があるかわからない！</p>
+<p>戦士として生きる日々が未来にあることを幼き日の私が知ったらどう思うのだろう</p>
+<p>言葉で表せられないけど</p>
+<p>とにかく私はセーラームーンが大好きです！</p>
+<p>この作品を生んでくださった</p>
+<p>武内直子先生、</p>
+<p>感謝とともに、わたしはずっとセーラームーンが大好きです！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>ありがとうまこちゃん！</p>
+<p>姉御肌でかっこよくて</p>
+<p>割と単純な一面があって</p>
+<p>誰よりも恋に敏感で</p>
+<p>見た目や印象と裏腹にとても家庭的で。</p>
+<p>身長が高くてそれをコンプレックスに思う部分なんて私と同じで☺︎</p>
+<p>本当に素敵で魅力的な子だから</p>
+<p>それを伝える人としてあれたかなあ</p>
+<p>そしてTeamSTAR！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>この人達がいなかったら</p>
+<p>どうなっていたんだろう( .. )</p>
+<p>４人とはセラミュ始まるまで</p>
+<p>ほとんど話したことがない</p>
+<p>状態からのスタートだったけど</p>
+<p>ここまで仲良くなれるなんて</p>
+<p>思ってもみなかった(；；)</p>
+<p>始まる前のメイクアップの円陣の動画も</p>
+<p>日々楽屋でふざけてた動画も</p>
+<p>今見返すと全部が愛おしい(；；)</p>
+<p>４人がいたから毎日笑っていられたし</p>
+<p>色々葛藤があった時期も</p>
+<p>初めての通し稽古で失敗して落ち込んだ時も</p>
+<p>どんなときも側で支えてくれて</p>
+<p>みんなで苦しみを分かち合ってきて</p>
+<p>セラミュは終わったけど</p>
+<p>Team STARは永遠に大好きだし、</p>
+<p>きっと変わらない関係☺︎☺︎</p>
+<p>DVD出たら鑑賞会するんだー！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>素敵な写真、、☺︎</p>
+<p>ネフまこの背が高いから</p>
+<p>ゾイ亜美が小さく見えるの</p>
+<p>本当にかわいい。（笑）</p>
+<p>また、みんなで</p>
+<p>セーラームーンの世界を生きられるんじゃないかって</p>
+<p>そんなことを考えてしまう。</p>
+<p>また出逢えますように！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>たくさんの応援、</p>
+<p>本当にありがとうございました！</p>
+<p>そしてここからは</p>
+<p>１１月の舞台「ザンビ」に向けて</p>
+<p>頑張ります！！</p>
+<p>それでは今日はここまで！</p>
+<p>おやすみなさい☺︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/47302?ima=4949&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/47302?ima=4949&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-10-05_47267_難しい壁/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">難しい壁</span>
+      <span class="nav-date">2018-10-05</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-10-13_47353_やっぱり秋冬が好き！/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">やっぱり秋冬が好き！</span>
+      <span class="nav-date">2018-10-13</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

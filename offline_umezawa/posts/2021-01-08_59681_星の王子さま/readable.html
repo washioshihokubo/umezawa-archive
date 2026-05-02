@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>星の王子さま</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/59681?ima=4935&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>星の王子さま</h1>
+        <div class="date">2021.01.08 17:08</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>本番を迎えます。</p>
+<p>http://www.shachu.com/e_mouri00/index.html</p>
+<p>私自身 客席から朗読劇というものに触れたことはあったものの</p>
+<p>自分が舞台に立つのは初めての挑戦になります。</p>
+<p>舞台には二人、</p>
+<p>シンプルなセットに台本。</p>
+<p>言葉だけで伝える感情が</p>
+<p>ここまで届くものなんだと</p>
+<p>物凄く感動し涙を流したのを覚えています。</p>
+<p>誰もが聞いたことがあったり</p>
+<p>触れたことのある作品だと思います。</p>
+<p>その時の状況によって</p>
+<p>受け取り方は変わるかと思いますが</p>
+<p>今だからこそ響く言葉やメッセージがたくさん詰まっています。</p>
+<p>久しぶりに舞台上に足を踏み入れます。</p>
+<p>緊張と、楽しみが ふつふつと湧き上がってきます。</p>
+<p>その場の空気感を大切にしつつ</p>
+<p>皆様へ想いが届くよう精一杯務めさせていただきます。</p>
+<p>１／９（土） 13:00</p>
+<p>～ 朴璐美さん</p>
+<p>20:00</p>
+<p>～ 下野紘さん</p>
+<p>お二方とご一緒させて頂きます。</p>
+<p>とっても 光栄です。</p>
+<p>自分自身の出せるもの全てぶつけて</p>
+<p>挑みたいと思っています！</p>
+<p>劇場へ直接足を運んでくださる皆様へ</p>
+<p>心から感謝申し上げます。</p>
+<p>それから直接来られない方も</p>
+<p>多くいらっしゃるかと思います。</p>
+<p>ご自宅で配信を見ることもできます！</p>
+<p>こちらは現在も受付中でございます。</p>
+<p>配信終了日の22時30分まで観られますので</p>
+<p>お時間合わない方でもぜひ☀︎</p>
+<p>こちらから</p>
+<p>◎streaming+</p>
+<p>https://eplus.jp/e_mouri_st_reading/</p>
+<p>◎ローチケ LIVE STREAMING</p>
+<p>https://eplus.jp/e_mouri_st_reading/</p>
+<p>それから 音楽劇「星の飛行士」</p>
+<p>先日配信で観させていただきました！</p>
+<p>自宅で見ましたが</p>
+<p>画面越しまで熱量も伝わってきて</p>
+<p>セットや照明、それから</p>
+<p>演者さんの表情が細部まで観られてすごく楽しめました。</p>
+<p>こちらも配信で観られます！</p>
+<p>生で演じることの素晴らしさをぜひ体感してみてください。</p>
+<p>理々杏もとってもかっこよかった！</p>
+<p>王子さま、素敵でした❤︎</p>
+<p>◎Streaming+</p>
+<p>https://eplus.jp/e_mouri_st/</p>
+<p>◎ローチケ STREAMING</p>
+<p>https://l-tike.com/e-mouri-streaming/</p>
+<p>音楽劇、朗読劇、</p>
+<p>どちらを観ても楽しめますし</p>
+<p>両方観てもより深く世界観に入り込めるかと思います。</p>
+<p>とっても楽しみです！</p>
+<p>皆様も劇場で、ご自宅で、</p>
+<p>ぜひお楽しみくださいませ。</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>お正月に作ったお雑煮で失礼します。</p>
+<p>（じゃがいもの主張強い</p>
+<p>好きだからいいんです。）</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/59681?ima=4935&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/59681?ima=4935&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2021-01-06_59664_気分 時間 によって 考え方は変わっていきます/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">気分 時間 によって 考え方は変わっていきます</span>
+      <span class="nav-date">2021-01-06</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2021-02-12_60074_沈黙の意味/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">沈黙の意味</span>
+      <span class="nav-date">2021-02-12</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

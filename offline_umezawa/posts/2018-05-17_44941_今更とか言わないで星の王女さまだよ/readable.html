@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>今更とか言わないで星の王女さまだよ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/44941?ima=4954&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>今更とか言わないで星の王女さまだよ</h1>
+        <div class="date">2018.05.17 20:48</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>どうもどうも</p>
+<p>今日、今年はじめて</p>
+<p>半袖で外出ました！</p>
+<p>夜寒いかな〜思ったら</p>
+<p>全然暑すぎてびっくり！</p>
+<p>散歩が気持ちいい時期になったね☺︎</p>
+<p>この間少し時間が出来たので</p>
+<p>張り切って買い物行ったら</p>
+<p>張り切ってる時に限って</p>
+<p>理想のお洋服に出逢えないんだよね( .. )</p>
+<p>いつも私ってそう（笑）</p>
+<p>だいぶというかかなり遅くなりましたが</p>
+<p>星の王女さまについて！</p>
+<p>文字にして保存していたものの</p>
+<p>タイミングが合わずずっと更新出来ていませんでした、、</p>
+<p>もう今更かなあと思ったけど</p>
+<p>やっぱり更新する！</p>
+<p>舞台「星の王女さま」</p>
+<p>千穐楽を迎えました！！</p>
+<p>(今更とか言わないで（笑）</p>
+<p>長くなるけどちょっと喋ります。（笑）</p>
+<p>喋るじゃないか、書くのか（笑）</p>
+<p>３期生８人で舞台やります</p>
+<p>と言われた時、涙がぶわああっと（笑）</p>
+<p>自分でも驚きました（笑）</p>
+<p>その時の私は、頑張れる場所を</p>
+<p>１番に求めていたから</p>
+<p>嬉しかったんだと思います！</p>
+<p>決まった時は不安より</p>
+<p>嬉しさとか楽しみの方が多くて</p>
+<p>ずっとわくわくしてた。☺︎</p>
+<p>でも毎日の稽古がはじまって</p>
+<p>上手くいかないこととか</p>
+<p>色々思うことが増えていくにつれて</p>
+<p>私たちは今、</p>
+<p>一番頑張らければいけない時なのになあって</p>
+<p>色々考えたりもして、</p>
+<p>自分の意思を強く持って</p>
+<p>それを貫き通すことってすごく苦しかったりするんです、</p>
+<p>全然簡単なことではなくて</p>
+<p>あるべき自分であり続けるのが</p>
+<p>苦しかったりもしました、</p>
+<p>目の前にしていることから目を背けたくなったことも多々あったなあ( .. )</p>
+<p>けど、舞台本番の毎日は</p>
+<p>びっくりするくらい楽しかった！</p>
+<p>毎日リンドバーグになれる</p>
+<p>その嬉しさがおっきくて</p>
+<p>１日１公演の日は寂しさも感じるくらい！</p>
+<p>この８人で舞台やるのも</p>
+<p>間違いなく最後だったと思うし</p>
+<p>貴重でかけがえのない時間だったんだなあって今振り返ってみて改めて思います。</p>
+<p>カーテンコールのときに</p>
+<p>順番で話せる機会が多かった今回の舞台では</p>
+<p>たくさん話させて頂いたけど</p>
+<p>いつもメモ帳に話す内容を考えるのだけど</p>
+<p>それを見返してみたら</p>
+<p>色んな単語が並んでて</p>
+<p>よくこの言葉が浮かんできたなあって思うような言葉がそこには書いてあって</p>
+<p>その時の私はこの舞台で頭がいっぱいで</p>
+<p>色んなことを考えていたんだなあって</p>
+<p>必死だったんだなあってちょっと笑っちゃいました（笑）</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>この衣装暑かったけど</p>
+<p>好きだったなあ</p>
+<p>空席が見えて悔しかったのも</p>
+<p>満席のステージにしか立ったことが無かった私達には必要な光景であり、</p>
+<p>必要な気持ちだったと思います。</p>
+<p>ある日の３階席には誰もいなかった</p>
+<p>公演が終わって悔しくて泣いた</p>
+<p>だから、もっと頑張ろうと思えました！</p>
+<p>初めてたったステージは</p>
+<p>満席の武道館。</p>
+<p>人がいっぱいのステージしか</p>
+<p>経験してなかった</p>
+<p>大きなきっかけになる気がしました</p>
+<p>これが今の私たちの実力だから∠(　˙-˙ )／</p>
+<p>悔しい気持ちも全部私の原動力！</p>
+<p>こう思えている今の私に</p>
+<p>あの時よりちょっと強くなったねと言葉をあげようと思います。（笑）</p>
+<p>壊れるんじゃないかなってくらいの</p>
+<p>プレッシャーがすごく覆いかぶさってきて</p>
+<p>どうにかなりそうになった時もあったけど</p>
+<p>今こうして満足した気持ちでいられるのも</p>
+<p>応援して下さった皆様がいたからです。</p>
+<p>カーテンコールになり</p>
+<p>リンドバーグから梅澤美波になって</p>
+<p>そこで客席を見渡して</p>
+<p>たくさんのお客様にお越しいただいている目の前にする光景に、感動する毎日でした。</p>
+<p>知ってる顔が見えたり</p>
+<p>そんな日は安心したり</p>
+<p>泣いてるすすり泣きの声が聞こえたり</p>
+<p>笑顔が見えたり</p>
+<p>毎日幸せでした！</p>
+<p>全１８公演、</p>
+<p>足を運んでくださった皆様に。</p>
+<p>そして、遠くから応援して下さった皆様に。</p>
+<p>本当にありがとうございました！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>ありがとうリンドバーグ</p>
+<p>ほんでだいすきなどれみちゃん</p>
+<p>今はセラミューの稽古をしていて</p>
+<p>毎日勉強することばかりです。</p>
+<p>一から新しいことに</p>
+<p>チャレンジしている！</p>
+<p>楽しい稽古場の雰囲気が大好き！</p>
+<p>上手くできずに落ち込むことも</p>
+<p>悩むこともあるけど</p>
+<p>周りにいる先輩や</p>
+<p>キャストの皆様が本当に優しくて</p>
+<p>今日も終わったあと練習に付き合ってくれたり</p>
+<p>エスコートしてくださったり</p>
+<p>すごく幸せな環境です！</p>
+<p>大好きな作品に携われて</p>
+<p>本当に幸せです！</p>
+<p>本番まで頑張るぞー！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>これは王女さま本番初日の写真〜</p>
+<p>初日の夜に</p>
+<p>稽古終わり携帯を見たら</p>
+<p>あやとたまみとれんかから動画が来てて</p>
+<p>「うめに会いたいよ〜」</p>
+<p>って連呼してるかわい子ちゃんたちがいて</p>
+<p>しかも、</p>
+<p>でんとじゅんなさんからも</p>
+<p>「うめ〜」って動画がきてて</p>
+<p>もうなんか涙でそうになって</p>
+<p>早くみんなに会いたい！と思った(；；)</p>
+<p>だからわたしもがんばる！</p>
+<p>たくさんのコメントありがとうございます、</p>
+<p>本当にめっちゃ元気出るの</p>
+<p>コメントみると(；；)</p>
+<p>お仕事行く前にみて</p>
+<p>頑張る活力にしています、</p>
+<p>はやく皆様に会いたい！</p>
+<p>次の握手会もたのしみにしています！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>パジャマでばいばい</p>
+<p>おやすみ！</p>
+<p>毎日ほんとに難しいことだらけで落ち込むことが多いの( .. )</p>
+<p>でもやるしかないし楽しいのには変わりないからがんばる！</p>
+<p>だから一緒にがんばろな☺︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/44941?ima=4954&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/44941?ima=4954&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-05-13_44887_気持ちが大事/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">気持ちが大事</span>
+      <span class="nav-date">2018-05-13</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-05-28_45073_おんなのかっこよさとは/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">おんなのかっこよさとは</span>
+      <span class="nav-date">2018-05-28</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

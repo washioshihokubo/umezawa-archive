@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>大切にしたいからねえ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/64890?ima=4933&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>大切にしたいからねえ</h1>
+        <div class="date">2022.01.06 20:54</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>２０２２年になり</p>
+<p>そこからはもう</p>
+<p>猛スピードで毎日過ぎ去ってしまいました。</p>
+<p>最高に充実したお正月を迎えたよ〜！</p>
+<p>年明けは みんなでジャンプして</p>
+<p>最高のスタートでした＼(^^)／</p>
+<p>年女と思われがちですが</p>
+<p>こう見えて うさぎどし なので 来年です</p>
+<p>そして本日２３歳になりました(^-^)</p>
+<p>なっちゃいました〜。</p>
+<p>たくさんの おめでとう を</p>
+<p>ありがとうございます！</p>
+<p>どうなんだろう、</p>
+<p>ちゃんと年相応でいられているのだろうか...</p>
+<p>ちゃんと深みのある人になりたいなあと</p>
+<p>思います。</p>
+<p>もう立派な大人ですからね、</p>
+<p>自分のことは自分でしっかり と！</p>
+<p>でも子供らしさというか</p>
+<p>そういうものも 忘れたくないですね(^-^)</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>この生田さん可愛すぎてお気に入りです。てへ</p>
+<p>大切な先輩の卒業も</p>
+<p>見送ることができました。</p>
+<p>本当に綺麗でした。涙も全部！</p>
+<p>今年は５期生の加入もありますね。</p>
+<p>まだまだ変化していくことが</p>
+<p>目に見えてたくさんあるんだろうなあ〜</p>
+<p>そんな中でも</p>
+<p>変わらないものにもきちんと目を向け</p>
+<p>大切に 大切にしていきたいです。</p>
+<p>年が明けて 毎日を過ごす中で</p>
+<p>改めて思ったことは</p>
+<p>大切なものが増えるっていうことは</p>
+<p>とても嬉しいことで 心が温まるけど</p>
+<p>守れるのだろうかという 不安と 恐怖も</p>
+<p>どこかで感じたりするのです...</p>
+<p>だからわたしは</p>
+<p>強くなりたいと 色んな場面を乗り越える度に</p>
+<p>大きな節目を迎える度に おもうのですね、</p>
+<p>まあその強さがどんなものなのか</p>
+<p>何を持って 強さ というのか</p>
+<p>その正解は分からないのだけど...</p>
+<p>とにかくたくさんの人たちと</p>
+<p>笑って過ごす時間が増えればいいな(^-^)</p>
+<p>笑う時間がすごく大切で</p>
+<p>みんなの笑顔が可愛くて大好きなので！</p>
+<p>最後のTight hug をリリースして</p>
+<p>たくさん踊って思ったけど</p>
+<p>ハグ もとても大切ですね！</p>
+<p>今年はみんなにたくさんギューします！</p>
+<p>最近は 新内姉さんに</p>
+<p>会う度ギューしてる気がする(^-^)</p>
+<p>強く抱き締めてごめんなさい...</p>
+<p>目標は色々と書き出してみました〜</p>
+<p>小さな目標から 書き出してみてます</p>
+<p>思いついたときにサッと(^-^)</p>
+<p>今年は 柔軟に対応できる人でいたいです〜！</p>
+<p>わたしは今まで</p>
+<p>決められたことや正解に</p>
+<p>真っ直ぐ進むやり方しか出来なかったのですが</p>
+<p>それだけが正しいとは 限らないんだと</p>
+<p>周りを見て気づきました</p>
+<p>固定概念に囚われすぎず</p>
+<p>自分の固まった思考を柔らかくして</p>
+<p>いわゆる正解と言われる道だけでなく</p>
+<p>突発的に動いてみることで</p>
+<p>その時初めて新しいものが生まれることもたくさんあるのかなあと(^-^)</p>
+<p>そんな場面にたくさん遭遇してきたので。</p>
+<p>あとは</p>
+<p>エスカレーターより階段を使う とか</p>
+<p>（単純に年齢と共に体力が落ちてきたので）</p>
+<p>家族旅行に行く とか 一人旅をする とか</p>
+<p>とりあえずいっぱい写真撮る とか</p>
+<p>自分から誘ってみる とか</p>
+<p>話すスピードをもう少し遅くする とか</p>
+<p>料理のレパートリー増やす とか</p>
+<p>小さいこともちまちま書いてます〜</p>
+<p>お仕事の幅も</p>
+<p>広げたいですね</p>
+<p>昨年は自分が想像もしていなかった</p>
+<p>朝の番組のレギュラーが始まりました。</p>
+<p>先輩方がたくさんの道を作ってくださったように</p>
+<p>わたしもそんな存在になれたら...</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>最近集まる度に写真撮るねえ</p>
+<p>とにかく、</p>
+<p>この夢のような毎日を</p>
+<p>きちんと楽しんで生きたいです(^-^)</p>
+<p>夢なのかなあと感じる時がたまにあります</p>
+<p>悲しさも悔しさも含めて全部</p>
+<p>どんな感情も</p>
+<p>自分に必要な感情だと学んできたので</p>
+<p>それさえ楽しんでいきますね＼(^^)／</p>
+<p>まだまだ、足りない部分ばかりです</p>
+<p>悔しいとき、 不甲斐ない瞬間、</p>
+<p>泣きたくなるほど自分が嫌になる時 瞬間は、</p>
+<p>何年歳を重ねても無くなりません</p>
+<p>でもきっとそういうものなので、</p>
+<p>私を好きでいてくれる方達を大切に大切にして</p>
+<p>たくさん愛を伝えて</p>
+<p>自分らしく頑張ります！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>どうか、こんな私ですが</p>
+<p>これからも よろしくお願いします。(^-^)</p>
+<p>いつもありがとうございます！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/64890?ima=4933&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/64890?ima=4933&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2021-12-31_64575_今年はどんな１年でしたか？/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">今年はどんな１年でしたか？</span>
+      <span class="nav-date">2021-12-31</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2022-05-11_100255_昔は デコ なんて呼ばれていた時期もありました 小さい頃ってどうしてあだ名付けた/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">昔は デコ なんて呼ばれていた時期もありました 小さい頃ってどうしてあだ名付けたがるんでしょうか</span>
+      <span class="nav-date">2022-05-11</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

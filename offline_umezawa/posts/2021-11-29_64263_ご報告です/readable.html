@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ご報告です</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/64263?ima=4933&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ご報告です</h1>
+        <div class="date">2021.11.29 21:00</div>
+      </header>
+
+      <main class="body">
+        <p>副キャプテンに就任することになりました。</p>
+<p>グループとして</p>
+<p>初めての副キャプテンという立場、</p>
+<p>今後どういう役割を担っていけるのか</p>
+<p>どう力になっていけるのかは</p>
+<p>模索しながら活動していく形になるかと思います。</p>
+<p>加入して６年目を迎え、</p>
+<p>これまで１期生、２期生の先輩方から学んできたことはたくさんあります。</p>
+<p>３期生だからといって</p>
+<p>後輩という立場に周り過ぎるのではなく、</p>
+<p>間もなく５期生の加入もありますし</p>
+<p>伝えていくことに目を向けていかなければならないと感じています。</p>
+<p>お恥ずかしい話ですが</p>
+<p>わたしは５年間活動してきましたが</p>
+<p>自分の強みや良さをあまり理解出来ていない部分が多いです、</p>
+<p>周りを見れば</p>
+<p>グループを背負いながら</p>
+<p>すごく誇りで、憧れで、刺激的で。</p>
+<p>私でいいのか、と</p>
+<p>お話を聞いた日から今日まで</p>
+<p>日々自分の中で葛藤しながら</p>
+<p>自問自答を繰り返していました。</p>
+<p>正直 不安な部分はありますが</p>
+<p>来年には グループとして新しい挑戦になる</p>
+<p>止まることなく</p>
+<p>どんどん勢いを増していくこのグループを</p>
+<p>少しでも支えて行けたらなと思っています。</p>
+<p>何より キャプテンに就任してから２年間、</p>
+<p>真夏さん一人に全てを背負わせてしまっていた事に</p>
+<p>申し訳なさを感じています。</p>
+<p>目に見えない重圧や</p>
+<p>背負わなければいけない責任は</p>
+<p>莫大にあったはずですが</p>
+<p>そんなものを感じさせずに</p>
+<p>こんなこと言うのは烏滸がましいですが</p>
+<p>これからは真夏さんが背負うものを</p>
+<p>少しでも一緒に背負えるように、</p>
+<p>私なりに副キャプテン像を探しながら 精一杯努めさせて頂きます。</p>
+<p>色々思う方もいるかと思います、</p>
+<p>皆様からの声をしっかり受け止めながら</p>
+<p>今後はより気を引き締め頑張らせていただきます。</p>
+<p>どうか、</p>
+<p>どうか よろしくお願い致します。</p>
+<p>いつもたくさんの応援、</p>
+<p>ありがとうございます！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/64263?ima=4933&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/64263?ima=4933&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2021-10-17_63905_ブログを書くときとアップするときの時系列が一致しませんね、ところでやっと寒さが来/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">ブログを書くときとアップするときの時系列が一致しませんね、ところでやっと寒さが来ましたね</span>
+      <span class="nav-date">2021-10-17</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2021-12-31_64575_今年はどんな１年でしたか？/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">今年はどんな１年でしたか？</span>
+      <span class="nav-date">2021-12-31</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

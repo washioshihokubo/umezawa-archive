@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>だいすき</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/48182?ima=4947&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>だいすき</h1>
+        <div class="date">2018.12.09 17:42</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>何度助けて頂いたことか。</p>
+<p>言葉を交わさずとも</p>
+<p>気持ちを察してそばにいてくれる</p>
+<p>本当に暖かい方でした。</p>
+<p>卒業セレモニーも</p>
+<p>リハの時から寂しくて寂しくて</p>
+<p>早すぎる段階で涙がこぼれそうになり</p>
+<p>でも笑顔で見送ろうって思って</p>
+<p>楽しんで最後一緒のステージに立とうと決めました！</p>
+<p>最後の失恋お掃除人、</p>
+<p>最高に楽しめました！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>でも、終盤にあった</p>
+<p>若月さんがファンの方に向けて書いた</p>
+<p>手紙を読んでるのをモニターで見ている時</p>
+<p>涙が止まらなくなって</p>
+<p>ああ、本当にいなくなってしまうんだなって</p>
+<p>そこで実感が湧きまして。</p>
+<p>本当に助けられたし</p>
+<p>尊敬できる部分しかなくて</p>
+<p>暖かくて自分よりも人のことを考える方で</p>
+<p>お花のサプライズがあった時なんて</p>
+<p>もう苦しくて苦しくて仕方がなくて</p>
+<p>若月さんはどこまで素敵な人なんだって</p>
+<p>改めて思ったし</p>
+<p>でも若月さんは最後まで笑顔で。</p>
+<p>この笑顔が大好きだから、</p>
+<p>これからずっと応援し続けようって思ったし</p>
+<p>私も頑張らなきゃって思いました。</p>
+<p>若月さんがおっしゃってた</p>
+<p>誰かに影響を与える人になりたいって夢、</p>
+<p>わたしがその一人でした。</p>
+<p>初めて観に行った舞台は</p>
+<p>若月さんの舞台で</p>
+<p>そこからどっぷりハマって</p>
+<p>自分も何度かやらせて頂くようになって</p>
+<p>もっともっと好きになって</p>
+<p>ここまでのめり込むようになった</p>
+<p>きっかけも若月さんで、</p>
+<p>お芝居をする若月さんが大好きでした。</p>
+<p>Mステに出させて頂いた時に頂いた言葉も</p>
+<p>初めて選抜に選んで頂いた時に</p>
+<p>かけてくれた言葉も</p>
+<p>全部全部わたしの原動力であり宝物です。</p>
+<p>若月さんが最後にくれた言葉、</p>
+<p>&quot;華&quot;になれるように</p>
+<p>精一杯頑張ります。</p>
+<p>わたしもあとどのくらい</p>
+<p>ここにいるか分からないけど</p>
+<p>最後に幸せだったって言えるくらい</p>
+<p>精一杯頑張りたいです</p>
+<p>今が本当に貴重で同じ場面なんて二度となくて</p>
+<p>だから、</p>
+<p>今まで関わってくださった方</p>
+<p>これから関わる全ての人と</p>
+<p>毎日大切に過ごしたいなって思います！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>実はね</p>
+<p>すごく分かりにくかったとおもうんですが</p>
+<p>失恋お掃除人のMV撮影の時、</p>
+<p>ダンスシーンの髪型が横結びだったから</p>
+<p>それに近い髪型にしたんです</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>ずっとずっと大好き！！</p>
+<p>先日、川後さんが卒業発表されました。</p>
+<p>どんどん卒業される先輩方が多くなって、</p>
+<p>見送るのってとても苦しくて</p>
+<p>すごくすごく寂しいけど、、</p>
+<p>先輩方の乃木坂46としての最後の姿は</p>
+<p>いつもいつもキラキラ輝いています</p>
+<p>だから、私も頑張らなきゃって</p>
+<p>すごく強く思う瞬間でもあります。</p>
+<p>残りの時間少しでも思い出作りが出来たらいいなあ。</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>宝物です</p>
+<p>また更新します！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/48182?ima=4947&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/48182?ima=4947&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-12-01_48120_久しぶりになってしまった書きたいことが沢山あります/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">久しぶりになってしまった書きたいことが沢山あります</span>
+      <span class="nav-date">2018-12-01</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-12-14_48243_必然性、/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">必然性、</span>
+      <span class="nav-date">2018-12-14</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>なんちゅう早さや</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/55652?ima=4940&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>なんちゅう早さや</h1>
+        <div class="date">2020.04.04 21:06</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>ピーチジョンさんのルームウェアです☀︎</p>
+<p>着心地良くてお気に入りです〜</p>
+<p>たくさんルームウェアがお家にあるので</p>
+<p>ローテーションで着るのが楽しいです☀︎</p>
+<p>可愛くてすごく惹かれるものばかり。</p>
+<p>集めたくなりますよね〜</p>
+<p>ミュージックステーション</p>
+<p>ありがとうございました！</p>
+<p>笑顔をお届けできたでしょうか。</p>
+<p>白石さん、井上さんの</p>
+<p>最後のMステでした。</p>
+<p>ご一緒できて、本当に幸せでした。</p>
+<p>しあわせの保護色、</p>
+<p>何度歌っても何度踊っても楽しくって</p>
+<p>カメラを意識せずみんなで円になって目を合わせて踊る振りは特に</p>
+<p>皆で目を合わせ場の空気を感じしあわせを感じながらあの場にいてます。幸せでいっぱい。</p>
+<p>ガールズルールも大好きな曲。</p>
+<p>シンクロニシティは思い出でいっぱいの曲。</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>ちゅーってしたら</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>れんかちゃん笑っちゃってさ</p>
+<p>ははは</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>いつもこんなんしてまする。</p>
+<p>愛おしい。</p>
+<p>みんなといる時間が楽しくって</p>
+<p>ずっと続けと思います、</p>
+<p>さり気ない会話もすごく貴重だと</p>
+<p>後々気づくことも多々あります。</p>
+<p>初期を思い返すことは頻繁にありますが</p>
+<p>辛いことなんてそっちのけに出来るくらい</p>
+<p>幸せなものをもらっています。</p>
+<p>皆に出会えて幸せ〜！！</p>
+<p>さてさて、</p>
+<p>メイク関連の質問沢山頂いたので</p>
+<p>今使ってるコスメ少し載せよかな？</p>
+<p>毎月何冊も雑誌を読み込んだりと</p>
+<p>コスメはすごく好きなので</p>
+<p>その時その時で使用するものは変わりますが</p>
+<p>今のお気に入りのラインナップ、</p>
+<p>まとめてみますね。</p>
+<p>もうちょと待ってね☀︎</p>
+<p>発売中のwithも</p>
+<p>見てくださいましたか？☀︎</p>
+<p>私は普段全くゲームしなくてね、</p>
+<p>全然やる気なかったのだけど</p>
+<p>少し興味出てきてしまいました、、。</p>
+<p>小学校の頃はゲームっ子で</p>
+<p>ずーっとゲーム片手に生活していたのだけど</p>
+<p>歳を重ねるにつれてゲームから遠のく生活になりました。</p>
+<p>戦うゲームとか出来るのに憧れて</p>
+<p>スマブラとか、、やってみたい、、</p>
+<p>ハマるととことんハマってしまうから</p>
+<p>それもちと怖い。</p>
+<p>やっぱり皆様もやってるのかな？</p>
+<p>中々思うように身動きが取れず</p>
+<p>息苦しい日々かもしれませんが、</p>
+<p>日々音楽にパワーをもらっています。</p>
+<p>凄まじい力ですよね。</p>
+<p>音楽は、生活の中に欠かせません。</p>
+<p>常に流れています。</p>
+<p>最近は時間があると</p>
+<p>昔聴いていた曲を記憶を辿ってまた聴いてみたり、</p>
+<p>新しい音楽に出逢おうと探してみたりしています♪</p>
+<p>オススメの楽曲などあれば、</p>
+<p>ぜひ共有しましょう〜</p>
+<p>お家にいる事が増えましたが</p>
+<p>私は毎日のご飯が楽しみに</p>
+<p>レシピを考え作ることで気持ちを紛らわしています〜！</p>
+<p>テレビをつければ元気を届けてくださる方がいて、</p>
+<p>気持ちが落ちてしまう時は音楽があって、</p>
+<p>美味しいものが食べられて。</p>
+<p>一人一人の行動できっとこの先また明るい未来が待っているはずです！</p>
+<p>みんなに会えることを楽しみに、</p>
+<p>私も今できることを精一杯頑張ります！</p>
+<p>私からもなにか出来ることがあればと、、</p>
+<p>思っております。</p>
+<p>そしてですね、</p>
+<p>「映像研には手を出すな！」</p>
+<p>いよいよ明日から始まりますので！</p>
+<p>東宝の上野さんが映像研Twitterにてまとめてくださっていたので</p>
+<p>私も便乗してお知らせさせてくださいね。</p>
+<p>▽TV</p>
+<p>４／５（日）24:50~ MBS毎日放送 近畿広域圏</p>
+<p>４／６（月）25:29~ CBCテレビ 中京広域圏</p>
+<p>４／６（月）24:57~ HBC北海道放送</p>
+<p>４／７（月）25:28~ TBSテレビ 関東広域圏</p>
+<p>４／８（火）25:23~ RSK山陽放送 岡山・香川</p>
+<p>４／１１（金）25:28~ RCC中国放送 広島</p>
+<p>▽無料配信</p>
+<p>ひかりTV・dTVチャンネル</p>
+<p>４／９（水）22:30~</p>
+<p>４／８（火）22:30~ ビジュアルコメンタリー</p>
+<p>▽見放題配信</p>
+<p>ひかりTV VOD</p>
+<p>４／７ （火） 深夜スタート</p>
+<p>▽見逃し配信</p>
+<p>TVer・MBS動画イズム</p>
+<p>４／７（火）深夜スタート</p>
+<p>この他詳細は公式ホームページを</p>
+<p>ぜひチェックしてください！</p>
+<p>https://eizouken-saikyo.com/</p>
+<p>いや〜！ドキドキですなあ！</p>
+<p>本当に！どうしましょうか！</p>
+<p>感想聴きたい！です！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>近いね〜</p>
+<p>よく見えるね。</p>
+<p>そう、最近はオレンジメイクしてます。</p>
+<p>では。</p>
+<p>またすぐ更新しますね。</p>
+<p>ずっと同じことを繰り返しがちな毎日だけど</p>
+<p>ちょっと違う方向に動いてみたら</p>
+<p>また新しい発見。新しい気持ち。</p>
+<p>ひとつずつ楽しみを見つけてみてます</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/55652?ima=4940&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/55652?ima=4940&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-03-28_55497_日々の隙間に/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">日々の隙間に</span>
+      <span class="nav-date">2020-03-28</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-04-10_55868_メイクとか〜色々と〜/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">メイクとか〜色々と〜</span>
+      <span class="nav-date">2020-04-10</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

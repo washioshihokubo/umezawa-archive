@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ひとりファッションショー</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/43451?ima=4955&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ひとりファッションショー</h1>
+        <div class="date">2018.03.02 12:18</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>ポニーテール！</p>
+<p>珍しく早い時間に更新∠(　˙-˙ )／</p>
+<p>今日はサクラの入浴剤◎</p>
+<p>匂いに癒されてます〜</p>
+<p>(昨晩です☺︎</p>
+<p>そういえばね、</p>
+<p>バレンタインの翌日にお仕事が一緒だった</p>
+<p>まなつさんにバレンタインのクッキーを</p>
+<p>頂いたんです(；；)♡♡</p>
+<p>本当に美味しかったなあ〜(；；)</p>
+<p>とっても嬉しかった(；；)</p>
+<p>そしてね、嬉しいことに</p>
+<p>最近若月さんとご一緒することが多かったの！</p>
+<p>ある約束したんだ〜∠(　˙-˙ )／にや</p>
+<p>たくさんおしゃべりするの☺︎</p>
+<p>二人でのお仕事もあったよ☺︎</p>
+<p>いつも優しくてかっこいい若様です( .. )</p>
+<p>ついつい頼ってしまいます( .. )</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>前に桃子と二人でグラビア撮っていただいた</p>
+<p>OVERTUREさんのオフショットです！</p>
+<p>カッコつけてる✌︎（笑）</p>
+<p>このショット外で撮っててね、</p>
+<p>私寄っかかってるのですが、</p>
+<p>グレーバッグの後ろに</p>
+<p>スタッフさんが支えてくださってるの( .. )</p>
+<p>いつも撮影は</p>
+<p>色々なスタッフさんの支えがあって</p>
+<p>楽しく撮影させていただいてるんだ〜☺︎</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>指輪可愛いの見せたくって</p>
+<p>謎すぎるポーズ（笑）</p>
+<p>今まで載せていただいてきた雑誌の</p>
+<p>オフショットも載せきれてない分が大量なので</p>
+<p>少しずつ載せていくね☺︎</p>
+<p>質問を下書きに書いていたので載せます◎！</p>
+<p>質問コーナー◎</p>
+<p>(多めです)</p>
+<p>Q.焼肉で一番に頼むのは？</p>
+<p>A.牛タン！</p>
+<p>Q.カラオケで男性に歌って欲しい曲は？</p>
+<p>A.宇多田ヒカルさんの｢First Love｣が不動の第１位だけど、最近は清水翔太さんの｢君が暮らす街｣、back numberさんの｢fish｣も素敵だな〜って思います！ただ私が好きな曲なだけたけど( .. )（笑）</p>
+<p>Q.カラオケで何歌うの？</p>
+<p>A.カラオケは結構幅広く色々歌います！その時の気分で！しっとりめの曲が多いかな〜</p>
+<p>Q.朝しっかり起きれる方法教えてください！</p>
+<p>A.気合いのみ！寝る前に何時に起きるっていうのを強く自分に念じます！私は乃木坂に入ってから朝が苦手じゃなくなったかな〜！早起き頑張って下さい☺︎</p>
+<p>Q.健康意識して食べてるものはある？</p>
+<p>A.特にないです！ただただ好きなものを美味しく食べれれば幸せです！食べることが一番の幸せなので、食にストレス感じたらたぶん私やってけない( .. )（笑）もちろん野菜とかは摂りますがとくにそこまで意識しません！好きな物好きなだけ食べたい主義∠(　˙-˙ )／</p>
+<p>Q.欅さんの曲でなにがすき？</p>
+<p>A.｢キミガイナイ｣がすきです！ひらがなさんだと「沈黙した恋人よ」がすき！この間MVが公開された「もう森へ帰ろうか？」も好き！土生さん可愛いしこばゆいさんも可愛いし目の保養です( .. )</p>
+<p>Q.寝る時は仰向け？横向き？うつ伏せ？</p>
+<p>A.基本右向き〜！顔の周りに手がないと落ち着かない人！</p>
+<p>以上です〜！</p>
+<p>また質問募集するね◎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>綺麗すぎる空をおすそわけ。☺︎</p>
+<p>加工してるみたいでしょ、</p>
+<p>絵の具で書いた空みたいでしょ！</p>
+<p>本当に癒されますなあ</p>
+<p>先日ファンレターを受け取りました☺︎</p>
+<p>受け取れるのが遅くなってしまうけど</p>
+<p>全て読ませて頂いています。</p>
+<p>私には勿体無いくらいの</p>
+<p>素敵な言葉がたくさん綴ってあって</p>
+<p>心が暖かくなります。</p>
+<p>いつもありがとう！</p>
+<p>幸せものです☺︎</p>
+<p>あまりないから</p>
+<p>今度会った時いっぱい撮ってきます！</p>
+<p>いつも一緒にいると</p>
+<p>つい撮るの忘れるんだ〜( .. )</p>
+<p>待っててください◎！</p>
+<p>さあ今日も私は</p>
+<p>行ってまいります！</p>
+<p>私の頑張るところ！</p>
+<p>頑張ってきます！</p>
+<p>みんなもがんばってね☺︎</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>ストレート！</p>
+<p>相変わらずの全身真っ黒です◎（笑）</p>
+<p>なにかあったときでも</p>
+<p>私を見て元気でるって思えるような</p>
+<p>そんな存在になれるように頑張るね！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/43451?ima=4955&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/43451?ima=4955&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-03-01_43447_暖かくなってきたね〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">暖かくなってきたね〜</span>
+      <span class="nav-date">2018-03-01</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-03-04_43484_高校の学生時代テストが午前中で終わって自転車で帰宅してる時の匂い〜/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">高校の学生時代テストが午前中で終わって自転車で帰宅してる時の匂い〜</span>
+      <span class="nav-date">2018-03-04</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

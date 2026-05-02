@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>女子〜女子〜！！女の子に生まれたからにはっ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/47062?ima=4951&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>女子〜女子〜！！女の子に生まれたからにはっ</h1>
+        <div class="date">2018.09.22 19:18</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>メイクについて</p>
+<p>たくさん言っていただいていたので、、</p>
+<p>書いてみることにしましたっ！</p>
+<p>メイク道具って</p>
+<p>時期や気分でかなり変わるし</p>
+<p>あくまで今のラインナップだから</p>
+<p>きっとまたすぐ変わったりするけど、、</p>
+<p>そしたらまた書くとして、</p>
+<p>とりあえずまとめてみたよ☺︎</p>
+<p>前回のコメントから</p>
+<p>ベースメイクとリップと</p>
+<p>アイシャドウが圧倒的に多かったので！！</p>
+<p>今回はその３点を◎</p>
+<p>参考になるか分からないけど</p>
+<p>気になったらチェックしてみてね☺︎</p>
+<p>男性の方は</p>
+<p>女の子はこういうのを駆使して</p>
+<p>頑張ってるんだなと見守ってください</p>
+<p>（笑）</p>
+<p>ではまずベースメイク！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>左上：ポール＆ジョー プロテクティング ファンデーション プライマー S 01</p>
+<p>右上：エスティーローダー ダブルウェア ステイインプレイス メークアップ</p>
+<p>左下：ローラ メルシエ ルースセッティングパウダー トランスルーセント</p>
+<p>右下：RMK シルクフィット フェイスパウダー P01</p>
+<p>まず、ベースメイクって</p>
+<p>何処に重きを置くかで</p>
+<p>だいぶ変わると思うんだけど</p>
+<p>私はお仕事上、長時間メイクしてたり</p>
+<p>長い収録で直せない時間が多かったりするから</p>
+<p>崩れなさを重視しているので</p>
+<p>今はこのベースメイクのラインナップ！！</p>
+<p>ブランドは</p>
+<p>かなりミックスされているんだけど、、(；；)</p>
+<p>ポール＆ジョーさんの下地と</p>
+<p>エスティーローダーさんのファンデの組み合わせが私的にすごく合う！！</p>
+<p>最近はずっとこの組み合わせ！</p>
+<p>パウダーはローラメルシエさんのもの！</p>
+<p>粒子が細かいので</p>
+<p>すごく綺麗に見せてくれます！</p>
+<p>RMKさんのは</p>
+<p>最近買ったお気に入りのもので</p>
+<p>これはお直し用！</p>
+<p>顔に乗せると馴染んでくれる</p>
+<p>細かいラメが入っていて</p>
+<p>光が当たると自然に綺麗に見える！</p>
+<p>オススメ！！</p>
+<p>コンシーラーやハイライトは</p>
+<p>また別に使ってるものあります！</p>
+<p>撮り忘れちゃったごめんね(；；)</p>
+<p>ナチュラルめの肌が好きだったり</p>
+<p>ツヤ肌が好きって子は</p>
+<p>また違ったものをオススメします(；；)！</p>
+<p>ツヤ肌だと、</p>
+<p>THREEさんのファンデがオススメ！！</p>
+<p>冬だから乾燥大敵よね(；；)</p>
+<p>お次はアイシャドウ！！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>今はこのふたつ！！</p>
+<p>左：SUQQU デザイニング カラー アイズ 04 絢撫子</p>
+<p>右：LUNASOL スリーディメンショナルアイズ 01</p>
+<p>基本使うのは右のLUNASOLさんの！</p>
+<p>このアイシャドウは</p>
+<p>捨て色がなくてとにかく使いやすい！</p>
+<p>どのシーンにも合うので</p>
+<p>これはずっと持ち歩いている！</p>
+<p>左上の白のカラーを瞼全体、</p>
+<p>右上を涙袋、</p>
+<p>左下と右下のカラーでグラデーションを</p>
+<p>作っています！！</p>
+<p>ラメ入りとマットなアイシャドウが</p>
+<p>ミックスして入ってるので</p>
+<p>場面ごとに使えるのも好き！！</p>
+<p>左のSUQQUさんのアイシャドウは</p>
+<p>めちゃくちゃお気に入りで</p>
+<p>気分でこっち使ったり</p>
+<p>涙袋にピンク入れてみたりしてます！</p>
+<p>ぷっくりするし</p>
+<p>意外とピンクでも馴染むのでオススメ！</p>
+<p>このふたつのアイシャドウを</p>
+<p>組み合わせると可愛いの〜(；；)</p>
+<p>ピンクと茶色ってすごく合う☺︎</p>
+<p>アイシャドウは季節によって</p>
+<p>使うもの変えたりするので</p>
+<p>今はこれ！って感じかなあ〜</p>
+<p>秋はボルドーのアイシャドウ</p>
+<p>使ったりします！</p>
+<p>お次はリップ！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>左上：Dior リップマキシマイザー 001</p>
+<p>上真ん中：THREE ベルベットラストリップスティック 16</p>
+<p>右上：CLARINS コンフォートリップオイル 03</p>
+<p>左下：Dior リップティント 661</p>
+<p>右下：YSL タトワージュ クチュール 23</p>
+<p>まず、コスメの中でも</p>
+<p>リップはめちゃくちゃ好きで</p>
+<p>集めるのが好きだから</p>
+<p>日々使うものは変わるんだけど、、</p>
+<p>今はこんな感じです！</p>
+<p>リップマキシマイザーは</p>
+<p>もう５本目くらいになるかな〜</p>
+<p>メイクする前１番にこれを塗って</p>
+<p>潤わせます〜</p>
+<p>ぷっくりしてオススメ！！</p>
+<p>THREEさんのリップは</p>
+<p>ちょっと暗めの赤！</p>
+<p>ポンポンってつけます！</p>
+<p>秋は暗めの色つけたくなります☺︎</p>
+<p>でも暗すぎないから</p>
+<p>お仕事の時でもちょうどいい◎</p>
+<p>顔を一気に明るく見せてくれます！</p>
+<p>CLARINSさんのリップオイルも</p>
+<p>３本目！！</p>
+<p>なんと言っても匂いが最高！</p>
+<p>あとはこれ塗ると唇が</p>
+<p>とゅるん！てする！伝われ！！（笑）</p>
+<p>左下のティントは</p>
+<p>長時間のお仕事向けです☺︎</p>
+<p>右下のリップは</p>
+<p>最近仲間入りしたのだけど</p>
+<p>ダークめのベージュ！って感じで</p>
+<p>つけると一気にオシャレ唇になる！</p>
+<p>秋っぽくて可愛いの〜(；；)</p>
+<p>これはプライベートで使うことが多いかな☺︎</p>
+<p>最近１番のお気に入り！</p>
+<p>ナチュラルだしぜひ使ってみてほしい！</p>
+<p>リップはこんな感じです〜</p>
+<p>リップのリクエストすごく多くて</p>
+<p>もう冬だし乾燥するし</p>
+<p>女の子リップ好きだもんな〜って思って</p>
+<p>ついでにリップケアも！！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>左上：Dior スクラブ＆バーム 001</p>
+<p>右上：モアリップ</p>
+<p>左下：RMK リップバーム</p>
+<p>右下：HONEY ROA ハニーリップゴマージュr</p>
+<p>スクラブ＆バームは</p>
+<p>お仕事の時持ち歩いていて</p>
+<p>荒れてるな〜唇ごわつくな〜って時に</p>
+<p>外でも使えるように！！</p>
+<p>気になった時すぐケアできます！</p>
+<p>モアリップは</p>
+<p>本当に荒れてる時、</p>
+<p>これでリップパックしたりします！</p>
+<p>そうすると私はすぐ治るかな☺︎</p>
+<p>RMKさんのリップバームは</p>
+<p>香りがすごく良いので</p>
+<p>寝る前にたっぷりめにつけて寝ます！</p>
+<p>これは毎晩使ってる◎</p>
+<p>それで最後にリップゴマージュ！</p>
+<p>週１．２くらいで使ってて</p>
+<p>優しくくるくるマッサージします！</p>
+<p>つやつやなってお気に入り☺︎</p>
+<p>これから乾燥する季節に入るから</p>
+<p>ケアすごく大変になるけど、、</p>
+<p>頑張りましょうっ！！</p>
+<p>こんな感じかな〜</p>
+<p>コスメ大好きだから</p>
+<p>色々女の子とお話したいな〜☺︎</p>
+<p>今年のクリスマスコフレ</p>
+<p>何買おうかな〜とも迷い中なの☺︎</p>
+<p>またなにか知りたいのとかあったら</p>
+<p>コメントして下さいっ</p>
+<p>香りものとか集めるの好きで</p>
+<p>知りたいってコメント結構あったから</p>
+<p>また書こうかなっ</p>
+<p>男の子まってて〜</p>
+<p>それじゃっ</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/47062?ima=4951&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/47062?ima=4951&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-09-18_47033_好きなことを好きなだけ/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">好きなことを好きなだけ</span>
+      <span class="nav-date">2018-09-18</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-09-23_47072_サンダーボルトーーー！！/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">サンダーボルトーーー！！</span>
+      <span class="nav-date">2018-09-23</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>いっぱい 約束 しましょう</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/57011?ima=4938&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>いっぱい 約束 しましょう</h1>
+        <div class="date">2020.07.11 20:30</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>夏でも絶対長袖羽織るようにしてます</p>
+<p>冷房寒いですよね、、</p>
+<p>夏は体温調節が本当に、、難しい。</p>
+<p>油断すると風邪ひくので</p>
+<p>皆様もお気をつけてね。</p>
+<p>さて！</p>
+<p>映画「映像研には手を出すな！」</p>
+<p>公開日が９月２５日に決定しました。</p>
+<p>本来であれば５月公開予定でしたが</p>
+<p>このような状況になり</p>
+<p>スタッフさん方が協議を重ねてくださり</p>
+<p>皆様へお届けできる運びとなりました。</p>
+<p>とにかく、たくさんの方に</p>
+<p>観ていただきたい作品です！</p>
+<p>皆様に笑顔をお届けできる自信があります☀︎</p>
+<p>お先に観させていただきましたよ。</p>
+<p>終始ニッコニコで観劇しました。</p>
+<p>飛鳥さんと、山と、少し離れた席で観て</p>
+<p>終わったあと感想言い合って、</p>
+<p>素敵な時間でした☀︎</p>
+<p>好きな物に真っ直ぐな姿に</p>
+<p>共感出来ることもあれば、</p>
+<p>心撃たれる場面も沢山あります！</p>
+<p>笑える場面も盛りだくさん、</p>
+<p>目頭が熱くなる場面なんかも、あったり、、？</p>
+<p>ドラマとはまた違った仲間たちもたくさん増えてよりパワーアップしてます☀︎</p>
+<p>ぜひ、楽しみに待っていてください。</p>
+<p>３期生運動能力テストの次の日ね、</p>
+<p>筋肉痛で動けない〜って</p>
+<p>３期生みんなでメールし合ってて</p>
+<p>そんな中私、</p>
+<p>翌日は意外と大丈夫だったんですよ☀︎‪</p>
+<p>余裕ぶっこいてたら次の日、</p>
+<p>遅れて筋肉痛きてさ、わたし。</p>
+<p>足が全然動かないし歩く度に痛くてさ。</p>
+<p>みんなにすごいいじられたよ〜！！</p>
+<p>なんで遅れてきたの〜！！</p>
+<p>悲しい〜！！</p>
+<p>楽しかったからなんでもいいや☀︎</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>赤チーム☀︎</p>
+<p>リレー２戦２勝！</p>
+<p>頑張った！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>湿気がすごかった日、</p>
+<p>ストレートアイロンでくせ毛っぽくしました</p>
+<p>湿気に専ら弱い私の髪の毛は</p>
+<p>ストレートにしてもすーぐうねってしまうので</p>
+<p>大変なのです。なので、</p>
+<p>もうはじめからうねうねさせておきました。</p>
+<p>こう見ると髪長いねえ。</p>
+<p>ちょこちょこ切ってはいるのよ。</p>
+<p>あ、自分へのご褒美のひとつは、</p>
+<p>チョコレートです、ちょこ。</p>
+<p>昔は自分から買いに行くほどは</p>
+<p>好きではなかったのだけど</p>
+<p>ここ一年くらいはご褒美に買いに行っちゃう。</p>
+<p>ご褒美あると頑張れますよね〜</p>
+<p>皆様のご褒美は、なんですか？☀︎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>清々しくてサバサバしてて</p>
+<p>どこまでもかっこいいと思わせてくれる大好きな先輩！</p>
+<p>はじめ聴いていた時は</p>
+<p>本当か分からなかったくらい。</p>
+<p>でも、それがかっこよくてなりませんでした。</p>
+<p>セラミュのおかげで</p>
+<p>一緒に過ごす時間も多くて、</p>
+<p>ノリノリで踊ってる動画も</p>
+<p>可愛すぎる寝顔ショットも、</p>
+<p>全部全部宝物です☀︎</p>
+<p>冷静で妖艶でかっこいい姿も、</p>
+<p>ギュッと抱きしめて守ってあげたくなるような弱さも、</p>
+<p>全部が魅力的で全部が大好き！</p>
+<p>卒業される日まで</p>
+<p>一緒に活動を楽しめたらいいなあ。</p>
+<p>寂しいです。</p>
+<p>かなさん！卒業発表お疲れ様でした。</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>おやすみなさい。</p>
+<p>たくさん笑おうね〜！</p>
+<p>ポジティブ と ネガティブ は</p>
+<p>生まれつきのものなのでしょうか？</p>
+<p>生きてる上で色んなこと経験して感じて</p>
+<p>それぞれに分かれるのか？</p>
+<p>答えあるのかな〜( &#x27;-&#x27; )</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/57011?ima=4938&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/57011?ima=4938&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-06-25_56850_どうやら 言葉じゃ足りなくて 涙に変わったようですねえ/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">どうやら 言葉じゃ足りなくて 涙に変わったようですねえ</span>
+      <span class="nav-date">2020-06-25</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-07-20_57087_考えた時間で答えが変わる気分屋さんなようです/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">考えた時間で答えが変わる気分屋さんなようです</span>
+      <span class="nav-date">2020-07-20</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

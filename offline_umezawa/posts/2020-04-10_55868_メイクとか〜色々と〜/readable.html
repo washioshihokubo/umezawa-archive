@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>メイクとか〜色々と〜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/55868?ima=4940&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>メイクとか〜色々と〜</h1>
+        <div class="date">2020.04.10 21:42</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>結局、ゲームは始めずにいます、、</p>
+<p>気になるけどねえ〜！！</p>
+<p>弟にゲーム機をプレゼントしました☀︎</p>
+<p>喜んでる様子の写真が送られてきました☀︎ふふ</p>
+<p>今は、お部屋の掃除だったり</p>
+<p>過去の録画してある歌番組の録画を観たり</p>
+<p>舞台のDVDを観たり、、</p>
+<p>夜はのんびりストレッチ。</p>
+<p>軽いトレーニング。</p>
+<p>ダラダラする日も作りつつ</p>
+<p>しっかりやる事やらなきゃ！と思い</p>
+<p>どうにか思い腰を上げる努力をしています。</p>
+<p>天気が良い日が多いですし</p>
+<p>日光もきちんと取り込んで浴びつつね。</p>
+<p>自炊もしていますが</p>
+<p>日々の日課すぎて</p>
+<p>写真を撮ることも中々なくて、、</p>
+<p>メールにでも送ろうかな〜</p>
+<p>チラッと載せてみますね。</p>
+<p>興味無い方はサラッと飛ばしてくださいませ。</p>
+<p>▽アイシャドウ</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>・Dior バックステージ アイ パレット 003アンバー</p>
+<p>・CHANEL 354 ウォーム メモリーズ</p>
+<p>・TOMFORD 4A ハネムーン</p>
+<p>ディオールのパレットが</p>
+<p>今一番使用率の高いアイシャドウです。</p>
+<p>これ一つあれば、ブラウンメイクも</p>
+<p>赤みの強いメイクもオレンジメイクも出来ちゃいます。万能。</p>
+<p>基本最近のオレンジメイクは</p>
+<p>このシャドウを使ってます！</p>
+<p>新色がでたのでゲットしたい、、</p>
+<p>シャネル、トムフォードの方は</p>
+<p>気分を少し変えたい時に使います☀︎</p>
+<p>トムフォードは姉からのプレゼント❤︎</p>
+<p>アイシャドウは可愛いのが溢れていて、、</p>
+<p>すーぐ目移りしてしまいます、、</p>
+<p>▽マスカラ</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>左から</p>
+<p>・エテュセ ラッシュバージョンアップ</p>
+<p>・デジャヴュ ファイバーロングウルトラロング</p>
+<p>まつ毛は一番時間をかけ</p>
+<p>念入りに仕上げますが、</p>
+<p>色々試した中で今はこのアイテムで落ち着いています。</p>
+<p>マスカラ下地もマスカラも、</p>
+<p>もう何本リピートしたか分かりません（笑）</p>
+<p>このマスカラ下地はまつ毛を硬くすることも固めすぎることも無く、</p>
+<p>ナチュラルに液が付く上に</p>
+<p>カールの持ちが最強です！</p>
+<p>まつ毛の長さか、ボリュームか、</p>
+<p>何処に重きを置くかでアイテムは変わりますが</p>
+<p>私はロングに仕上げたいので、、</p>
+<p>このマスカラが物凄く合います！</p>
+<p>二度塗りしています。私は目尻から目頭までガッツリビューラーであげちゃいます☀︎</p>
+<p>▽チーク、リップ</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>チーク左から</p>
+<p>・MiMC 07 スマイリーコーラル</p>
+<p>・Whomee sunflower</p>
+<p>私の中で最強の組み合わせです☀︎</p>
+<p>オレンジ単体を付けると私の肌の色味的に合わなくて馴染まないので、、</p>
+<p>MiMCのコーラルっぽい、オレンジチークと喧嘩しない色味の練りチークを塗ってから</p>
+<p>オレンジを重ねればいい具合になります◎</p>
+<p>リップ左から</p>
+<p>・rom&amp;and JLティント #11 PINK PUMPKIN</p>
+<p>・BOBBI BROWN ﾘｭｸｽ ｼｬｲﾝ ｲﾝﾃﾝｽ ﾘｯﾌﾟｽﾃｨｯｸ 13</p>
+<p>・LANCOME ラプソリュ ルージュ 274</p>
+<p>・ｔｏ/ｏｎｅ ペタル エッセンス グロス 05</p>
+<p>リップは一番コロコロ変わりますが</p>
+<p>今のオレンジメイクでの使用リップはこんな感じです。</p>
+<p>左３本の中から気分で選びつつ</p>
+<p>最後はトーンのグロスで仕上げます。</p>
+<p>何本も使って重ねて色を作ることもあります！</p>
+<p>ベタつくグロスが苦手なのですが、</p>
+<p>トーンのグロスは全くベタつかずサラサラで</p>
+<p>どのリップに重ねても邪魔しない色味なので</p>
+<p>今一番好きなグロスです◎</p>
+<p>トーンのコスメは特に、</p>
+<p>香りも大好きで癒されるしコスメのパッケージや雰囲気もかなり好みです。</p>
+<p>ばばーっと描きましたが、、</p>
+<p>分かりにくくてすみません。</p>
+<p>やはり文字での説明は</p>
+<p>難しいですね、、</p>
+<p>少しでも参考になればと思います。</p>
+<p>毎日メイクをしたり、</p>
+<p>服を選んだりする時間が</p>
+<p>私の中ですごく大事だったんだと</p>
+<p>改めて気づきまして。</p>
+<p>お肌を休める時間を多く取りつつ、</p>
+<p>雑誌や動画を参考にしながら色んなメイクして研究してみてます〜</p>
+<p>また使用アイテムなど色々変われば、</p>
+<p>書きますね☀︎</p>
+<p>さて！</p>
+<p>「映像研には手を出すな！」</p>
+<p>放送開始しています。</p>
+<p>ご覧いただけていますでしょうか？</p>
+<p>感想など、見ております</p>
+<p>ありがとうございます！</p>
+<p>もう第２話の放送が</p>
+<p>４／１２ 24:50〜 MBS を皮切りに</p>
+<p>順次放送が始まります！</p>
+<p>私はリアルタイムで、観ていますよ、</p>
+<p>中々に照れくさいですが。</p>
+<p>詳しい放送日などはホームページをご覧下さい！</p>
+<p>https://eizouken-saikyo.com/</p>
+<p>ありがとうございます！</p>
+<p>全部目を通していますよ◎</p>
+<p>こうして言葉を並べ文字に起こしたものが</p>
+<p>皆様に見ていただけていると思うと</p>
+<p>すごく嬉しくなりますが</p>
+<p>なんだか緊張しますね。</p>
+<p>皆様のおうち時間の</p>
+<p>ほんと数分の暇つぶしでもなれたら、、</p>
+<p>と思います！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>完全オフモードの日は</p>
+<p>徹底して、だらけます（笑）</p>
+<p>毎日それが続かないように心がけてはいますが、、</p>
+<p>またぜひコメントください☀︎</p>
+<p>では。</p>
+<p>また更新します！</p>
+<p>状況が常に色々変わる日々ですが</p>
+<p>いつもよりもゆっくりした毎日だからこそ、小さな幸せに気づけたりもしますよね、</p>
+<p>こんな時だからこそ</p>
+<p>周りの人の優しやだったり温かさに</p>
+<p>物凄く救われたりします。</p>
+<p>わたしも誰かにとって、そんな一人になれたらなあと思います！！簡単ではないですが！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/55868?ima=4940&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/55868?ima=4940&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-04-04_55652_なんちゅう早さや/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">なんちゅう早さや</span>
+      <span class="nav-date">2020-04-04</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-04-19_55946_でこがひろいんじゃ〜。/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">でこがひろいんじゃ〜。</span>
+      <span class="nav-date">2020-04-19</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

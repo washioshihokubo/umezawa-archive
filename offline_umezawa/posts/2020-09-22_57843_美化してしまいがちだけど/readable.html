@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>美化してしまいがちだけど</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/57843?ima=4936&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>美化してしまいがちだけど</h1>
+        <div class="date">2020.09.22 20:30</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>飛鳥さんが撮ってくれました︎︎︎︎❤︎</p>
+<p>映像研カフェ！</p>
+<p>表参道とソラマチにて開催中ですよ〜</p>
+<p>皆様ぜひ行ってみてね〜</p>
+<p>涼しくなってきましたねえ</p>
+<p>夜の気温が好きで好きでたまりません。</p>
+<p>金木犀を まだかまだかと</p>
+<p>待ち望んでいます( ˙-˙ )</p>
+<p>この間葉月にね、</p>
+<p>と言われたの︎︎︎︎✌︎よく見てくれてる嬉しい</p>
+<p>秋になると</p>
+<p>Flowerさんの「初恋」を聴きたくなります。</p>
+<p>中学生の頃通学路の畑を歩きながら</p>
+<p>友達とお散歩してたなあ〜</p>
+<p>音楽は季節や香りを思い出させてくれる</p>
+<p>すごく特別なものですね☀︎</p>
+<p>さて！昨日は飛鳥さんと山と</p>
+<p>出演させて頂きました！</p>
+<p>ファンタスティック3色パンを</p>
+<p>披露させていただきました、、！</p>
+<p>なんとも、まさかテレビでパフォーマンスさせて頂ける日が来るなんて想像もしてなかったので</p>
+<p>私達自身とてもびっくりでしたが</p>
+<p>すごく嬉しかったです。</p>
+<p>もう、楽しかったです。ひたすらに。</p>
+<p>衣装をこの日のために作って下さり、、</p>
+<p>映像研らしさを存分に取り入れた迷彩柄と</p>
+<p>学生服のようなブレザーのジャケット。</p>
+<p>そしてファンタスティックの&quot;F&quot;も</p>
+<p>衣装に散りばめられていてとても可愛いかった！！</p>
+<p>振り付けもどこかコミカルで</p>
+<p>印象的で可愛らしい振り付けにしていただいて</p>
+<p>踊っていて最高に楽しかったです☀︎</p>
+<p>録画した方、もしいたら</p>
+<p>何度も見返して欲しいなあ〜</p>
+<p>振り付け真似して欲しいです◎</p>
+<p>本番前はドッキドキの３人でしたが</p>
+<p>出番直前に３人で円陣を組んで挑みました☀︎</p>
+<p>観てくださった皆様、ありがとうございました！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>バッチも可愛い〜！！</p>
+<p>さて、映像研の公開がいよいよ迫ってきました〜！</p>
+<p>もう撮影したのはもう約一年前。</p>
+<p>いやあ、びっくりしますね。早すぎて。</p>
+<p>時の流れって怖い。</p>
+<p>もう少しだけゆっくり進んで欲しい、、もっとじっくりあじわいたい</p>
+<p>改めてたくさんの方に見て頂きたいと</p>
+<p>心から思います。</p>
+<p>こんな時代だからこそ</p>
+<p>クスって笑ってもらったり</p>
+<p>何か夢中になっている事へのモチベーションだったり</p>
+<p>幼き頃の心を思い出したり</p>
+<p>夢への原動力だったり</p>
+<p>そんな何かのきっかけになるといいなあ。</p>
+<p>物語は物凄い勢いで進んでいきます。</p>
+<p>とってもスピーディかつ、情報量もたっぷり。</p>
+<p>次々と出てくるキャラクターが</p>
+<p>これまたみーんなパンチが強くて魅力的で</p>
+<p>皆が皆一生懸命で、</p>
+<p>ボロボロになっても必死に、</p>
+<p>理想を追い求め諦めることなくとことん好きなものを追求していく。</p>
+<p>そんな姿が愛おしく、かっこよく、羨ましく、</p>
+<p>眩しいくらいにキラキラして見えます。</p>
+<p>流れに身を任せて映像研の世界にどっぷり浸かっていただけたらなと。</p>
+<p>映画といえば？</p>
+<p>わたしはチュロス片手に席へ向かいます。</p>
+<p>映画が始まる前に大体食べ終わってしまうから</p>
+<p>少し計算しながら食べます。</p>
+<p>あとはポップコーンも必須。</p>
+<p>これは食べ切ることなくひたすら食べていられるから大事。</p>
+<p>皆様それぞれの楽しみ方で</p>
+<p>万全の状態で映像研を楽しんでくださいませ！</p>
+<p>２４日には前夜祭と題しまして</p>
+<p>舞台挨拶中継付き上映会もございます！</p>
+<p>我々映像研はもちろん</p>
+<p>キャストの皆様と監督と登壇します。</p>
+<p>直接とはいかなくとも、</p>
+<p>生で、各地の劇場にいるお客様と</p>
+<p>同じ時間を過ごすことが出来る喜びを実感しております。</p>
+<p>それぞれの劇場にて順次販売が開始されます！</p>
+<p>映画を何倍も楽しめるようなトークが出来たらいいなあと思っておりますので皆様ぜひ。</p>
+<p>２５日には</p>
+<p>「公開初日をみんなで祝う配信イベント」</p>
+<p>を開催しちゃいます！</p>
+<p>こちらもお楽しみに︎︎︎︎✌︎</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>撮りあいっこ撮りあいっこ</p>
+<p>告知◎</p>
+<p>９／２３ ラジオ「レコメン！」文化放送 22:00〜</p>
+<p>９／２４ 「THE 突破ファイル」</p>
+<p>９／２４ 「映像研には手を出すな！ 前夜祭イベント」</p>
+<p>９／２５ 「映像研には手を出すな！」公開</p>
+<p>９／２６ 「月刊スピリッツ」</p>
+<p>９／２７ ラジオ「らじらー！サンデー」nhk 20:05〜</p>
+<p>９／２８ 「with」</p>
+<p>９／２８ 「週刊プレイボーイ」</p>
+<p>９／２８ 「週刊スピリッツ」</p>
+<p>９／２８ 「装苑」</p>
+<p>９／２９ １st写真集「夢の近く」発売！！</p>
+<p>９／３０ 「anan」</p>
+<p>１０／４ 「日経エンタテインメント！」</p>
+<p>よろしくお願いします❤︎</p>
+<p>そしてそして、１st写真集「夢の近く」</p>
+<p>発売まで間もなくです、、！</p>
+<p>先日、パネル展用のパネルたちに</p>
+<p>サインやメッセージを書いてきました︎︎︎︎✌︎</p>
+<p>私がたくさんいました( ˙-˙ )</p>
+<p>おっきかった〜！！！</p>
+<p>これが書店に並ぶのかあ、、と。</p>
+<p>まだあまり実感がありませんが</p>
+<p>物凄く楽しみです❤︎</p>
+<p>ぜひ見に行って欲しいでする( .. )</p>
+<p>本誌もいよいよ出来上がり、手にしました！</p>
+<p>時間や想いが詰まりに詰まった1冊。</p>
+<p>何度も何度も繰り返し見てしまいます（笑）</p>
+<p>ホントに一冊丸々梅澤なので、</p>
+<p>めくってもめくっても梅澤。</p>
+<p>あ〜これは現実なのか〜と</p>
+<p>すごく幸せな気持ちに浸っております。</p>
+<p>色々な仕掛けがたっぷりかと思います。</p>
+<p>見て、楽しんで貰えたらいいなあ。</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>撮影から約半年かあ。</p>
+<p>大好きなwithチームの愛を日々感じ</p>
+<p>私は本当に幸せ者だなと、、。</p>
+<p>出会えてよかったと心から思う方たちが</p>
+<p>周りにたくさん溢れていて</p>
+<p>毎日本当に幸せです！！</p>
+<p>皆様の手元へ渡り</p>
+<p>それぞの場所でこの一冊が存在することが夢のよう。</p>
+<p>楽しみにしててください☀︎</p>
+<p>ではでは</p>
+<p>また書きますね</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>写真集では</p>
+<p>三つ編みもしてもらいましたよ〜〜珍しい</p>
+<p>過去を自分だけで振り返るのも楽しいけど</p>
+<p>誰かと共有して思い返すのも楽しい〜</p>
+<p>新たな記憶がたくさん蘇ってきます</p>
+<p>容量無くたくさん詰め込みたい思い出たちばかりだなあ</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/57843?ima=4936&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/57843?ima=4936&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-09-04_57631_鮮明すぎる時間と曖昧な時間/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">鮮明すぎる時間と曖昧な時間</span>
+      <span class="nav-date">2020-09-04</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-09-28_58174_今夜22時〜SHOWROOMにてお会いしましょう/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">今夜22時〜SHOWROOMにてお会いしましょう</span>
+      <span class="nav-date">2020-09-28</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

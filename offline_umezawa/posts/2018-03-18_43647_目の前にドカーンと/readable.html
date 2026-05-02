@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>目の前にドカーンと</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/43647?ima=4955&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>目の前にドカーンと</h1>
+        <div class="date">2018.03.18 19:30</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>ごろーんと</p>
+<p>最近は、</p>
+<p>ひたすら向き合っています、</p>
+<p>思うようにいかない葛藤と悔しさと</p>
+<p>考えることがある幸せで</p>
+<p>気持ちがぐるぐるしています</p>
+<p>自分を探す時間って大切やなあ</p>
+<p>ずっと持っている夢も</p>
+<p>自分を理解して少し離れるのも大切</p>
+<p>今は自分と向き合う時間がとても多いです</p>
+<p>嫌いなとこはたくさん出てくるけど</p>
+<p>好きなとこも見つけなきゃね</p>
+<p>稽古も頑張らなくちゃね！</p>
+<p>お知らせです！</p>
+<p>日経エンタテインメントさんにて生駒さんが連載されていた</p>
+<p>「生駒里奈のほのぼの日記」を</p>
+<p>後任として努めさせていただくことになりました。</p>
+<p>先月、生駒さんの連載が終了しました。</p>
+<p>何年も続けられてきた連載を</p>
+<p>こうして私が受け継がさせて頂けること</p>
+<p>とても光栄に思います。</p>
+<p>私も何年先までも続けられたらなと思いますし、</p>
+<p>今語れることと</p>
+<p>未来の私が語っていること、</p>
+<p>この連載を見て振り返った時に</p>
+<p>あんなことやこんなことがあったなって</p>
+<p>思い出に残るような連載にしたいです！</p>
+<p>初回の発売日は、</p>
+<p>４／４ になります！</p>
+<p>毎月４日に発売されます</p>
+<p>ぜひお手に取っていただけたら嬉しいです。</p>
+<p>連載を持つことが夢の一つでもありました！</p>
+<p>今年の夢リスト、また一つ叶いました！</p>
+<p>幸せです。</p>
+<p>色んな事を話していけたらなと思っています！</p>
+<p>チェックよろしくお願いします！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>ある日の東京タワー！</p>
+<p>綺麗だよね、すごい好きなんだあ</p>
+<p>夜、車に乗るのがすごい好きで</p>
+<p>歌聴きながら外見て黄昏れるのが好き</p>
+<p>うわーっやっぱ夜景って最高すぎだよなんだよこの綺麗さは癒されるようわーっ綺麗すぎ〜</p>
+<p>って一人でなってる（笑）</p>
+<p>ちなみに朝方も好き☺︎</p>
+<p>夜と朝の狭間☺︎</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>この前生誕T着たの！！</p>
+<p>これ着て踊ったよ〜</p>
+<p>お揃いだよーて人！</p>
+<p>そこのあなた〜ありがとう☺︎</p>
+<p>着たいって言ってくれて嬉しかた∠(　˙-˙ )／</p>
+<p>最近いちごのストックが無くなり</p>
+<p>いちご毎日生活が崩れてます、、</p>
+<p>わあああーいちご食べたい〜て</p>
+<p>ずっとなってる( .. )</p>
+<p>買いに行けない( .. )もうちょっと我慢( .. )</p>
+<p>あっ！</p>
+<p>皆様見ましたか？？</p>
+<p>私もお誘いしてもらったんですけど</p>
+<p>予定が合わず行けなくて、、</p>
+<p>すごーくショックでした( .. )</p>
+<p>またお誘い来るといいなあ(；；)</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>わたしのいもうとっす</p>
+<p>全部の愛情捧げてやるぜっ</p>
+<p>最近物忘れが激しくて</p>
+<p>あれっ今何考えてたっけって</p>
+<p>考えてたことすぐ忘れる</p>
+<p>（笑）</p>
+<p>メモって必須</p>
+<p>昨日の個別握手会、</p>
+<p>@東京ビッグサイト</p>
+<p>お越しくださった皆様ありがとうございました！</p>
+<p>握手会については</p>
+<p>じゃあ今日はここまで！</p>
+<p>内容薄くてごめんね( .. )</p>
+<p>たまにはいいかな◎</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>いつかのついん</p>
+<p>みんなおやすみ〜</p>
+<p>がんばろな〜</p>
+<p>今は必要とされる人にならないとという気持ちですっ</p>
+<p>色んな思いをしないと燃えない人間だから、ちょうどいいのかも</p>
+<p>がんばります！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/43647?ima=4955&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/43647?ima=4955&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-03-14_43601_同じ曲をずっと流してます、これで５回目/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">同じ曲をずっと流してます、これで５回目</span>
+      <span class="nav-date">2018-03-14</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-03-20_43700_だんだん増える光の数/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">だんだん増える光の数</span>
+      <span class="nav-date">2018-03-20</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

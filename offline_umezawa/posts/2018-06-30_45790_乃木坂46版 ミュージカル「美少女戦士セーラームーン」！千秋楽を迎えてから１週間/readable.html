@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>乃木坂46版 ミュージカル「美少女戦士セーラームーン」！千秋楽を迎えてから１週間経った今でも毎日舞台に立ってる夢を見る！それくらい私にとって大切な時間でした！まだ９月にもあるけど！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/45790?ima=4952&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>乃木坂46版 ミュージカル「美少女戦士セーラームーン」！千秋楽を迎えてから１週間経った今でも毎日舞台に立ってる夢を見る！それくらい私にとって大切な時間でした！まだ９月にもあるけど！</h1>
+        <div class="date">2018.06.30 21:12</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<p>今日は文字ばかりですごめんね！( .. )</p>
+<p>６／２４ に千秋楽を迎えました！</p>
+<p>(私たちTeamSTARは２２日ですが☺︎)</p>
+<p>乃木坂46版 ミュージカル「美少女戦士セーラームーン」</p>
+<p>ご来場いただいた皆様、</p>
+<p>本当にありがとうございました！</p>
+<p>更新するのが遅くなりました(；；)</p>
+<p>書きたいことが多すぎて</p>
+<p>時間がかかってしまいました、、</p>
+<p>千秋楽を迎えてから</p>
+<p>１週間以上経ちましたが</p>
+<p>終わってしまった今は</p>
+<p>寂しさがすごくて</p>
+<p>心にぽっかり穴が空いた様な感覚( .. )</p>
+<p>それくらい毎日が楽しくて</p>
+<p>刺激を受けて</p>
+<p>私自身すごく成長できる期間であり</p>
+<p>宝物がとても増えた時間でした！</p>
+<p>９月にまだあるとはいえ</p>
+<p>しばしのお別れ。</p>
+<p>稽古ではたくさん悩み</p>
+<p>色んなことに苦戦して</p>
+<p>力不足な自分に悔しいって思うことも</p>
+<p>たくさんありました( .. )</p>
+<p>初めてのWキャストにも戸惑いながら</p>
+<p>先輩方から、キャスト皆さんから、</p>
+<p>たくさんの刺激を受け</p>
+<p>稽古に望む毎日でした！</p>
+<p>稽古のはじめの方は</p>
+<p>楽しいっていう感情を忘れてしまっていたかもしれないです</p>
+<p>１番大切なのに( .. )</p>
+<p>それくらい必死で不安で仕方がなかった( .. )</p>
+<p>でも、そんな私が今</p>
+<p>１週間経った今でも</p>
+<p>頭の中はセラミュだらけで</p>
+<p>早くみんなとまたお芝居がしたい、</p>
+<p>会いたいって思えるのは</p>
+<p>このカンパニーの皆さんだったからだなって思います☺︎</p>
+<p>タキシード仮面さま、ベリルさま、</p>
+<p>四天王の</p>
+<p>クンツァイト、ネフライト、</p>
+<p>ゾイサイト、ジェダイト、</p>
+<p>なるちゃん、海野、ルナ、</p>
+<p>そして歌もダンスもお芝居も</p>
+<p>なんでもオールマイティにこなす</p>
+<p>かっこよくて尊敬する</p>
+<p>アンサンブルの皆さん、</p>
+<p>ステージには一緒に立てなかったけど</p>
+<p>稽古からたくさん支えてくださった</p>
+<p>アンダーの皆さん、</p>
+<p>このミュージカルを作り上げてくださった優しくて暖かいスタッフの皆さん、</p>
+<p>本当にみんな大好き(；；)</p>
+<p>キャストの皆さんのこと、</p>
+<p>１度１人ずつ文章に書いたのだけど</p>
+<p>本当に本当に長すぎたから心に閉まっておきます(；；)（笑）</p>
+<p>この人達と一緒だったから頑張れた！</p>
+<p>さゆさん！</p>
+<p>セーラームーン、月野うさぎちゃん！</p>
+<p>井上さんがうさぎちゃんだったことが</p>
+<p>今回私にとって１番大きかった気がします。</p>
+<p>井上さんの演技に対する熱量、</p>
+<p>お芝居が本当に大好きなんだなって思う演技に対する姿勢、</p>
+<p>本読みの時から圧倒されて</p>
+<p>井上さんがいたら大丈夫、</p>
+<p>なんて思ってしまいました。</p>
+<p>けど、だからこそ</p>
+<p>頼りっきりになったらダメだなって。</p>
+<p>本当に物凄く負担を</p>
+<p>かけてしまっていたと思います、、</p>
+<p>色々背負わせてしまったと思います(；；)</p>
+<p>舞台経験が豊富だけど、</p>
+<p>前に立って指示する訳ではなく、</p>
+<p>常に私たちと同じラインに立ってくれて</p>
+<p>同じ目線で一緒に作品を作ってくれた。</p>
+<p>そんな井上さんが本当に大好き！</p>
+<p>井上さん演じる</p>
+<p>うさぎちゃんの儚さが</p>
+<p>私たちの心をすごく動かしてくれた！</p>
+<p>井上さんとお芝居ができていることが</p>
+<p>私はとっても幸せです☺︎</p>
+<p>みりあさん！</p>
+<p>セーラーマーキュリー、水野亜美ちゃん！</p>
+<p>みりあさんのお芝居がすごく大好き！</p>
+<p>みりあさんとは</p>
+<p>似てる部分がすごく多いんです！</p>
+<p>好きなものも、気持ちの面でも。☺︎</p>
+<p>同じ服持ってたり同じこと考えてたり。</p>
+<p>だから何でも話せたし、</p>
+<p>この期間すごく助けられたし、</p>
+<p>みりあさんがいたから私は毎日頑張れた！</p>
+<p>私の気持ちを読み取る天才！（笑）</p>
+<p>みりあさんはすごく努力家なんです。</p>
+<p>お芝居がどんどん素敵になっていくし、</p>
+<p>毎日聴いててどんどん良くなる歌声！</p>
+<p>ずっと不安って言ってたのも、</p>
+<p>そんなものステージでは消えてた。</p>
+<p>その姿が本当にかっこよかった！</p>
+<p>ステージで見るみりあさんの笑顔が</p>
+<p>私は大好きでした☺︎</p>
+<p>お互いの出番の前は背中叩きあって。</p>
+<p>裏から毎回見ていた</p>
+<p>マーキュリーの歌で私はいつも</p>
+<p>泣きそうになってたなあ（笑）</p>
+<p>蘭世さん！</p>
+<p>セーラーマーズ、火野レイちゃん役！</p>
+<p>蘭世さんは</p>
+<p>セーラームーン愛が強いからこそ、</p>
+<p>舞台の上でレイちゃんで在り続けることを</p>
+<p>１番に考えていた人だと思います。</p>
+<p>舞台を避けてきたって言ってたけど、</p>
+<p>この舞台に出れて本当に良かった</p>
+<p>って言葉を聞いた時、</p>
+<p>私は嬉しくて涙がこぼれそうでした（笑）</p>
+<p>気が強いって自分でよく言うけど、</p>
+<p>その姿がすごくカッコいいんです。</p>
+<p>自分をちゃんと持ってる姿がすごく好き。</p>
+<p>私にないものをたくさん持ってる、</p>
+<p>だから惹かれる部分が多いのかも！</p>
+<p>うめぴよピーナッツって</p>
+<p>謎の名前でいつも呼んできたり（笑）</p>
+<p>たまに出るデレが大好き。</p>
+<p>ステージでの蘭世さんはどこを切り取ってもレイちゃんだった。</p>
+<p>女性らしく時にかっこいい！</p>
+<p>その姿に蘭世さんとレイちゃんの重なる部分がたくさんあったなあ</p>
+<p>かなさん！</p>
+<p>セーラーヴィーナス、愛野美奈子役！</p>
+<p>かなさんのヴィーナスが</p>
+<p>本当に大好きだった。</p>
+<p>すごく優しさに包まれてた！</p>
+<p>美奈子ちゃんの可愛さもあって、</p>
+<p>一人で戦ってきた強さもあって、</p>
+<p>みんなを想う優しさが</p>
+<p>とにかくすごく滲み出るの。</p>
+<p>あのシーンのあの台詞を言う</p>
+<p>かなさんが本当に好きで</p>
+<p>いつも泣きそうになる。（笑）</p>
+<p>楽屋にいるとき、テンションがおかしい私達をそっと見守ってくれる、</p>
+<p>でもたまに一緒に思いっ切りふざける、</p>
+<p>そしてまとめてくれる。</p>
+<p>その姿が本当にヴィーナスだったなって。</p>
+<p>ヴィーナスが登場したシーンの興奮が</p>
+<p>毎公演本当にすごかった！</p>
+<p>みんなを包み込んでくれる花奈ヴィーナスが大好きだった☺︎</p>
+<p>こうしてお芝居ができて</p>
+<p>本当に良かったです</p>
+<p>この５人で本当に良かった！！！</p>
+<p>書いてて泣きそうになってきた、</p>
+<p>みんなに会いたい(；＿；)</p>
+<p>みんなが本当に大好き！！</p>
+<p>毎日会いたいくらい、</p>
+<p>１日会わないともう寂しい</p>
+<p>朝まで台本読みあったり</p>
+<p>セーラームーンの鑑賞会したり</p>
+<p>ダンスの振りを揃えたり</p>
+<p>歌の練習したり</p>
+<p>話し合いしたりバカみたいに笑ったり。</p>
+<p>待ち受け画面も５人お揃いなの！</p>
+<p>唯一３期生だった私を</p>
+<p>後輩の壁を感じさせないくらい包み込んでくれる！</p>
+<p>みんなが愛おしくて仕方がない。</p>
+<p>こんな私を受け入れてくれる</p>
+<p>本当に大切な場所！</p>
+<p>今までと違う自分でいられる、</p>
+<p>全部さらけ出しても受け止めてくれる！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>TeamSTAR 大好き〜(；＿；)！</p>
+<p>そして能條さん！！</p>
+<p>同じ役としていつも稽古から見ていて、</p>
+<p>能條さんのまこちゃんは本当に素敵で</p>
+<p>物凄くかっこよくて存在感があって</p>
+<p>私にWキャストが務まるかなって不安だったけど、</p>
+<p>能條さんがいたから</p>
+<p>教わったことがたくさんあって、</p>
+<p>一緒の役を演じられて</p>
+<p>とても嬉しいなって思っています☺︎！</p>
+<p>それと能條さんと</p>
+<p>ずっとお話したかったから</p>
+<p>この機会にお話することも増えて嬉しかった！！(；＿；)</p>
+<p>本当にキャストの皆様の愛に包まれ、</p>
+<p>スタッフさんの愛に包まれ、</p>
+<p>大好きな人達に出逢えて本当に幸せ。</p>
+<p>とても暖かい、</p>
+<p>このカンパニーが大好きです。</p>
+<p>ここで写真をいくつか！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>四天王ゾイサイト役、小嶋紗里さん！</p>
+<p>演技も歌声も声もすごくすき！</p>
+<p>迫力ある歌声にいつも聴き入ってたなあ</p>
+<p>さりさんのゾイサイトはめちゃくちゃカッコいいんです！！</p>
+<p>立ち姿もどこを切り取っても</p>
+<p>いつも綺麗。</p>
+<p>さりさんのお顔がすごくタイプ</p>
+<p>すごく綺麗で美人さんで</p>
+<p>キリッとしてる私が好みのお顔。</p>
+<p>ゾイっ！が大好き！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>ネフライト役のshinさん！</p>
+<p>ネフライトとジュピターの</p>
+<p>舞台上で絡むシーンは</p>
+<p>とても大切に演じたつもりです、</p>
+<p>とても儚く素敵なシーンばかり。</p>
+<p>稽古からすごく迷惑をかけてしまった、</p>
+<p>だけど、優しく接してくれて</p>
+<p>私をいつも助けてくれました。</p>
+<p>本番前は必ずぎゅーして</p>
+<p>本番に挑んでいました！</p>
+<p>「大丈夫だよ。よろしくね」って。</p>
+<p>テンパる私を知ってくれてたからこその言葉だったと思います。☺︎</p>
+<p>ステージではかっこよく、</p>
+<p>普段は優しすぎるほどのshinさん！</p>
+<p>私なんかが相手で申し訳なくなるくらい本当に素敵な方なんです。</p>
+<p>相手役がshinさんで本当に良かった☺︎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>上は本番前の一枚と</p>
+<p>下は本番後の一枚！</p>
+<p>写真、たくさんあるので</p>
+<p>また少しずつ載せていこうかな☺︎</p>
+<p>一人一人の作品へ皆への愛が物凄くあって</p>
+<p>そしてそれが</p>
+<p>毎公演伝わってくるステージの上では、</p>
+<p>本当にいつも心が暖かくなりました。</p>
+<p>毎日同じ場面で涙が出た、</p>
+<p>私だけでなくその場にいたみんなが。</p>
+<p>そんな空間が尊すぎて</p>
+<p>抱きしめたかった。（笑）</p>
+<p>大好きで大切な人達が</p>
+<p>たくさんたくさん増えました！</p>
+<p>出会えて本当に良かった〜！</p>
+<p>長くなりすぎたけど</p>
+<p>ここら辺で終わりにします( .. )（笑）</p>
+<p>またセラミュのこと書くかも☺︎（笑）</p>
+<p>ここから先は</p>
+<p>全国ツアー、</p>
+<p>そして「七つの大罪 The STAGE」を</p>
+<p>私は頑張ります！！</p>
+<p>不安で仕方なくて壁にぶつかることも</p>
+<p>たくさんあると思うけど</p>
+<p>なにより楽しみたいと思います！！</p>
+<p>素敵な思い出作りましょう〜！！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>まこちゃんありがとう、</p>
+<p>また９月に。☺︎</p>
+<p>それでは！</p>
+<p>また更新します！！</p>
+<p>おやすみ！！</p>
+<p>久保ちゃんの発表、</p>
+<p>ファンの皆さん驚いたと思います。</p>
+<p>私も一緒でした、</p>
+<p>気持ちはモバメに送ります、</p>
+<p>久保〜待ってるよ〜！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/45790?ima=4952&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/45790?ima=4952&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-06-27_45757_DAY♡♡/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">DAY♡♡</span>
+      <span class="nav-date">2018-06-27</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-07-03_45841_簡単なことはなにもない/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">簡単なことはなにもない</span>
+      <span class="nav-date">2018-07-03</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

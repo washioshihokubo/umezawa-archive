@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>天邪鬼だって、いいじゃない</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/103486?ima=4930&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>天邪鬼だって、いいじゃない</h1>
+        <div class="date">2025.06.01 22:30</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpg" alt=""></figure>
+<p>ブレてる。許してー！</p>
+<p>先日、京都にて開催された</p>
+<p>MUSIC AWARDS JAPAN 2025に出席してきました！</p>
+<p>なんとも贅沢な空間でした、、</p>
+<p>音楽の素晴らしさを感じると共に</p>
+<p>乃木坂46として 楽曲を届けられる身でいることに</p>
+<p>幸せを感じる一日でした。</p>
+<p>もっともっと、素敵な楽曲を</p>
+<p>私たちのアプローチの仕方で 皆様に届けて参ります。</p>
+<p>最優秀アイドル賞にノミネートされたのも</p>
+<p>日々応援してくださるファンの皆様のおかげです。</p>
+<p>いつも本当に、ありがとうございます(^^)</p>
+<p>そしてそして！</p>
+<p>無事 終了しました。</p>
+<p>ありがとうございました！</p>
+<p>５月まで待たせてごめんね。</p>
+<p>でも、凄かったでしょ(^^)</p>
+<p>楽しかったねーーー！！</p>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<p>もう、２週間も経ったのか〜</p>
+<p>今でも、余韻がすごいです！</p>
+<p>思い返すと、涙が出そうになるくらい</p>
+<p>本当に幸せな景色だったー。</p>
+<p>泣きそうになるくらいの緊張感も</p>
+<p>不安もプレッシャーも、全部込みで、</p>
+<p>とっても楽しかった！</p>
+<p>本番の２日前、</p>
+<p>リハーサルでステージに上がった時</p>
+<p>とてつもない高揚感がありました。</p>
+<p>その場の光景への感情というよりも</p>
+<p>ステージからの景色を見て、</p>
+<p>過去の日々の思いが込み上げてきて涙が出そうになる感覚！</p>
+<p>うわー！頑張ってきたんだー！私たちー！って</p>
+<p>すごく素直に思えたんですね(^^)</p>
+<p>ここに立てるのかあー！</p>
+<p>私たち、よくやってきたなあー！</p>
+<p>ほんとうに、色々乗り越えて 、頑張ってきたなー！って</p>
+<p>乗り越えなきゃいけないものは山積みだったし</p>
+<p>自信を持つのだってすごく時間がかかったし！</p>
+<p>今でも、揺らぐことはあるけど</p>
+<p>この揺らぎこそ、乃木坂であることへの責任感なんだと感じます(^^)</p>
+<p>いやあ、嬉しいね、</p>
+<p>みんな、よく頑張った(^^)</p>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<p>今までの歴史に、たくさん助けられてきた！</p>
+<p>でも、そこにもちゃんと、</p>
+<p>今の私たちがいることに 中々気づけていなかった気がします。</p>
+<p>今に夢中だからかなー！</p>
+<p>私たちも、後輩ちゃんたちも、</p>
+<p>ちゃんと歴史を刻んで</p>
+<p>頑張ってきた 事実があってね</p>
+<p>それを認めてあげないと ここには立てないと思ったんです。</p>
+<p>とてつもなかった！</p>
+<p>そして乃木坂46へ。</p>
+<p>今回も色んな気持ちが溢れました(^^)</p>
+<p>色んなことをお話しして、受け取って、を</p>
+<p>ステージ上でたくさん、交換こしたなあ</p>
+<p>改めまして、</p>
+<p>会場から、そして配信から、</p>
+<p>たくさんの応援をありがとうございました。</p>
+<p>私たちの言葉やパフォーマンスひとつひとつに</p>
+<p>とても大きく反応を返してくださり</p>
+<p>心からありがとうございました。</p>
+<p>私たちが楽しんでいれば</p>
+<p>楽曲や言葉を届け続ければ、</p>
+<p>あんなにも沢山の方が 笑顔になって 共に泣いてくれるんなら</p>
+<p>いくらでも頑張れちゃいそうです(^^)</p>
+<p>１４年目も、楽しみましょう！</p>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<p>2日目のオープニング</p>
+<p>プレゼントの中のうめくぼ</p>
+<p>あ！</p>
+<p>雨！降らなかったねー！</p>
+<p>リハーサルはどしゃ降りでどうなる事かと思ったけど</p>
+<p>本番は、無事(^^)</p>
+<p>雨予報も吹き飛んじゃうなんて、恐ろしい。</p>
+<p>すごい！</p>
+<p>ありがとう！みんなのパワーだね！</p>
+<p>ありがとう！</p>
+<p>またみんなで立てますように！</p>
+<p>さて！そして</p>
+<p>夏のツアーも決まりました〜</p>
+<p>今年は 全国７都市</p>
+<p>１６公演になります。</p>
+<p>いやあ〜 盛りだくさんだぞ。</p>
+<p>香川へ行くのは初めて！</p>
+<p>それから、</p>
+<p>神宮公演は ４日間！</p>
+<p>あの日々が蘇ってくるね(^^)</p>
+<p>楽しみたくさんだ〜</p>
+<p>皆さま、会いに来てください！</p>
+<p>そして、わたしは間もなく</p>
+<p>ミュージカル「梨泰院クラス」が幕を開けます！</p>
+<p>いつ、こんなに時間が過ぎ去った？というくらいには</p>
+<p>あっという間であっという間で。</p>
+<p>でも、とても楽しみです。</p>
+<p>大好きな作品だから</p>
+<p>リスペクトを忘れず、頑張ります！</p>
+<p>ふー！どっきどきだー！</p>
+<figure><img src="images/image_005.jpg" alt=""></figure>
+<p>このさく可愛すぎるから載せちゃお</p>
+<p>いつもありがと</p>
+<p>また、書きます！</p>
+<p>皆さま</p>
+<p>日々を無理せず、お過ごしくださいね</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/103486?ima=4930&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/103486?ima=4930&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2025-05-13_103436_傘になるよ/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">傘になるよ</span>
+      <span class="nav-date">2025-05-13</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2025-11-14_104103_温度感/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">温度感</span>
+      <span class="nav-date">2025-11-14</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

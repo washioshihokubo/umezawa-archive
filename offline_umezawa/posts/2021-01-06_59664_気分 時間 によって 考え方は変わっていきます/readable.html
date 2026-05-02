@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>気分 時間 によって 考え方は変わっていきます</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/59664?ima=4935&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>気分 時間 によって 考え方は変わっていきます</h1>
+        <div class="date">2021.01.06 20:45</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>お正月、いかがお過ごしですか？</p>
+<p>私は毎日がチートデイです。</p>
+<p>きちんとリセットしていかなければ、、</p>
+<p>美味しいもので溢れていて困っちまいます</p>
+<p>食器集めにハマっていまして</p>
+<p>通販やら雑貨屋さんなどでゲットした子達が</p>
+<p>年始のご飯たちを素敵に彩ってくれました。</p>
+<p>チョコレートが好きで</p>
+<p>毎日食べちゃう。</p>
+<p>アイスもチョコレート味ばっか選んじゃう。</p>
+<p>今月、本物のじゃがいもそっくりのショコラが出るみたいでチェックしたりしてます</p>
+<p>お餅も食べましたよ。</p>
+<p>お雑煮作りました。</p>
+<p>お醤油ベースです</p>
+<p>皆様のお家のお雑煮は何味ベースですか？</p>
+<p>お味噌かな？お醤油かな？</p>
+<p>家庭の味が出ますよね☀︎</p>
+<p>そういえば 小さい頃は餡子が苦手で</p>
+<p>おしるこは食べれませんでしたが</p>
+<p>今は餡子が好きになりました。粒あん派。</p>
+<p>大人になるに連れて 味覚が変わってきたなあと実感する日々です。</p>
+<p>お正月だからいっかー！という魔法の言葉。</p>
+<p>どんどん口に運ばれていく食材たち。</p>
+<p>そろそろ魔法を解いて欲しいです</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>２２歳になりました。</p>
+<p>なっちゃいました。</p>
+<p>昔は誕生日が来ることに</p>
+<p>喜びしか感じていませんでしたが</p>
+<p>今はなんだか誕生日を迎える心構えが違うというか、変なプレッシャーがあるというか。（笑）</p>
+<p>歳を重ねることの重みを</p>
+<p>ここ最近はずっしり感じています。</p>
+<p>人生の先輩達はみんな</p>
+<p>今のうちはたくさん失敗していいんだよ</p>
+<p>と 声をかけてくれます。</p>
+<p>でも、失敗さえ出来ないくらい</p>
+<p>なにも動けていない私は</p>
+<p>このままでいいのだろうか、、と。</p>
+<p>慎重すぎちゃうんですよね、</p>
+<p>警戒心も強すぎて思い切りが全然無いなあと。</p>
+<p>ここ最近特に感じるのは</p>
+<p>気持ちを言葉にすることが難しい。</p>
+<p>何を感じて何を考え</p>
+<p>どう思うのかを文字にすることが難しい。</p>
+<p>感動する場面に立ち会って</p>
+<p>この世界に足を踏み入れてから何度も何度もそんな場面に巡り会ってきて</p>
+<p>涙が出て、心は明らかに動いていて</p>
+<p>でも、そこから上手く言葉にすることがどうしても、</p>
+<p>どうしても難しい。</p>
+<p>言葉が上手く出てこないものだから</p>
+<p>その時確かに感じた自分の感情を</p>
+<p>疑ってしまうこともあるくらい。</p>
+<p>なにか質問をされた時、</p>
+<p>伝えたい言葉が上手く出てこないことも多いです。</p>
+<p>当たり障りのない言葉を探してしまいます。</p>
+<p>人に相談したいと思った時も</p>
+<p>深く話をしたとき</p>
+<p>空っぽだと思われるのが怖くて</p>
+<p>相手と向かい合う段階までも進めない。</p>
+<p>自分がどう感じたかを</p>
+<p>何に悩んでどうしたいかを</p>
+<p>人に伝えることが出来ない。</p>
+<p>一人で泣くことは</p>
+<p>いっぱい いっぱいあるのに</p>
+<p>誰かの前で泣くことを強がって我慢してしまうのも、なんだか寂しい。</p>
+<p>感情がぶわっと溢れそうになる時</p>
+<p>自分でブレーキをかけてしまうんですよね</p>
+<p>何故なのかは よく分かりません。</p>
+<p>こんな自分を変えたいです！</p>
+<p>変え方なんて分からないんだけどね！</p>
+<p>でも駄目なところは分かってます！</p>
+<p>毎年 変えたい とか 変わりたい とか</p>
+<p>言ってる気がします</p>
+<p>でも、こういった節目に振り返って思うのは</p>
+<p>結局、自分に満足することなんて永遠に無いんだなってこと！</p>
+<p>自分が一番 自分のことを分からないでいます（笑）</p>
+<p>目標というと 違うのかもしれませんが、</p>
+<p>２２歳は 自分の中にある感情を</p>
+<p>どんなに未熟な言葉でもいいから</p>
+<p>上手く伝わらなくても 綺麗な文章でなくても</p>
+<p>自分の納得いく理想の言葉でなくてもいいから</p>
+<p>ちゃんと 相手に伝えることを大切にしたいと思います。</p>
+<p>がむしゃらでもいいから 伝えようとしてみる！</p>
+<p>特にここ最近は</p>
+<p>人と直接対面して会うことが出来ないからこそ</p>
+<p>言葉や会話を大切にしていきたいです。</p>
+<p>少し 暗く感じ取れるような</p>
+<p>そんなことをつらつらと書いてしまいましたが、、</p>
+<p>いたって前向きです！</p>
+<p>前向きに考えた結果、</p>
+<p>私の一番の短所はこれな気がしています</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>※写真の時のみマスクずらしてます</p>
+<p>色々考える日々ではありますが</p>
+<p>ただひたすらに</p>
+<p>乃木坂46になれて良かったなあと思う日々です。</p>
+<p>年齢を重ねていくごとに</p>
+<p>思い出や 悩みや コンプレックスも同じように積み重なっていきますが</p>
+<p>これも必死に生きている証拠です。</p>
+<p>幸せです。</p>
+<p>幸せをありがとうございます。</p>
+<p>それからたくさんのメッセージ</p>
+<p>ありがとうございます。</p>
+<p>こっそりひっそり、見ています。</p>
+<p>いつも本当にありがとうございます！</p>
+<p>なにが起こるか分からないと</p>
+<p>２０２０年を経験して改めて思いましたが</p>
+<p>結局何事も 自分の考え方や捉え方次第だなあと！</p>
+<p>ので、沈んだ時があっても</p>
+<p>時間を使ってプラスに考えられる人になります︎︎︎︎✌︎</p>
+<p>下書きを日々更新し続けていたら</p>
+<p>長くなってしまいました。</p>
+<p>ほらね？</p>
+<p>思いましたでしょ？</p>
+<p>結局何が言いたくて 何を目標にしてるのか</p>
+<p>全然まとまってないよー！って！</p>
+<p>そう！こんな私ですが</p>
+<p>２２歳も梅澤美波をよろしくお願い致します！</p>
+<p>9日には 星の王子さま の朗読劇、</p>
+<p>新しいチャレンジです。</p>
+<p>今年もお仕事へのたくさんの夢を持って</p>
+<p>頑張って参ります。</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>年末年始の歌番組も楽しかったです。</p>
+<p>最後に、</p>
+<p>皆様どうか、</p>
+<p>どうか幸せでいてください</p>
+<p>自分を大切にしてくださいね</p>
+<p>私の大好きで大切な人たちが</p>
+<p>どうか幸せでありますように。</p>
+<p>また書きます。</p>
+<p>おやすみなさい</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/59664?ima=4935&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/59664?ima=4935&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-12-31_59614_今年もありがとうございました！/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">今年もありがとうございました！</span>
+      <span class="nav-date">2020-12-31</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2021-01-08_59681_星の王子さま/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">星の王子さま</span>
+      <span class="nav-date">2021-01-08</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>あとすこしの 残り火</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/58833?ima=4936&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>あとすこしの 残り火</h1>
+        <div class="date">2020.11.24 21:54</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>オンラインお話会のときのわたしです☀︎</p>
+<p>２６枚目シングル、</p>
+<p>皆様、いつも暖かい応援</p>
+<p>本当にありがとうございます。</p>
+<p>今年は</p>
+<p>配信という形での楽曲の制作や</p>
+<p>握手会はオンラインでの開催になったり</p>
+<p>中々思うように活動できない中でも</p>
+<p>離れず、待っていてくださった皆様には</p>
+<p>本当に、心から感謝しています。</p>
+<p>本当にありがとうございます。</p>
+<p>加入して４年がたち</p>
+<p>５年目を迎えました。</p>
+<p>色々経験させて頂きました。</p>
+<p>先輩方の背中もたくさん見てきました。</p>
+<p>時間も 思うよりずっと経っていました</p>
+<p>乃木坂46が大好きで、</p>
+<p>尊くて、愛おしくてたまらなくて</p>
+<p>大切で、宝物で、人生で。</p>
+<p>画面の向こうのキラキラ輝く</p>
+<p>乃木坂46というグループに憧れ、</p>
+<p>夢中になり</p>
+<p>生きる活力をもらっていた存在だからこそ</p>
+<p>今感じる重みは凄まじいものですが、</p>
+<p>背負う覚悟は出来ています。</p>
+<p>自信とか実力とか</p>
+<p>自分がどこまでどんな風になれるのかは</p>
+<p>未来のことだから誰にも分からないけど</p>
+<p>そんな未来の自分を作るのは</p>
+<p>今を生きる現在の私であって</p>
+<p>いくらでも変えられる希望はあります。</p>
+<p>選抜発表されてからの数ヶ月、</p>
+<p>時間をたっぷり使い 気持ちの整理をしました。</p>
+<p>不安がっていても仕方の無いことです。</p>
+<p>ただただ努力して</p>
+<p>今やるべきことを精一杯努めるんです。</p>
+<p>課題はもう、目の前にあります！</p>
+<p>心折れることがあっても</p>
+<p>また持ち直せばいい！</p>
+<p>何度だって立ち直って</p>
+<p>何度だってまた前を向けばいい。</p>
+<p>こう思えるようになったのは</p>
+<p>今まで経験してきた</p>
+<p>全ての時間があったからです☀︎</p>
+<p>今までの活動の中で色んなことがありましたが</p>
+<p>追い込まれてどうしようもなくなった時こそ</p>
+<p>自分ときちんと向き合える瞬間が多い気がしています。</p>
+<p>自分の弱さに直面した時</p>
+<p>気づけたことがあったり。</p>
+<p>弱さを知った時に</p>
+<p>物事に対してすごく丁寧になれたり。</p>
+<p>悔しくて悔しくて</p>
+<p>何が足りないのか欲しいのか考える時間ができたり。</p>
+<p>時間が経った今考えれば</p>
+<p>あ、あのとき変われた瞬間だったのかー 。と</p>
+<p>思えることが多いからです。</p>
+<p>誰もが一人ではなく</p>
+<p>一緒に泣いて喜んでくれる仲間の存在、</p>
+<p>どんな逆境にいようといつも味方でいてくれる家族、</p>
+<p>どんなことも受け入れ 理解し 側で寄り添い 守ってくれるファンの皆様、</p>
+<p>その存在があれば私は</p>
+<p>どこまでも強くなれる気がします︎︎︎︎✌︎</p>
+<p>弱い自分とはもう おさらばです！</p>
+<p>１０ヶ月ぶりのシングルになります！</p>
+<p>２０２０年は 色々なことが起こり</p>
+<p>ファンの皆様へ寂しい思いをさせてしまうことも</p>
+<p>多々あったかと思います。</p>
+<p>そんな過去の悲しみや気持ちを</p>
+<p>暖かく包み込めるような楽曲を</p>
+<p>皆様にお届け出来たらなと思っています。</p>
+<p>どうか、楽しみに待っていてください。</p>
+<p>期待していてください。</p>
+<p>明日のベストアーティストで</p>
+<p>初披露になります。</p>
+<p>もう制作は進んでいますが、</p>
+<p>ポジションが近い先輩方ともお話したり</p>
+<p>４期生のみんなともたくさん話せたり</p>
+<p>同期が近くにいてくれたり。</p>
+<p>毎日たくさんの笑顔で溢れています。</p>
+<p>やま！センターおめでとう☀︎</p>
+<p>一人で頑張っちゃうことが出来る子だけど</p>
+<p>弱さを出せる場所が私の前であれるように</p>
+<p>常に背すじがピンと伸びてしまうような期間になるかもしれないけど</p>
+<p>隣を見たらホッと 力が抜けるような存在であれるように</p>
+<p>今やまが抱えてる大きい重圧を</p>
+<p>少しでも、一緒に持てるように︎︎︎︎✌︎</p>
+<p>なにより山下自身が</p>
+<p>楽しいと思える期間であってほしいので</p>
+<p>私はたくさん一緒に笑いたいです☀︎</p>
+<p>笑かそうと思います！！</p>
+<p>それが２６枚目シングル、</p>
+<p>一つの目標でもあります︎︎︎︎✌︎</p>
+<p>久保のシンメ、</p>
+<p>わたしは とっても心強いです☀︎</p>
+<p>加入してからずっと、何かに取り組む度に</p>
+<p>それが良い方向に進むようにと</p>
+<p>二人で何度も何度も話し合ってきたなあ。</p>
+<p>久保の強さも弱さも全部包み込める人になりたいと私は思います！</p>
+<p>何度だって 久保ならできるよ と</p>
+<p>声をかけ続けようと思います☀︎</p>
+<p>まゆちゃん、れいちゃん、</p>
+<p>初選抜おめでとう！</p>
+<p>先輩方が私にしてくれたことを</p>
+<p>今度は私がする番ですね。</p>
+<p>たくさん頼ってもらえるように、</p>
+<p>逞しくなるぞ〜！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>やま と ちいさすぎるばなな</p>
+<p>去年の写真です</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>くぼ とぴーす</p>
+<p>今年の二月です</p>
+<p>今シングルもみんなで、</p>
+<p>とにかく楽しく！たくさん笑って！</p>
+<p>素敵な楽曲を作っていけたらいいな☀︎</p>
+<p>「僕は僕を好きになる」</p>
+<p>日に日に好きが増していく楽曲です</p>
+<p>大好きで大切なグループへ</p>
+<p>少しでも力になれるよう</p>
+<p>自分の出せる全てを注ぎ込んで</p>
+<p>全力で努めさせていただきます。</p>
+<p>皆様、どうぞよろしくお願い致します。</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>ニットばかりが増える日々です。</p>
+<p>輝く！日本レコード大賞にて</p>
+<p>「世界中の隣人よ」を</p>
+<p>優秀作品賞に選んで頂きました！</p>
+<p>ステイホームの期間、</p>
+<p>私達に何か出来ることはないかと</p>
+<p>心を込めてパフォーマンスさせていただきます。</p>
+<p>そして 紅白歌合戦</p>
+<p>乃木坂46が出演させていただくことが決定いたしました！</p>
+<p>本当にありがとうございます！</p>
+<p>2020年最後を締めくくれること、本当に嬉しいですし</p>
+<p>いつも応援して下さるファンの皆様へ</p>
+<p>今年最後のパフォーマンスをテレビを通してお見せできること</p>
+<p>本当に幸せに感じます。</p>
+<p>よーし！</p>
+<p>今年も最後まで楽しむぞ〜！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>引き続きよろしくお願い致します☀︎！</p>
+<p>誰かの幸せを願ったり、</p>
+<p>誰かの幸せの瞬間に一緒にいられたり、</p>
+<p>本当に素晴らしいことだなと 日々実感してます。</p>
+<p>ただ、その軸にも</p>
+<p>私自身がいることもちゃんと忘れずにいたいなあと 思えるようになりました。</p>
+<p>私の幸せが誰かの幸せに繋がることがあって、</p>
+<p>ならば自分自身が自分の幸せを尊重してあげる瞬間が少しあってもいいのかなって。</p>
+<p>ちゃんと幸せを感じて</p>
+<p>周りの人も、自分のことも大切にしてあげられる期間にもなればいいなと思っています。</p>
+<p>すごくすごく大切なことを</p>
+<p>忘れかけていた気がして。</p>
+<p>どんな声もしっかり受け止め、</p>
+<p>前を向いて笑顔でいます！</p>
+<p>つらつらと読みにくい言葉を並べてしまいました、、</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/58833?ima=4936&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/58833?ima=4936&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-11-06_58673_消えかけの線香花火/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">消えかけの線香花火</span>
+      <span class="nav-date">2020-11-06</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-12-31_59614_今年もありがとうございました！/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">今年もありがとうございました！</span>
+      <span class="nav-date">2020-12-31</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

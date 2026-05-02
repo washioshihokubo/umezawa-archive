@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>沈黙が続いたイヤフォン</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/51659?ima=4943&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>沈黙が続いたイヤフォン</h1>
+        <div class="date">2019.07.10 21:42</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>MUSIC DAY</p>
+<p>出演させて頂きました！</p>
+<p>珍しくストレートにしました。</p>
+<p>耳かけもしなかったので</p>
+<p>なかなか新鮮でした〜</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>おたまさん。</p>
+<p>新衣装！可愛すぎました！！</p>
+<p>そして握手会！</p>
+<p>ありがとうございました！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>６月３０日東京ビッグサイトと</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>ついこの前京都で頂いたお花たちです！</p>
+<p>いつもいつも</p>
+<p>本当にありがとうございます。</p>
+<p>なんだか最近は</p>
+<p>皆様に力をもらってばかりですね。</p>
+<p>日々の活力になるような</p>
+<p>皆様にとって特別な時間が過ごせていたら</p>
+<p>私は幸せです</p>
+<p>どちらの会場でも</p>
+<p>浴衣も着ましたよ〜</p>
+<p>夏ですね！◎</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>またお会い出来るの楽しみにしています！</p>
+<p>そしてそして真夏の全国ツアー</p>
+<p>開幕しました！</p>
+<p>大きな会場のステージに立たせて頂くのも</p>
+<p>本当に有難く幸せです。</p>
+<p>今回もステージのセットから</p>
+<p>セットリスト演出まで</p>
+<p>かなり豪華でかっこよくなってます！！</p>
+<p>あまり詳しく話せないので、、</p>
+<p>来る方はお楽しみに！！</p>
+<p>つぎは福岡。</p>
+<p>お越し下さる皆様よろしくお願いします〜</p>
+<p>玲香さんの卒業発表がありました。</p>
+<p>まだ実感が無くて</p>
+<p>受け止められない部分もありますが</p>
+<p>これからお仕事を重ねていくうちに</p>
+<p>ツアーを回っていくうちに</p>
+<p>少しずつ実感していくんだろうなあと思います</p>
+<p>今は、すごく寂しいです！</p>
+<p>ダンスも歌もお芝居も、</p>
+<p>全てが憧れでかっこよくて。</p>
+<p>３期生がNOGIBINGO!8を</p>
+<p>やらせて頂いた時にお手紙で</p>
+<p>「何があってもみんなのことは私たちが守るから」</p>
+<p>という言葉が、ずっと心に残っています。</p>
+<p>加入して間もない私たちにとって</p>
+<p>暖かすぎる、心強すぎる言葉でした。</p>
+<p>かっこいい背中を見せてくれた玲香さん。</p>
+<p>本当に魅力的で理想の女性像です。</p>
+<p>前を向いて、強く、</p>
+<p>私たち後輩も逞しく成長しなきゃです</p>
+<p>頼ってばかりではダメですね。</p>
+<p>残り少ない時間ですが、</p>
+<p>9月1日が最高の一日になるように</p>
+<p>当たり前ではない毎日を</p>
+<p>大切に生きていきたいです！</p>
+<p>それでは</p>
+<p>また更新します</p>
+<p>おやすみなさい</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/51659?ima=4943&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/51659?ima=4943&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-07-01_51478_もう７月、下半期突入ですね〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">もう７月、下半期突入ですね〜</span>
+      <span class="nav-date">2019-07-01</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-07-14_51751_元通りになる/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">元通りになる</span>
+      <span class="nav-date">2019-07-14</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

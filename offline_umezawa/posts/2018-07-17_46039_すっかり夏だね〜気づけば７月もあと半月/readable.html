@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>すっかり夏だね〜気づけば７月もあと半月</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/46039?ima=4952&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>すっかり夏だね〜気づけば７月もあと半月</h1>
+        <div class="date">2018.07.17 15:42</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>昨日の握手会の！！</p>
+<p>お祭り行きたいなあ〜</p>
+<p>最近暑すぎて</p>
+<p>ちょっと外歩いただけで</p>
+<p>もう汗びっしょり( .. )</p>
+<p>へっとへとになるね(；＿；)</p>
+<p>昨日の握手会！幕張メッセ！</p>
+<p>暑い中お越しくださった皆様</p>
+<p>ありがとうございました！</p>
+<p>久しぶりの握手会〜</p>
+<p>今回は全ての部で浴衣を着ました！</p>
+<p>１部：黒</p>
+<p>２部、３部：ピンク</p>
+<p>４部、５部：赤！</p>
+<p>３種類！！</p>
+<p>夏気分味わっていただけましたか？</p>
+<p>わたしは上にも載せた写真の</p>
+<p>赤が１番お気に入り！！</p>
+<p>ファンの方からは</p>
+<p>ピンクが好評だった気が☺︎</p>
+<p>私服でなかなか着ない色だから</p>
+<p>浴衣なら！と思って☺︎</p>
+<p>浴衣はたくさん持ってるの〜</p>
+<p>選抜発表後、初の握手会だったので</p>
+<p>たくさんの「おめでとう」を聞いて</p>
+<p>とても嬉しくなりました。</p>
+<p>喉の調子があまり良くなく、</p>
+<p>小声での対応になってしまい</p>
+<p>すみませんでした(；＿；)</p>
+<p>何かを取り組む時、</p>
+<p>張り切りすぎると、力みすぎると</p>
+<p>すぐこうなってしまう。</p>
+<p>大切で貴重な時間を、</p>
+<p>本当に申し訳ないです、、</p>
+<p>握手会を楽しませようとしてくれる</p>
+<p>ファンの皆様には</p>
+<p>本当に感謝しています(；＿；)</p>
+<p>優しく言葉をかけてくれたり</p>
+<p>思いやりのある言葉をもらったり</p>
+<p>笑わせようとしてくれたり</p>
+<p>私を楽しませようとしてくれる皆様を見て</p>
+<p>心がぎゅっとなりました(；＿；)</p>
+<p>それは私の役目なのに、、</p>
+<p>本当にありがとうございます！</p>
+<p>私のために涙してくれたり、</p>
+<p>一緒に前を向いて進もうとしてくれたり、</p>
+<p>私を見てくれてるファンの皆様が</p>
+<p>本当に大切で大好き！</p>
+<p>今後ともよろしくお願いします！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>お花たちです！</p>
+<p>見にくくてごめんなさい！</p>
+<p>選抜おめでとう！のお花がたくさん。</p>
+<p>幸せものです！</p>
+<p>私のために時間を使ってくれて</p>
+<p>本当にありがとう。</p>
+<p>どんなお花がいいかな〜とか</p>
+<p>どんな想いを込めようかな〜とか</p>
+<p>デザインどうしようかな〜とか</p>
+<p>たくさん考えてくれたんだろうなあ( .. )</p>
+<p>これからも喜ぶ顔が見られるよう</p>
+<p>おめでとう、頑張ろうねって声が</p>
+<p>たくさん聴けるように</p>
+<p>もっともっと頑張ります！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>囲まれたあ〜 宝物！！</p>
+<p>幸せ！</p>
+<p>そして２１枚目シングルの</p>
+<p>収録曲の詳細が公開になりました！</p>
+<p>私は、</p>
+<p>☆「ジコチューで行こう！」</p>
+<p>☆「空扉」</p>
+<p>☆「自分じゃない感じ」</p>
+<p>☆「あんなに好きだったのに･･･」</p>
+<p>の４曲に参加させていただいています！</p>
+<p>大切な曲がこんなに増えました。</p>
+<p>きっと私のアイドル人生の中で</p>
+<p>１番思い出深いシングルになると思います！</p>
+<p>☆表題曲の ジコチューで行こう！は</p>
+<p>歌詞がとても斬新で</p>
+<p>前向きになれる曲！</p>
+<p>ダンスもとっても可愛いので</p>
+<p>色んなところに目を向けて</p>
+<p>楽しんでいただけたらいいな♪！</p>
+<p>２番の歌詞がとても好き。☺︎</p>
+<p>自分を改められる楽曲です◎</p>
+<p>☆自分じゃない感じ は</p>
+<p>３期生楽曲です！</p>
+<p>毎シングル３期生楽曲を頂けていることに</p>
+<p>とても感謝しています、</p>
+<p>当たり前と思ってはいけないし</p>
+<p>毎回大切に愛される楽曲になるよう</p>
+<p>心を込めて皆様にお届けしたいです。☺︎</p>
+<p>とてもクセになる曲！</p>
+<p>レコーディングがめちゃくちゃ楽しかった！</p>
+<p>何回も聴いて、愛してください☺︎</p>
+<p>☆あんなに好きだったのに･･･ は</p>
+<p>高校生クイズの楽曲です！</p>
+<p>歌詞がとても切なく 青春を感じる曲！</p>
+<p>歌うのがすごく楽しかった！</p>
+<p>色んな方に聴いてほしいなあ〜</p>
+<p>☆そして空扉！</p>
+<p>とても大好きになった曲。</p>
+<p>爽やかで気分が明るくなる！</p>
+<p>映画「七つの大罪 天空の囚われ人」の</p>
+<p>主題歌になっています！</p>
+<p>タイアップを担当させて頂くからには</p>
+<p>この作品をもっともっと盛り上げていきたい！</p>
+<p>どれも素敵な曲ばかりです。</p>
+<p>ぜひ、発売日を お楽しみに！</p>
+<p>最近暑すぎて</p>
+<p>夏バテで食欲無くなるかな〜とか</p>
+<p>そんなこと思ってたけど</p>
+<p>逆に食欲すごくて（笑）！</p>
+<p>あと半月で</p>
+<p>舞台「七つの大罪 The STAGE」も</p>
+<p>本番を迎えるから</p>
+<p>衣装が素敵なので</p>
+<p>それに見合う体型にならねば！</p>
+<p>と、焦っております、、（笑）</p>
+<p>太るなよ〜！と</p>
+<p>キャストの皆さんにいじられる（笑）</p>
+<p>優しくて暖かいです☺︎</p>
+<p>そんなこんなで</p>
+<p>最近はグループでのお仕事と</p>
+<p>舞台の稽古とを並行して</p>
+<p>毎日バタバタしております！！</p>
+<p>やることが多いのは</p>
+<p>とてもありがたく嬉しいことです！！</p>
+<p>いつも助けられ支えられてばかり、、</p>
+<p>足を引っ張らないよう 頑張らないと！！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>かすみんこと長谷川かすみちゃんとっ☺︎</p>
+<p>かすみんがいると</p>
+<p>現場がぱあっと明るくなります！</p>
+<p>とっても優しくて可愛い！</p>
+<p>だいすき(；＿；)</p>
+<p>そして本日は！</p>
+<p>緊急決定！７月１７日(火) 21時〜</p>
+<p>ニコニコ生放送 「七つの大罪 The STAGE」開幕まで待てないSP</p>
+<p>に出演します！</p>
+<p>メリオダス役 納谷健さん</p>
+<p>バン役 有澤樟太郎さん</p>
+<p>ディアンヌ役 長谷川かすみさん</p>
+<p>キング役 斎藤直紀さん</p>
+<p>ゴウセル役 北村諒さん</p>
+<p>演出の毛利亘宏さん</p>
+<p>と出演させて頂きます！</p>
+<p>ぜひ観に来てください∠( ˙-˙ )／</p>
+<p>お知らせ◎</p>
+<p>▽EX大衆 さま 発売中！</p>
+<p>井上さんとの対談です！</p>
+<p>▽７／２４ B.L.T. さま</p>
+<p>ももこ、れんかと３人グラビア</p>
+<p>▽７／２６ 週刊少年チャンピオン さま</p>
+<p>ソロ表紙、ソログラビア</p>
+<p>▽８／４ 日経エンタテインメント！さま</p>
+<p>連載</p>
+<p>▽８／５ スポニチ さま</p>
+<p>れんかと対談</p>
+<p>よろしくお願いします！</p>
+<p>この間の音楽の日</p>
+<p>ご覧くださった皆様</p>
+<p>ありがとうございました！</p>
+<p>「ジコチューで行こう！」初披露！</p>
+<p>とても緊張しましたが</p>
+<p>楽しくパフォーマンスできました！</p>
+<p>いかがでしたか？</p>
+<p>握手会で、新曲すごい好き！って声を</p>
+<p>たくさん聞けたのが嬉しかったなあ〜</p>
+<p>そしてインフルエンサーも</p>
+<p>披露させて頂きました！</p>
+<p>かなりプレッシャーがありましたが</p>
+<p>私なりに今出来る精一杯のパフォーマンスをしました！</p>
+<p>色々不安もありましたが</p>
+<p>今立た せていただいてる場所で</p>
+<p>何にも恐れず堂々とパフォーマンスすることが</p>
+<p>今の私に出来ることだと思っています。</p>
+<p>たくさん頂いているチャンスを</p>
+<p>無駄にせず意味のあるものにできるよう</p>
+<p>今後も頑張って参ります！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>ジコチューで行こう！の衣装です</p>
+<p>とても可愛い！！</p>
+<p>私は水色のパンツ衣装！</p>
+<p>いくつかパターンがあって</p>
+<p>どれも可愛いので見てみてねっ</p>
+<p>それでは！</p>
+<p>また更新します！</p>
+<p>自分への悔しさをすごく感じる！</p>
+<p>足りないことは分かっているつもりだから</p>
+<p>器用にやろうとせず一人でやろうとせず今は頑張ります！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/46039?ima=4952&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/46039?ima=4952&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-07-11_45938_七つの大罪と握手会とライブと告知と、、/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">七つの大罪と握手会とライブと告知と、、</span>
+      <span class="nav-date">2018-07-11</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-07-28_46213_一度ハマったら飽きるまでひたすら貫き通す/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">一度ハマったら飽きるまでひたすら貫き通す</span>
+      <span class="nav-date">2018-07-28</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

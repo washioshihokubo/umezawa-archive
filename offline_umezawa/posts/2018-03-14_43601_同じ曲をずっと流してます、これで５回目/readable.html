@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>同じ曲をずっと流してます、これで５回目</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/43601?ima=4955&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>同じ曲をずっと流してます、これで５回目</h1>
+        <div class="date">2018.03.14 20:48</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>どもども</p>
+<p>今日は逆さまです</p>
+<p>昨日の夜ね、</p>
+<p>ノートに文字をスラスラ書いてまして</p>
+<p>先のかなり尖った</p>
+<p>細いボールペンだったのだけど</p>
+<p>書き終わってペンのヘッドを押そうとしたら</p>
+<p>間違えてペン先を思いっきり押してしまって</p>
+<p>痛い〜と１人で丸まってました（笑）</p>
+<p>学生の時よくやって</p>
+<p>親指にプスプス赤いポツポツができたなあ（笑）</p>
+<p>最近は舞台に向け頑張っていますよ〜！</p>
+<p>銀河劇場は</p>
+<p>舞台を観劇した際に</p>
+<p>何回も行ったことがあるけど</p>
+<p>あのステージに今度は私も立てるのが</p>
+<p>とても嬉しいです☺︎</p>
+<p>楽しみだなあ〜</p>
+<p>来てくださる皆様は</p>
+<p>楽しみにしててね∠(　˙-˙ )／</p>
+<p>それでね、先日</p>
+<p>能條さんが出演されているミュージカル</p>
+<p>「少女革命ウテナ〜白き薔薇のつぼみ〜」</p>
+<p>を観劇してきました！！</p>
+<p>ミュージカルを観たのは初めてだったんですが、会場の一体感というか</p>
+<p>音楽で包まれるあの空間が</p>
+<p>とても居心地が良くて物凄く素敵な舞台でした！</p>
+<p>感動したなあ〜</p>
+<p>能條さんがとてもかっこよくて</p>
+<p>なにより歌声にすごく癒されました(；；)</p>
+<p>歌声大好きなんだあ(；；)</p>
+<p>あの曲が頭から離れないの！</p>
+<p>もう一回聴きたい( .. )</p>
+<p>カーテンコールの時のトークが</p>
+<p>すっごく面白かった〜</p>
+<p>もう１回観たいなあ〜</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>みんてぃー</p>
+<p>リップ塗ってないからいつもとちがう</p>
+<p>また焼肉いこーあやー</p>
+<p>前回の手誰でしようクイズ</p>
+<p>正解はあやでした〜！ぱちぱち</p>
+<p>正解した人梅ポイントあげる〜（笑）</p>
+<p>特になにかあるわけじゃないんだけど( .. )（笑）</p>
+<p>コメント見てたらみんなすごい答えてくれてたから正解した人の名前書いちゃおっと</p>
+<p>(もしかしたら読みこぼしとかあるかもしれません、許してください( .. )（笑）すみません(；；)</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>長くなっちゃったから画像で( .. )</p>
+<p>2人書いてた人はダメだよ〜（笑）</p>
+<p>私の気まぐれにお付き合いいただいて</p>
+<p>ありがとうございました∠(　˙-˙ )／</p>
+<p>またいつかやるかもね！（笑）</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>いつかの空です。綺麗！</p>
+<p>いつも本当にありがとうございます。☺︎</p>
+<p>たくさんの元気をもらっています！</p>
+<p>このお仕事をしていると</p>
+<p>どこか素の自分を奥底に抑え込んで</p>
+<p>周りの目を気にしながら</p>
+<p>活動してしまう自分がいて</p>
+<p>加入当時よりも</p>
+<p>色々な事を知った今、</p>
+<p>自分の行動言動に制限をかけるようになって</p>
+<p>当たり障りのない言葉や</p>
+<p>行動しかできなくなって</p>
+<p>色んな思いをすることも増えたけど</p>
+<p>でも、どんな事を思っても</p>
+<p>ファンの皆様がいてくれればそれでよくて</p>
+<p>もちろん自分のために</p>
+<p>自分がやりたいことのために頑張ろうって</p>
+<p>思うこともあるんだけど</p>
+<p>最終的にたどり着く先は</p>
+<p>ファンの皆様の顔！喜ぶ顔！</p>
+<p>こいつ何くさいこと言ってんだって</p>
+<p>笑ってくれてもいいです（笑）</p>
+<p>でも本当のことなんだよね∠(　˙-˙ )／</p>
+<p>お仕事が決まれば早く伝えたくなって</p>
+<p>もどかしい気持ちになったり、</p>
+<p>握手会のために服を買いに行ったり</p>
+<p>選んだりする時間が大好きだし、</p>
+<p>推しタオルやサイリウムを</p>
+<p>見つけるのが大好きだし</p>
+<p>全てここに繋がってる！って思う！</p>
+<p>オーディションのshowroomの時から、</p>
+<p>顔も分からない私に</p>
+<p>１２番ちゃんが好き！って</p>
+<p>たくさんの勇気をくれて</p>
+<p>ファンの方っていう存在が</p>
+<p>なんて暖かい方達なんだろうって</p>
+<p>その時初めて知って</p>
+<p>その時から</p>
+<p>絶対この人たちを大切にする！</p>
+<p>って決めたの！</p>
+<p>とんでもないパワーを秘めてる！</p>
+<p>応援してくださる方って！</p>
+<p>皆様がいるから私は無敵！</p>
+<p>何があっても倒れずに立ってられる！</p>
+<p>ファンの方と二人三脚で</p>
+<p>年齢的にもアイドルとしても大切で貴重な今を過ごしたいです</p>
+<p>私は頑張ります☺︎</p>
+<p>今は自分の力をつけ時！</p>
+<p>梅澤推してて楽しくてたまんねー！って</p>
+<p>思ってもらえるように</p>
+<p>梅澤がんばるぜ！( ˙-˙ )౨</p>
+<p>だからみててくれ</p>
+<p>必ず恩返しするから、</p>
+<p>待っていてください。☺︎</p>
+<p>２０枚目シングル！</p>
+<p>生駒さん最後のシングルです。</p>
+<p>近くで活動出来ることは少ないかもしれないけど</p>
+<p>残りの時間でたくさんの事を吸収していけたらいいなって思っています。</p>
+<p>そして３期生から４人も選抜！</p>
+<p>本当におめでとう！</p>
+<p>同期としてとても嬉しく誇りに思います。</p>
+<p>色んなプレッシャーとか</p>
+<p>本人達にしか分からない感情があると思うけど</p>
+<p>いつでも支えられるように待ってるよ☺︎</p>
+<p>活躍が楽しみ！</p>
+<p>私は今はまだ自分の口から</p>
+<p>言える存在ではないと思う、だから</p>
+<p>次はチャンスが来るように</p>
+<p>今は私も頑張らないと！という気持ちです</p>
+<p>色んな感情は人間だから持っているけど</p>
+<p>マイナスな気持ちは１ミリもない！</p>
+<p>私は私らしく、人と比べすぎず</p>
+<p>自分の頑張るべき場所で</p>
+<p>いつまでも謙虚な心を忘れず</p>
+<p>頑張っていきます</p>
+<p>どうか、これからもよろしくね</p>
+<p>長くなってごめんなさい！</p>
+<p>言葉って難しいよ〜( .. )</p>
+<p>書くか迷いましたが</p>
+<p>皆様優しいから、</p>
+<p>嬉しいことに案の定たくさんのコメントがきてて</p>
+<p>書くことにしたよ∠(　˙-˙ )／</p>
+<p>またどこかで書きます！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>てへっ</p>
+<p>それじゃあまた更新します！</p>
+<p>今週末の握手会</p>
+<p>楽しみだなあ〜</p>
+<p>おやすみね〜</p>
+<p>いつもありがとうございます！</p>
+<p>どんな現実も受け入れて、私はまだ個人の力をつける時だと思います</p>
+<p>笑顔で頑張るぞー！！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/43601?ima=4955&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/43601?ima=4955&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-03-10_43565_お花見いきたいんだ〜お弁当持ってね/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">お花見いきたいんだ〜お弁当持ってね</span>
+      <span class="nav-date">2018-03-10</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-03-18_43647_目の前にドカーンと/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">目の前にドカーンと</span>
+      <span class="nav-date">2018-03-18</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ぶち破ってみちゃう</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/43943?ima=4955&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ぶち破ってみちゃう</h1>
+        <div class="date">2018.03.27 19:36</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>パーカーすき</p>
+<p>４６時間テレビ</p>
+<p>ありがとうございました！</p>
+<p>今回参加した企画たち</p>
+<p>１日目</p>
+<p>○オープニング</p>
+<p>○乃木坂マウンティングpart1</p>
+<p>○山下美月電視台</p>
+<p>２日目</p>
+<p>○３期生テレストレーションゲーム</p>
+<p>○富士急中継</p>
+<p>○乃木坂46の「の」公開録音</p>
+<p>○梅澤美波電視台</p>
+<p>○ベストソング延長戦</p>
+<p>３日目</p>
+<p>○MC</p>
+<p>○岩本蓮加電視台</p>
+<p>○若様軍団脱出企画</p>
+<p>○20thシングル発売記念企画 どの料理show</p>
+<p>○松村沙友理さん電視台</p>
+<p>○エンディング</p>
+<p>こんな感じです！</p>
+<p>初めてにも関わらず</p>
+<p>たくさんのコーナーに出演させて頂きました！</p>
+<p>ありがたいです、、(；；)</p>
+<p>MC、やってみたいな〜とは思っていたけど</p>
+<p>まさか本当に出来るとは！！</p>
+<p>山下と葉月とさせて頂きました！</p>
+<p>とても勉強になりました。</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>４６時間テレビでは</p>
+<p>MCコンビでした！</p>
+<p>３期生で富士急へ行けたのは</p>
+<p>とても楽しくて嬉しかったです！</p>
+<p>この機会をくださったことに</p>
+<p>本当に感謝です、、</p>
+<p>ジェットコースター乗りたかったなあ( .. )（笑）</p>
+<p>乃木のの公開録音では</p>
+<p>山下と進行役を務めさせて頂きました！</p>
+<p>とても楽しかった〜</p>
+<p>放送は４／１になります！</p>
+<p>ぜひ聴いてみてください！</p>
+<p>最強に楽しかったなあ〜</p>
+<p>しかも野外！</p>
+<p>顔見知りのファンの方もたくさんいて</p>
+<p>とても安心したし、</p>
+<p>通りすがりの方も見ててくれてたり</p>
+<p>２０thシングルから</p>
+<p>環境がガラッと変わるし</p>
+<p>４期生も募集が始まるから</p>
+<p>ないんじゃないかな〜とか</p>
+<p>そんなこと考えながらリハーサルから</p>
+<p>貴重だなって思って大事にして</p>
+<p>本番は涙をこらえるのに必死だった（笑）</p>
+<p>ハルジオンを披露出来たことも</p>
+<p>こういう風に映像として</p>
+<p>ファンの方に届くのは初めてだから</p>
+<p>不安も沢山あったけど</p>
+<p>披露出来ることは心から嬉しかった</p>
+<p>Twitterのトレンドにも入ったと聞いて</p>
+<p>本当に嬉しかったです。</p>
+<p>見てくださった方、</p>
+<p>本当にありがとうございました(；；)</p>
+<p>またあったらいいなあ。☺︎</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>若様軍団での脱出ゲームも</p>
+<p>４人で楽しく出来て</p>
+<p>若様軍団もっと好きになった( .. )</p>
+<p>若月さん大好き( .. )</p>
+<p>脱出すごく楽しかったから</p>
+<p>またやりたいなー！</p>
+<p>電視台には自分のもの以外に</p>
+<p>岩本蓮加、山下美月、松村沙友理さんの</p>
+<p>電視台に出演させて頂きました！</p>
+<p>ミナミンになれたのは</p>
+<p>今までで１番恥ずかしかったけど</p>
+<p>楽しかったなあ</p>
+<p>リハしてる時から</p>
+<p>面白くてずっと笑ってた∠(　˙-˙ )／（笑）</p>
+<p>そして自分の電視台は</p>
+<p>めちゃくちゃ楽しかったなあ〜</p>
+<p>一人で大丈夫だったかな</p>
+<p>観てる方は面白いかなって不安だったけど</p>
+<p>スタジオで西野さんが</p>
+<p>やってみたい面白い企画だった</p>
+<p>って言ってくださったのが</p>
+<p>嬉しくて本当に救いでした(；；)</p>
+<p>全部に触れたいけど</p>
+<p>長くなるからここら辺で(；；)</p>
+<p>初めての４６時間テレビは</p>
+<p>想像してたよりたくさんのスタッフさんが</p>
+<p>番組のために打ち合わせ段階から</p>
+<p>ずーっと準備して下さっていて</p>
+<p>動いてくださっていて</p>
+<p>疲れてるはずなのに疲れてない？って</p>
+<p>私たちを１番に気遣ってくださって</p>
+<p>私も頑張らなきゃ！って常に刺激を受けっぱなしでした。</p>
+<p>本当にありがとうございました！</p>
+<p>とても良い思い出になりました。</p>
+<p>２年前の４６時間テレビで発表された</p>
+<p>３期生募集がかかったあの日から</p>
+<p>私の人生はガラッと変わり、</p>
+<p>２年前観ていた側だった私が</p>
+<p>今度は出演する側になるっていう</p>
+<p>信じられない光景を目の前にして</p>
+<p>人生なにがあるか分からないなって</p>
+<p>改めて思った３日間でした！</p>
+<p>番組に関わっていたスタッフさん、</p>
+<p>観てくださっていたファンの皆さま、</p>
+<p>本当にお疲れ様でした！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>夜桜です。</p>
+<p>綺麗ですよね</p>
+<p>うまく撮れました☺︎</p>
+<p>私は夜桜が好きです</p>
+<p>４６時間テレビも終わり</p>
+<p>舞台へ気持ちを切り替えています！</p>
+<p>残り１０日くらいしかなくて</p>
+<p>焦る気持ちもあるけど</p>
+<p>素敵な舞台にできるように</p>
+<p>残りの稽古期間も頑張ります！</p>
+<p>今はすごく壁にぶつかっていて</p>
+<p>考えること悩むことも多いけど</p>
+<p>色んなことに目を向けながら</p>
+<p>頑張っていきます！</p>
+<p>私は宇宙飛行士のリンドバーグを</p>
+<p>演じさせていただきます。</p>
+<p>どんな役柄か、お楽しみに！</p>
+<p>それと、</p>
+<p>フラゲ日ですね∠(　˙-˙ )／</p>
+<p>また発売日迎えたら</p>
+<p>皆様のお手元に届くのを</p>
+<p>お楽しみに！</p>
+<p>ババーっと振り返りになってしまって</p>
+<p>ごめんなさい(；；)</p>
+<p>また更新します！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>またもやパーカー</p>
+<p>またねっ！</p>
+<p>おやすみなさい〜</p>
+<p>とても難しいことだらけで苦戦しています</p>
+<p>まだまだ知らないことだらけで、でも今はそんなこと言ってられないから</p>
+<p>強気で頑張ります</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/43943?ima=4955&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/43943?ima=4955&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-03-24_43770_よいよいよい/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">よいよいよい</span>
+      <span class="nav-date">2018-03-24</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-03-30_44210_外出たら懐かしい匂いがするの/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">外出たら懐かしい匂いがするの</span>
+      <span class="nav-date">2018-03-30</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

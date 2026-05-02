@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>服の整理をしていたら意外と白い服が多かったことに気がつきました〜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/47737?ima=4947&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>服の整理をしていたら意外と白い服が多かったことに気がつきました〜</h1>
+        <div class="date">2018.11.11 20:43</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 の</p>
+<p>梅澤美波です！！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>前にものせたけどちょっと違うの( ¨̮ )</p>
+<p>お久しぶりになってしまった、、</p>
+<p>すみません(；；)</p>
+<p>１１月が始まって</p>
+<p>年末に向かって２０１８年が</p>
+<p>どんどん進んでいく、、早い、、早すぎる</p>
+<p>今年を振り返って写真を見返すと</p>
+<p>懐かしいな〜と思うものがいっぱいで</p>
+<p>戻りたいと思える瞬間がたくさんあります☺︎</p>
+<p>楽しいを更新し続けたいですね( ¨̮ )</p>
+<p>そして買い物行きたい欲がすごい！！</p>
+<p>寒くなってきたから</p>
+<p>ニットも欲しいし</p>
+<p>コートも欲しいし</p>
+<p>コスメもほしい、、！！！</p>
+<p>皆様冬服はもう買いましたか〜？</p>
+<p>どんなお洋服好きですか？( .. )</p>
+<p>皆様にご報告を！！</p>
+<p>ニッポン放送さんの</p>
+<p>「乃木坂46梅澤美波の『のぎぼき』！」にて</p>
+<p>レギュラーラジオパーソナリティを</p>
+<p>担当させて頂くことになりました！</p>
+<p>高校の時簿記の授業があって</p>
+<p>勉強をしていたんです！</p>
+<p>なのでお話を聞いた時は</p>
+<p>すごく嬉しかったです！！(；；)</p>
+<p>高校時代をすごく思い出します☺︎</p>
+<p>ラジオを通して、</p>
+<p>また新たにリスナーの皆様と簿記を学んで</p>
+<p>この番組を盛り上げていけたらなと思います！！</p>
+<p>澤照人先生とご一緒させて頂きます！</p>
+<p>澤先生から簿記の本も頂いたので</p>
+<p>私も勉強してこのラジオに挑みたいと思います！</p>
+<p>月曜〜木曜日、ニッポン放送の</p>
+<p>夜のワイド番組</p>
+<p>「オールナイトニッポンPremium」内に</p>
+<p>ミニ番組としての出演になります( ¨̮ )</p>
+<p>ぜひお聞きください！</p>
+<p>そしてそして〜</p>
+<p>個人PVの予告映像が公開されました！</p>
+<p>今回は『AMERICAN DIENER』がテーマで</p>
+<p>コメディな感じの個人PVになっております！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>監督さんからの指定で</p>
+<p>かなり高めのツインに真っ赤のリップ、、</p>
+<p>すごく恥ずかしかったけど</p>
+<p>撮影も終始楽しくて仕方がなくて、、</p>
+<p>笑いっぱなしでした( ¨̮ )（笑）</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>歌も歌わせて頂いております！</p>
+<p>耳に残る〜〜素敵な曲です( ¨̮ )</p>
+<p>ぜひ楽しみに待っていただけたら</p>
+<p>嬉しいです！！</p>
+<p>お命ちょうダイナー！！！</p>
+<p>たまみに会ってなさすぎて</p>
+<p>会いたくなります〜〜</p>
+<p>焼肉行きたいな〜</p>
+<p>たまみ〜</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>お誕生日おめでとう</p>
+<p>だいすきだよ〜〜</p>
+<p>タコパする約束したから</p>
+<p>たのしみっ</p>
+<p>さてさて、舞台「ザンビ」！</p>
+<p>本番まで１週間切りました！！</p>
+<p>お稽古も今日が最後でした！！</p>
+<p>HPにてポスタービジュアル、</p>
+<p>そして役名も発表されました！</p>
+<p>私は一ノ瀬杏奈役を務めさせていただきます！</p>
+<p>山下とダブルキャストです( ¨̮ )</p>
+<p>意外だったのではないかな〜☺︎</p>
+<p>毎日があっという間すぎて驚いています、、</p>
+<p>通し稽古もして、完成に近づいていて、</p>
+<p>あとは役をお芝居を深める作業、、</p>
+<p>一番苦しい時期に突入していますが</p>
+<p>毎日台本と睨めっこして</p>
+<p>頭をフル回転しております！！</p>
+<p>ストーリーが物凄く素敵なんです。</p>
+<p>通し稽古見る度に涙しています（笑）</p>
+<p>もちろん！</p>
+<p>観に来て下さる方が驚くような場面も</p>
+<p>沢山あるかと思います、、</p>
+<p>早くお見せしたくてそわそわします( ¨̮ )</p>
+<p>大好きで大好きで仕方が無いです( .. )</p>
+<p>みんなで頑張ります！！</p>
+<p>皆様の心に残る、</p>
+<p>一ノ瀬杏奈を演じられるよう頑張ります！</p>
+<p>お芝居って難しいなあ〜</p>
+<p>でも、頭を使う分とても楽しい！</p>
+<p>スタッフの皆様に支えられ、</p>
+<p>他のキャストの皆様や</p>
+<p>アンサンブルの皆様から</p>
+<p>学ぶことや教わることが沢山あるから</p>
+<p>毎日頭も嬉しい悲鳴をあげています！</p>
+<p>起こし下さる方はお楽しみに！</p>
+<p>お知らせ◎</p>
+<p>《雑誌》</p>
+<p>▽日経エンタテインメント！ さま 連載</p>
+<p>▽１１／２４ B.L.T.さま 表紙</p>
+<p>▽１１／３０ BUBKA さま</p>
+<p>りりあと取材して頂きました！久しぶりのこのコンビ！！ぜひチェックしてください〜！</p>
+<p>《舞台》</p>
+<p>▽１１／１６〜 舞台「ザンビ」</p>
+<p>《TV》</p>
+<p>▽１１／９ 「ミュージックステーション」</p>
+<p>出演させて頂きました！</p>
+<p>過ぎてしまってごめんなさい(；；)</p>
+<p>乃木坂46がトップバッターの披露で初披露ということもあり、緊張でガクガクでしたが楽しんでパフォーマンスすることが出来ました！</p>
+<p>歌う度にうるうるします。</p>
+<p>ご覧いただけましたか？</p>
+<p>▽１１／１０ 24:58〜</p>
+<p>TBS 「COUNT DOWN TV」</p>
+<p>こちらも昨日放送されました！</p>
+<p>テレビの前で見られました☺︎</p>
+<p>▽１１／１３ 19:30〜</p>
+<p>NHK 「うたコン」</p>
+<p>▽１１／１３ 23:59〜24:54 「ウチのガヤがすみません！」</p>
+<p>ずっと見ていた大好きな番組に出演させて頂きます！！収録もひたすら笑いっぱなしでした、、ぜひご覧下さい！</p>
+<p>▽１１／１６ 24:59〜</p>
+<p>日本テレビ 「バズリズム02」</p>
+<p>▽１１／１７ 18:00〜</p>
+<p>フジテレビ 「MUSIC FAIR」</p>
+<p>▽１２／２ 24:05〜</p>
+<p>NHK 「シブヤノオト」</p>
+<p>歌番組にたくさん！出演させて頂きます！</p>
+<p>大好きな楽曲、</p>
+<p>色んな想いが込められているこの楽曲、</p>
+<p>歌う度に心にくるものがあります。</p>
+<p>当たり前と思わず</p>
+<p>ひとつひとつ、毎日を大切に</p>
+<p>頑張ります！！</p>
+<p>逃さずチェックしてみて下さい( ¨̮ )</p>
+<p>《ラジオ》</p>
+<p>▽毎週月曜〜木曜 「乃木坂46梅澤美波の『のぎぼき』！」</p>
+<p>▽１１／１４ ニッポン放送 25:00〜27:00</p>
+<p>乃木坂46のオールナイトニッポン</p>
+<p>山下と私で出演させて頂きます！！</p>
+<p>２２枚目シングル、</p>
+<p>「帰り道は遠回りしたくなる」発売日！</p>
+<p>とても光栄です。</p>
+<p>楽曲の良さを２人で最大限に</p>
+<p>皆様にお届けできればと思っています！</p>
+<p>舞台「ザンビ」のコンビでもあり</p>
+<p>公演の直前なので</p>
+<p>ザンビについても話したりしちゃうかも！！</p>
+<p>ぜひお聴き下さい！</p>
+<p>そんなこんなで</p>
+<p>今日は朝から電車で目の前に座っていた</p>
+<p>男の子が本当に可愛くて</p>
+<p>癒され、一日頑張れましたっ∠(　˙-˙ )／</p>
+<p>肩こりがひどいので</p>
+<p>帰って揉みほぐしたいと思います</p>
+<p>そしてお腹がすきました〜</p>
+<p>何食べよかな〜</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>最近はこの髪型ばかり。</p>
+<p>後ろの髪飾りがとても素敵なんです！！</p>
+<p>見てみてください〜〜( ¨̮ )</p>
+<p>それでは！</p>
+<p>また更新します！</p>
+<p>クリスマスソングが聴こえたり</p>
+<p>綺麗な飾りつけを見たり</p>
+<p>クリスマスを感じるとそわそわします</p>
+<p>大好きな冬がやってきます☺︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/47737?ima=4947&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/47737?ima=4947&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-11-01_47611_クリスマスのCMが流れめました〜わくわくしまね〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">クリスマスのCMが流れめました〜わくわくしまね〜</span>
+      <span class="nav-date">2018-11-01</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-11-18_47836_気づけば街はすっかりクリスマスモードでした、/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">気づけば街はすっかりクリスマスモードでした、</span>
+      <span class="nav-date">2018-11-18</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

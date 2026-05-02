@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>朝の過ごし方</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/101329?ima=4932&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>朝の過ごし方</h1>
+        <div class="date">2023.03.28 17:03</div>
+      </header>
+
+      <main class="body">
+        <p>約１年半努めさせていただきました、</p>
+<p>TBS系「THE TIME,」月曜日レギュラーを</p>
+<p>卒業致しました。</p>
+<figure><img src="images/image_001.jpg" alt=""></figure>
+<p>事前になんのお知らせもなく</p>
+<p>観て下さった方には、びっくりさせてしまったかもしれません。</p>
+<p>番組開始の立ち上げから約１年半、</p>
+<p>とても濃く、あっという間な日々でした。</p>
+<p>私にとってTHE TIME,は</p>
+<p>新しく自分の核となるもの、</p>
+<p>軸になるような存在でした。</p>
+<p>なにかあれば、</p>
+<p>私には THE TIME,がある！と思える。</p>
+<p>それがどれだけ心強く</p>
+<p>自分の心をピシッと正して自信を持って、真っ直ぐいられたか。</p>
+<p>この番組で出逢った方々は</p>
+<p>お仕事をする上で</p>
+<p>私はこうありたい、きっとこうあるべきなんだ、と</p>
+<p>そう思わせてくれる方たちばかりでした。</p>
+<p>新しい世界を私は知ったわけですが、</p>
+<p>どの時間帯に会っても皆さんいつも笑顔！</p>
+<p>温かく迎えてくださる週の初めの月曜日が、</p>
+<p>緊張と不安を抱いていた当初から</p>
+<p>だんだんと楽しみに変わっていきました。</p>
+<p>朝の番組。</p>
+<p>私ができることはまず笑顔がキーになると思っていて、</p>
+<p>番組当初はとにかく笑顔！と</p>
+<p>自分に言い聞かせていましたが、</p>
+<p>緊張して強ばるわたしの顔を緩めてくれたのは</p>
+<p>朝お会いするスタッフの皆さん、そして</p>
+<p>スタジオで一緒に番組を作る出演者の皆さんの笑顔のおかげでした。</p>
+<p>情報番組、何があるか分からない生放送の中で</p>
+<p>常に和やかに、そして時にピリッと、</p>
+<p>この番組へと熱を注ぐTHE TIME,チームの皆様を、心から尊敬していました。</p>
+<p>特にこの１年半、</p>
+<p>乃木坂として活動する中でも</p>
+<p>立場が変わったり、環境の変化があったり、</p>
+<p>自分の中でも大きな変化があった激動の日々だったわけですが</p>
+<p>そんな中でTHE TIME,を通して</p>
+<p>一番早く、生の声で、自分の言葉で皆様へ気持ちを伝える時間を設けて下さったことが</p>
+<p>何より有難かったです。</p>
+<p>番組の立ち上げを、スタートから関わらせていただくなんて機会は</p>
+<p>この先もそう無い経験だと思います。</p>
+<p>初回放送の２０２１年１０月１日のあの日は</p>
+<p>今でも鮮明に覚えています。</p>
+<p>宝物の日々でした！</p>
+<p>幸せだった！</p>
+<p>少し距離は遠くなりますが</p>
+<p>気持ちはずっとTHE TIME,チームの一員ですし</p>
+<p>これからは一ファンとして、番組を応援していきたいと思っています。</p>
+<p>来週からは</p>
+<p>一ノ瀬 美空 ちゃんに月曜レギュラーをバトンタッチします。</p>
+<p>笑顔が素敵で愛嬌があって、</p>
+<p>でも真面目でガッツがある子だと思っているので</p>
+<p>きっと大丈夫、月曜の朝を華やかにしてくれるはずです！</p>
+<p>何かあれば力になるし、</p>
+<p>この大きなチャンスを楽しんで頑張ってもらいたいです。</p>
+<p>皆様、引き続き 「THE TIME,」を、そして</p>
+<p>新レギュラーの一ノ瀬 美空を</p>
+<p>よろしくお願い致します！</p>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<p>皆さんとご一緒できて、</p>
+<p>心から幸せでした。</p>
+<p>皆様がかけて下さった言葉を胸に</p>
+<p>今後の活動を励んで参ります。</p>
+<p>そしていつか</p>
+<p>安住さんにインタビューしてもらえるくらい、大きな人になります！</p>
+<p>本当にありがとうございました。</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/101329?ima=4932&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/101329?ima=4932&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2023-03-14_101276_欲しい欲しいと先延ばしにした故、結局手に入らず、みたいなことがよくあります。/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">欲しい欲しいと先延ばしにした故、結局手に入らず、みたいなことがよくあります。</span>
+      <span class="nav-date">2023-03-14</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2023-05-16_101467_血祭りだ～！/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">血祭りだ～！</span>
+      <span class="nav-date">2023-05-16</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

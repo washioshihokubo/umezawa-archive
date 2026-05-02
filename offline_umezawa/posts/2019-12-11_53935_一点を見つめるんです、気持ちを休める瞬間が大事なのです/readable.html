@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>一点を見つめるんです、気持ちを休める瞬間が大事なのです</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/53935?ima=4941&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>一点を見つめるんです、気持ちを休める瞬間が大事なのです</h1>
+        <div class="date">2019.12.11 21:06</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>久しぶりになってしまいました〜</p>
+<p>気づけばもう１２月、、</p>
+<p>凍える寒さですね、私はとても嬉しいです</p>
+<p>ずっと冬でもいい☀︎</p>
+<p>それくらいに冬がすき</p>
+<p>あっという間に年末モード。</p>
+<p>全ツが終わってから特に時間の流れが物凄く早く感じます、、</p>
+<p>来年まできっと一瞬なんだろうなあ。寂しい</p>
+<p>さて、</p>
+<p>お越しくださった皆様、</p>
+<p>本当にありがとうございました！</p>
+<p>大きなステージ。２日間。</p>
+<p>ステージに立つまでは不安だったものも</p>
+<p>気づけば消えていました。</p>
+<p>たくさんの笑顔が見られて幸せでした☀︎</p>
+<p>改めて感じた責任感、先輩方の偉大さ。</p>
+<p>学んだことだらけでした。</p>
+<p>この機会を頂けたこと、本当に有難く思います。</p>
+<p>一人一人が悩み考え自主的に行動し</p>
+<p>自分自身への課題と向き合えた大切な期間だったと思います。</p>
+<p>プレッシャーに追われながらもみんなで乗り越え試行錯誤し、どこか強くなれた気がします</p>
+<p>中々リハーサルに参加出来ない日が続き、</p>
+<p>そんな中でたくさんの方に助けて頂きました。</p>
+<p>なによりも、</p>
+<p>同期のみんなが率先して意見を出し合い</p>
+<p>良いものにしようと頑張る姿は</p>
+<p>私の心を動かす一番の支えでした。</p>
+<p>４期生のみんながいたからこそ感じられたものです。</p>
+<p>本当に感謝でいっぱいです！</p>
+<p>４期生の姿には心動かされるものがありました。</p>
+<p>フルサイズで楽曲を披露したい、と</p>
+<p>話し合いの中で提案したのです、☀︎</p>
+<p>そして「三番目の風」「4番目の光」を</p>
+<p>フルサイズで披露させて頂きました！</p>
+<p>３期生にとっても４期生にとっても</p>
+<p>大切な楽曲。嬉しかった〜！！</p>
+<p>この楽曲のパフォーマンス中、</p>
+<p>いつもかっこよく可愛くキラキラしてるのに</p>
+<p>ステージ上で見るみんなの後ろ姿は</p>
+<p>いつにも増してとても強く、頼もしかったです。</p>
+<p>私の携帯で誰とも写真撮ってないのです、、</p>
+<p>携帯触る時間も無いほどバタバタしておりましたみんなのカメラに映ってるかと思います( .. )</p>
+<p>どんどん駆け寄って来てくれる同期に</p>
+<p>愛で溢れました。</p>
+<p>感情が伝染していく瞬間。連鎖していく瞬間。</p>
+<p>愛おしすぎました。( .. )</p>
+<p>守りたいと思える存在です。</p>
+<p>私の力じゃどうにもならないかもしれないけど</p>
+<p>そう思える存在がいるって物凄く大きいです。</p>
+<p>みんなが幸せになってほしいです。</p>
+<p>ずっと、そう願います︎︎︎︎✌︎</p>
+<p>４年目にして初めて感じた感情、</p>
+<p>たくさんありました。</p>
+<p>まだまだ経験したいこと、できること、</p>
+<p>やりたいこと、山積みなんだなあと</p>
+<p>感じられる期間でもありました</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>本当に、最高に楽しかったです！</p>
+<p>自分の中ではたくさん反省もありますが、</p>
+<p>反省も緊張も全部含めて最高の２日間でした！</p>
+<p>たくさんの応援、</p>
+<p>ありがとうございました！</p>
+<p>今週末は握手会です〜！</p>
+<p>２日連続！全握個握！</p>
+<p>楽しみです〜</p>
+<p>個握はクリスマスが近いので</p>
+<p>何かしらしようかと思っております〜</p>
+<p>私服はどんなの着ようかしら。</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>あんまりカジュアルぽい服着ないけど</p>
+<p>パーカーを買ったので着ました︎︎︎︎✌︎</p>
+<p>撮影の日は楽ちんな格好が多い。</p>
+<p>パンツよりスカートが多い最近。</p>
+<p>形や色やデザインがドンピシャの</p>
+<p>デニムを探し中です〜</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>くぼ〜</p>
+<p>気づくと近くにいることが多い。</p>
+<p>可愛いです</p>
+<p>内容少なくてごめんなさい(；；)</p>
+<p>さあ、</p>
+<p>皆様週末にお会いしましょう</p>
+<p>おやすみ</p>
+<p>来年の目標がいくつかできました。</p>
+<p>もう２１歳がそこまで迫ってきている。</p>
+<p>自分を解放できる場所が多く作れたらなあ、と思います︎︎︎︎✌︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/53935?ima=4941&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/53935?ima=4941&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-11-25_53702_笑顔をあげられるなら/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">笑顔をあげられるなら</span>
+      <span class="nav-date">2019-11-25</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-12-20_54098_屈せずしっかり/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">屈せずしっかり</span>
+      <span class="nav-date">2019-12-20</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

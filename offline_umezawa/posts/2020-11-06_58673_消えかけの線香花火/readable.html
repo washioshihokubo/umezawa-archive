@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>消えかけの線香花火</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/58673?ima=4936&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>消えかけの線香花火</h1>
+        <div class="date">2020.11.06 21:06</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>とても鮮やかで爽やか。</p>
+<p>制服に合わせてこの日は</p>
+<p>ピンクメイクにしました〜！</p>
+<p>目元はブラウン、</p>
+<p>チークとリップはピンク！</p>
+<p>ずっとオレンジだったから久しぶりに、、</p>
+<p>乃木坂バッチがかわいい☀︎</p>
+<p>さて！</p>
+<p>本日１１／６〜</p>
+<p>札幌、名古屋、博多の３書店にて</p>
+<p>１st写真集「夢の近く」のパネル展第2弾が</p>
+<p>開催されております‪♡</p>
+<p>未公開カットも盛りだくさんで</p>
+<p>パネル一枚一枚に心を込めて</p>
+<p>メッセージを書きました。</p>
+<p>パネル展のテーマは</p>
+<p>「#美波からありがとう」です！</p>
+<p>たくさんの方に届くといいなあ。</p>
+<p>ぜひ、ハッシュタグ付けて</p>
+<p>SNSで呟いてください！見に行きます☀︎</p>
+<p>開催日時</p>
+<p>▽コーチャンフォー 新川通り店 様</p>
+<p>１１／６〜１１／３０</p>
+<p>▽星野書店近鉄パッセ店 様</p>
+<p>１１／６〜１１／３０</p>
+<p>▽HMV &amp; BOOKS HAKATA 様</p>
+<p>１１／６〜１１／２２</p>
+<p>そして、パネル展に飾られているものと</p>
+<p>同サイズのB4パネルに</p>
+<p>私が直筆のメッセージとサインを描いたものを</p>
+<p>１st写真集「夢の近く」を</p>
+<p>対象期間中にゲットしてくださった方に</p>
+<p>抽選でプレゼントします！</p>
+<p>ぜひ、こちらも応募してみてください‪♡</p>
+<p>パネル展開催書店様にて</p>
+<p>数量限定で新絵柄のポストカードもついてきますので</p>
+<p>こちらもチェックよろしくお願いします☀︎</p>
+<p>先日の３１日のハロウィンは</p>
+<p>オンラインミート&amp;グリートでした☀︎</p>
+<p>耳だけ 生やしました、、</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>なんだか恥ずかしくて</p>
+<p>付けたのは３部だけ。（笑）</p>
+<p>見れた方レアでした！！（笑）</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>この日はメガネでした〜！</p>
+<p>メガネ好き〜☀︎</p>
+<p>オンラインだけど</p>
+<p>顔が見れてわたしはとっても嬉しいし</p>
+<p>楽しんでるよ〜〜！</p>
+<p>明日もあります‪︎︎︎︎︎︎︎︎✌︎</p>
+<p>よろしくお願いします〜！</p>
+<p>ノギザカスキッツに</p>
+<p>３期生も参加させて頂くことになりました！</p>
+<p>ACT2が１０日からスタートします！</p>
+<p>本格的なコントは初挑戦かな。</p>
+<p>色々まだ模索中ですが</p>
+<p>自由に、振り切ってやらせてもらってます！</p>
+<p>３期生 ５年目にして</p>
+<p>みんなの新たな一面が見られると思います☀︎</p>
+<p>コントというジャンルから</p>
+<p>また色々吸収して勉強していきたいと思っています。</p>
+<p>３期生１２人も全力で頑張りますので</p>
+<p>皆様ぜひ、よろしくお願いします。</p>
+<p>初回は収録済みですが</p>
+<p>４期生のみんながとにかく可愛いし</p>
+<p>コントの経験は私たちよりあるので</p>
+<p>とても逞しくて一緒にできて嬉しいです！</p>
+<p>これを機会に一人一人ともっと仲良くなれたらいいなあ‪♡</p>
+<p>さらば青春の光のお二人とも</p>
+<p>少しずつ距離を縮められたらなと思っております！</p>
+<p>予告はもう公開されてますので</p>
+<p>ぜひ！お楽しみに！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>表紙を務めさせていただいてます</p>
+<p>月刊エンタメ 発売中です！</p>
+<p>とっても楽しい撮影でした〜</p>
+<p>見てくれた姉から連絡がきて、</p>
+<p>なんか大人になったねと 言われました〜</p>
+<p>どうでしょうか？</p>
+<p>ぜひチェックしてください☀︎</p>
+<p>両面ポスターもついてきます！</p>
+<p>佐藤璃果ちゃんも載ってます‪♡</p>
+<p>とても可愛いです〜！</p>
+<p>私が一番好きなお弁当があって</p>
+<p>かれいの西京漬けのお弁当なのですが</p>
+<p>なかなか 出会えないお弁当でですね、</p>
+<p>年末のCDTVかな？それ以来 出会えてなくて</p>
+<p>ずーっと出会える日を心待ちにしていたら</p>
+<p>やっとついこの間出会えたのです！</p>
+<p>嬉しかった〜</p>
+<p>久しぶりに食べたけど</p>
+<p>やっぱりナンバーワンでした、、</p>
+<p>次はいつ食べられるかな〜</p>
+<p>あとはずっと</p>
+<p>今年のアウター探しの毎日！</p>
+<p>自分の理想のアイテムに出会うのって</p>
+<p>本当に難しいですよね。</p>
+<p>皆様もう手に入れました？</p>
+<p>今年は買わなくてもいいかなと思いつつ</p>
+<p>やっぱり欲しくなる、、</p>
+<p>街歩いてれば誘惑がたくさん！</p>
+<p>そしてもう、クリスマスシーズンですね</p>
+<p>クリスマスソングが流れていたり</p>
+<p>ツリーが売ってたり</p>
+<p>電飾が飾られていたり。</p>
+<p>クリスマスの雰囲気が大好きなので</p>
+<p>できるだけ長く味わいたい〜</p>
+<p>寒さもいい感じの寒さになってきて</p>
+<p>冬好きなわたしにはたまりません、、</p>
+<p>夜の外の気温と匂いが好きすぎて</p>
+<p>歩いていてもるんるん。</p>
+<p>帰ってきては窓を開けて風を浴びる日々。</p>
+<p>皆様、風邪引かないように</p>
+<p>お気をつけくださいね︎︎︎︎✌︎</p>
+<p>さて！</p>
+<p>今日も夜ご飯を楽しみに</p>
+<p>お仕事頑張りました〜</p>
+<p>美味しい食べものが溢れかえっていて</p>
+<p>幸せの悲鳴です、、</p>
+<p>この間撮影で一緒だった</p>
+<p>５歳の女の子の癒しパワーがとてつもなくて</p>
+<p>また会いたい、、となってる。</p>
+<p>小さい子の力ってすごい。</p>
+<p>またお知らせしますね☀︎</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>では。</p>
+<p>また更新します</p>
+<p>おやすみなさい！</p>
+<p>わたしはなにかと</p>
+<p>物事をルーティーン化しがちだけど</p>
+<p>少し違ったことを取り入れたら</p>
+<p>また新しい 楽しさ に気づきます</p>
+<p>気づけたときには 嬉しさ がすごい。</p>
+<p>まだまだ知らないことばかりが溢れた世界ですが</p>
+<p>自分が存在できるうちに</p>
+<p>どれだけ知識を得られるかは</p>
+<p>自分次第ですよね〜</p>
+<p>分かってはいてもなかなか。</p>
+<p>でもその事実にさえワクワクする〜！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/58673?ima=4936&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/58673?ima=4936&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-11-05_58661_書ききれないけど ただただ、本当に、ありがとうございました！/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">書ききれないけど ただただ、本当に、ありがとうございました！</span>
+      <span class="nav-date">2020-11-05</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-11-24_58833_あとすこしの 残り火/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">あとすこしの 残り火</span>
+      <span class="nav-date">2020-11-24</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

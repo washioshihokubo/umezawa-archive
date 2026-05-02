@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>七つの大罪 The STAGE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/44311?ima=4954&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>七つの大罪 The STAGE</h1>
+        <div class="date">2018.04.03 20:15</div>
+      </header>
+
+      <main class="body">
+        <p>本日解禁されました</p>
+<p>ヒロインのエリザベス役を努めさせていただきます。</p>
+<p>今回が初めてで</p>
+<p>今は正直不安やプレッシャーもありますが</p>
+<p>情報解禁されてから色んな方からの反応や</p>
+<p>期待の声を聞いて</p>
+<p>それ以上のものでお返しができるように</p>
+<p>この役を全うしていけたらなと思っています。</p>
+<p>「七つの大罪」は原作、アニメ、</p>
+<p>そして今夏公開される映画とあり、</p>
+<p>この作品を愛しているファンの方がたくさんいると思います。</p>
+<p>その方たちが持つ原作へのイメージや</p>
+<p>私が演じるエリザベスへのイメージを大切にしながら</p>
+<p>この作品と真摯に向き合って</p>
+<p>自分自身としても新しい挑戦として頑張っていきます</p>
+<p>公演日</p>
+<p>◎東京公演 「天王洲 銀河劇場」</p>
+<p>８／３〜８／１２ 計１５公演</p>
+<p>◎大阪公演 「梅田芸術劇場」</p>
+<p>８／１８〜８／２０ 計５公演</p>
+<p>全２０公演となっています！</p>
+<p>▽舞台公式WEBサイト</p>
+<p>http://www.7-taizai-stage.jp/</p>
+<p>▽舞台公式Twitter</p>
+<p>https://twitter.com/7_taizai_stage</p>
+<p>ぜひチェックよろしくお願い致します！</p>
+<p>そして本日</p>
+<p>取材を受けてきました！</p>
+<p>これから解禁され次第</p>
+<p>またお知らせさせていただきます！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>メリオダス役、納谷健さん</p>
+<p>バン役、有澤樟太郎さんと！</p>
+<p>色んな声があると思いますし</p>
+<p>原作があるものの実写化や舞台化は</p>
+<p>賛否両論の声があるのも承知しています</p>
+<p>全ての声を受け止めて</p>
+<p>自分なりに頑張っていきます！</p>
+<p>そして舞台に関しては未熟な部分も多く</p>
+<p>不安も沢山ありますが</p>
+<p>稽古期間からキャストの皆様含め</p>
+<p>スタッフさんから色々な事を学びながら</p>
+<p>新たな自分を求め全力で頑張ります。</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>髪色などライトでだいぶ変わってしまっていますが</p>
+<p>ビジュアル撮影時のオフショットです！</p>
+<p>皆様ぜひ劇場で</p>
+<p>お待ちしています！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/44311?ima=4954&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/44311?ima=4954&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-03-30_44210_外出たら懐かしい匂いがするの/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">外出たら懐かしい匂いがするの</span>
+      <span class="nav-date">2018-03-30</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-04-07_44373_惑星巡って旅に出てみたりしてるの/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">惑星巡って旅に出てみたりしてるの</span>
+      <span class="nav-date">2018-04-07</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

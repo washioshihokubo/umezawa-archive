@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>気づけば街はすっかりクリスマスモードでした、</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/47836?ima=4947&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>気づけば街はすっかりクリスマスモードでした、</h1>
+        <div class="date">2018.11.18 21:18</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>いつかのわたし〜</p>
+<p>最近自撮りしてなさすぎて</p>
+<p>写真がないです、、</p>
+<p>たくさん撮らねばっ</p>
+<p>今年はあまり寒くないのか</p>
+<p>まだコートを着ずにいます、、</p>
+<p>早く着たい、、</p>
+<p>そしてお買い物に行きたいなあ〜</p>
+<p>舞台「ザンビ」</p>
+<p>初日を無事迎えることが出来ました！</p>
+<p>ザンビプロジェクト第一弾、</p>
+<p>遂に始動しました！</p>
+<p>キャストの皆様、</p>
+<p>アンサンブルの皆様、</p>
+<p>スタッフの皆様、</p>
+<p>全員で迎えることができて本当に幸せです。</p>
+<p>わたしは一ノ瀬杏奈を</p>
+<p>演じさせていただきます。</p>
+<p>この子と向き合う中で</p>
+<p>教わることがたくさんあり</p>
+<p>出逢えて良かったなあと感じています</p>
+<p>とても難しい役所。本当に。</p>
+<p>でもだからこそ</p>
+<p>向き合えて、出逢えて幸せです( ¨̮ )</p>
+<p>正直、自分の中で悩みに悩んで</p>
+<p>頭を抱える毎日で</p>
+<p>壁にぶつかってばかりで</p>
+<p>難しくて上手くいかなくて</p>
+<p>悔しくって悔しくって仕方なくて</p>
+<p>分からなくなることもありました、</p>
+<p>正解はないけど、、</p>
+<p>私なりの杏奈を、と思い</p>
+<p>毎日奮闘してきました</p>
+<p>とにかく千秋楽まで</p>
+<p>全員で怪我なく迎えられるよう</p>
+<p>頑張りたいと思います！！</p>
+<p>千秋楽終えたら</p>
+<p>また詳しく書きます∠(　˙-˙ )／</p>
+<p>明日、１９日は</p>
+<p>サイリウム使用可能なので</p>
+<p>ぜひ一緒に楽しみましょうっ</p>
+<p>青×水色です( ¨̮ )</p>
+<p>よろしくお願いしますっ∠(　˙-˙ )／</p>
+<p>出演させて頂くことになりました！</p>
+<p>遅めの発表になってしまい</p>
+<p>申し訳ないです(；；)</p>
+<p>ですが頑張ります！！</p>
+<p>とっても楽しみです！！</p>
+<p>お越しくださる方は</p>
+<p>ぜひ楽しみに待っていてくださいっ！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>ももこ〜</p>
+<p>髪の毛が好きみたいですこの子は</p>
+<p>先日の山下と出演させて頂いた、</p>
+<p>ニッポン放送でのオールナイトニッポン！</p>
+<p>お聴きくださった皆様</p>
+<p>ありがとうございました( ¨̮ )！</p>
+<p>不安だったけど</p>
+<p>とにかく楽しめましたっ</p>
+<p>2時間本当にあっという間だった〜</p>
+<p>素敵な機会を頂きました。</p>
+<p>もっと喋れるようになりたいっ</p>
+<p>また出演出来るよう頑張ります！！</p>
+<p>そして１４日に２２枚目シングルも</p>
+<p>発売になりました〜！！ぱちぱち</p>
+<p>遂に！です！</p>
+<p>今回も本当に素敵な楽曲ばかりです。</p>
+<p>大切な曲が増えていきます。( ¨̮ )</p>
+<p>皆様ぜひお手に取って見てくださいね☺︎</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>BRODY さまオフショット！</p>
+<p>代官山での撮影</p>
+<p>本当に楽しかったなあ〜</p>
+<p>お知らせ◎</p>
+<p>《雑誌》</p>
+<p>▽日経エンタテインメント！ さま 連載</p>
+<p>▽１１／２４ B.L.T. さま 表紙</p>
+<p>▽１１／３０ BUBKA さま りりあと</p>
+<p>▽１２／１ bis さま</p>
+<p>世界観が、お洋服が、</p>
+<p>大好きだったbisさんの1月号に</p>
+<p>出させていただきますっ！！！</p>
+<p>本当に嬉しいとっても念願でした、、(；；)</p>
+<p>梅澤美波特集を組んでいただきました(；；)</p>
+<p>撮影ものすごくものすごく楽しくて、</p>
+<p>色んな私に変身しちゃいました！！</p>
+<p>見たことない私が沢山いるはず！！</p>
+<p>ぜひ！チェックしてくださいっ！</p>
+<p>まだお知らせしたいものも</p>
+<p>いくつかあるので</p>
+<p>情報解禁までお待ちをっ☺︎</p>
+<p>《ラジオ》</p>
+<p>▽毎週月曜〜木曜 「乃木坂46梅澤美波の『のぎぼき』！」</p>
+<p>《舞台》</p>
+<p>▽１１／１６〜２５ 「ザンビ」</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>半顔、、( .. )（笑）</p>
+<p>そして、</p>
+<p>２０１８年紅白歌合戦に</p>
+<p>乃木坂46が出演させて頂くことになりました！</p>
+<p>当たり前ではないこと、</p>
+<p>毎日の日々を大切にしなきゃなと</p>
+<p>改めて思います。</p>
+<p>２０１８年の締めくくりを</p>
+<p>大好きな乃木坂46で過ごして</p>
+<p>最高に楽しんで終われたらいいなと思います。</p>
+<p>いつもたくさんの応援</p>
+<p>本当にありがとうございます。☺︎</p>
+<p>今後もよろしくお願いします！</p>
+<p>それでは</p>
+<p>また更新しますっ</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>明日も頑張るぞ〜</p>
+<p>毎日夜寝る前は空を眺めます〜</p>
+<p>心が落ち着きます、</p>
+<p>何をする訳でもなくそんな時間が好きな梅澤です〜</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/47836?ima=4947&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/47836?ima=4947&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-11-11_47737_服の整理をしていたら意外と白い服が多かったことに気がつきました〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">服の整理をしていたら意外と白い服が多かったことに気がつきました〜</span>
+      <span class="nav-date">2018-11-11</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-12-01_48120_久しぶりになってしまった書きたいことが沢山あります/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">久しぶりになってしまった書きたいことが沢山あります</span>
+      <span class="nav-date">2018-12-01</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

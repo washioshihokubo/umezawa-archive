@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ぴーす！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/63001?ima=4933&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ぴーす！</h1>
+        <div class="date">2021.09.04 21:30</div>
+      </header>
+
+      <main class="body">
+        <p>時間ってこんなにも早く進むのか〜</p>
+<p>ゆっくり過ごしているような今も</p>
+<p>過去になれば そんな今日も早く感じるもので</p>
+<p>結局自分の気分次第みたいなところもあって。</p>
+<p>なんとなく、私たちから 卒業 というものは</p>
+<p>遠くにあるような気がしていたんです</p>
+<p>けど 気づけば５年。</p>
+<p>今日で５周年を迎えました︎︎︎︎！︎︎︎︎✌︎</p>
+<p>いつも応援ありがとうございます！</p>
+<p>３期生おめでとう〜！！</p>
+<p>ちゃんと ずっしり</p>
+<p>時間と経験を重ねていましたね(^-^)</p>
+<p>いつからか 卒業 というものが</p>
+<p>私たちにもしっかり 現実味を帯びていました</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>（4年前くらい、お仕事終わりの帰りの電車で寝てた）</p>
+<p>だいぶ前から聞いていた事ではあったけど</p>
+<p>ただ心の準備なんてものは存在しなくてですね。</p>
+<p>現実だと思いたくなくて( .. )</p>
+<p>何度も何度も 止めたと思います。</p>
+<p>止めることがいい事だとは思わないけど...</p>
+<p>でも、ちゃんとそこには理由があって</p>
+<p>ももこはここにいるべき人だよと</p>
+<p>何度も何度も伝えてきました。</p>
+<p>止める理由を挙げたらキリがないんですよ。</p>
+<p>でもきっと ももこは困ったよね、</p>
+<p>ごめんね( .. )</p>
+<p>それに</p>
+<p>私にとって無くてはならない存在で</p>
+<p>ずっと側にいて欲しかったんです</p>
+<p>これはわがままですね！</p>
+<p>ただ、ももこのいない乃木坂人生が</p>
+<p>まだちょっと考えられなくて。</p>
+<p>わたしはこの先誰の前で弱音を吐き</p>
+<p>泣けばいいのだろうとさえ</p>
+<p>思ってしまいます。</p>
+<p>普通に出会って過ごす５年だったら</p>
+<p>きっとここまでの仲に</p>
+<p>なっていなかったのかもしれないけど、</p>
+<p>ここで出会って過ごした５年だったから</p>
+<p>こんなにも想う気持ちが大きくなっていったのかもしれません。</p>
+<p>楽しい とか 嬉しい とか</p>
+<p>プラスの感情だけじゃなくて</p>
+<p>数え切れないくらいの</p>
+<p>悲しさとか 悔しさとか 絶望とか</p>
+<p>マイナスに感じられるような感情を</p>
+<p>お互いに 見て 味わってきた過去が</p>
+<p>今の私たちを濃く 強くしてくれたと思います。</p>
+<p>これは、今だから言える、</p>
+<p>思えることですね(^-^)</p>
+<p>一見 仲良くならなそうな</p>
+<p>私たちじゃないですか（笑）</p>
+<p>お互いに初めは警戒していたのも事実。</p>
+<p>ただ、きっかけがあってからはすぐ、</p>
+<p>一瞬で壁が壊れた気がします(^-^)</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>（ふたりで映画見に行って</p>
+<p>ひとり２本ずつチュロス買って</p>
+<p>始まる前に食べきっちゃった日。</p>
+<p>これも4年前くらい。</p>
+<p>この顔愛おしすぎません？）</p>
+<p>今はももこの笑顔が</p>
+<p>ものすごく増えて！</p>
+<p>楽しい〜って</p>
+<p>前向きな言葉を聞くことも増えて、</p>
+<p>そんな姿を見て送り出せるのは</p>
+<p>私たちからしたら何よりも嬉しいことであって</p>
+<p>そんなももこを見ていると</p>
+<p>ホッと、安心します。</p>
+<p>わたしは同じ気持ちになると共に</p>
+<p>ももこの気持ちが何よりも嬉しくて仕方なかったなあ。</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>無条件に会えていた今までと</p>
+<p>約束 が必要になるこれから。</p>
+<p>ちょっと距離は変わるけど</p>
+<p>これから先も大切な人には変わりないです！</p>
+<p>気持ちの何かが変わる訳では無い！</p>
+<p>ただ、お互いの頑張る所が 少し変わるだけ(^-^)</p>
+<p>なので大丈夫です！</p>
+<p>思い出ファーストのMV、</p>
+<p>サプライズでしたよね (^-^)</p>
+<p>叶えてくれて本当にありがとうございます...</p>
+<p>１２人で叶えられて本当に良かった~</p>
+<p>一生宝物の映像になると思います。</p>
+<p>きっと色んな節目で見返すことになるだろうなあ。</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>ももこ〜</p>
+<p>頼むから誰よりも幸せになってね</p>
+<p>たくさん泣いたぶん</p>
+<p>これからは笑顔がもっともっと増えるよ︎︎︎︎！︎︎︎︎✌︎</p>
+<p>まだまだももこの人生に</p>
+<p>関わっていくき満々だから</p>
+<p>ずっとよろしく頼むよ(^^)</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>本当にありがとう</p>
+<p>ずっとだいすきだよ~</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/63001?ima=4933&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/63001?ima=4933&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2021-09-04_63003_#思い出ファースト/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">#思い出ファースト</span>
+      <span class="nav-date">2021-09-04</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2021-10-17_63905_ブログを書くときとアップするときの時系列が一致しませんね、ところでやっと寒さが来/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">ブログを書くときとアップするときの時系列が一致しませんね、ところでやっと寒さが来ましたね</span>
+      <span class="nav-date">2021-10-17</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>この場所にたくさんの愛を残せたら</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/53601?ima=4941&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>この場所にたくさんの愛を残せたら</h1>
+        <div class="date">2019.11.16 21:15</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>寒くなって嬉しい反面</p>
+<p>例年と比べると暖かいように感じています。</p>
+<p>マフラーをして鼻真っ赤にして</p>
+<p>手がかじかんで指が動かなくなるような寒さが待ち遠しくてたまりません。</p>
+<p>今年のコート、迷いに迷っています。</p>
+<p>黒がやはり使いやすいかな〜と思いつつ</p>
+<p>毎年黒だな〜ってことに気づき</p>
+<p>ブラウンやグレーにも惹かれている、、</p>
+<p>足首まであるロングコートが欲しいのだけど</p>
+<p>私の身長だと探すのが大変です、、</p>
+<p>やっぱり秋冬の服が一番好きです☀︎</p>
+<p>さて、だいぶお待たせしてしまいましたが</p>
+<p>握手会で頂いたお花たちです！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>上半分が１０／２２</p>
+<p>仙台個別握手会で頂いたもの、</p>
+<p>下半分が１０／２０全握で頂いたもの❁︎</p>
+<p>見にくくて大変申し訳ないです、、</p>
+<p>たくさんありがとうございます(；；)</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>そしてこちらがつい先日９日の</p>
+<p>幕張個握にて頂いたもの❁︎</p>
+<p>素敵なものばかりで嬉しいです。</p>
+<p>１部の私服しか撮れなかったのですが</p>
+<p>こんな感じでした〜</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>わたし的すごくお気に入りなお洋服です〜</p>
+<p>テロテロ素材が楽ちんで</p>
+<p>ものすごく好きです〜！！着やすい！</p>
+<p>ゆるっとしたシルエットが好み。</p>
+<p>今月は毎週握手会がありますね！</p>
+<p>お越しくださる方は楽しみましょう〜〜</p>
+<p>最近は映画の撮影と並行して</p>
+<p>リハーサルをしています！</p>
+<p>とにかくかっこよく踊るには</p>
+<p>数をこなして練習あるのみなので。</p>
+<p>隙間時間ができては、</p>
+<p>体が勝手に動いてしまいます（笑）</p>
+<p>歩いてても手が勝手に動いてしまう（笑）</p>
+<p>振り入れをしてから身体が慣れるまで時間がかかるので必死です。かっこよく踊るぞ〜！！</p>
+<p>中々リハーサルに参加できない中、</p>
+<p>色んな人に助けて頂いています。感謝。</p>
+<p>人に頼るのは苦手ですが</p>
+<p>みんなを見ていると私自身のモチベーションにも繋がるし、やはり同期は偉大です！</p>
+<p>４期生のみんなとも</p>
+<p>もっとたくさんコミュニケーションを取って</p>
+<p>本番一緒に楽しめたらいいなあ☀︎</p>
+<p>楽しみにしていてくださいね！</p>
+<p>今年の紅白歌合戦、</p>
+<p>乃木坂46の出演が決定しました。</p>
+<p>ありがとうございます！</p>
+<p>２０１９年をあの場で締めくくれること</p>
+<p>とても嬉しく有難く思います。</p>
+<p>今年の集大成のパフォーマンスをお見せできるよう、みんなで笑顔で楽しんで踊れますように☀︎</p>
+<p>そして、「Sing Out!」が</p>
+<p>日本レコード大賞 優秀作品賞にノミネートされました！</p>
+<p>日頃から応援して下さる全ての皆様に感謝しています。</p>
+<p>一昨年はテレビの前。</p>
+<p>去年はステージで感じたあの感動は</p>
+<p>私の人生の中でとても大きなものになりました。</p>
+<p>あの瞬間は一生忘れないだろうなあ。</p>
+<p>このグループにいられて本当に幸せです。</p>
+<p>年末はテレビの前で、</p>
+<p>私たちの姿をみていてください！！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>どっちが年上か分からない。</p>
+<p>私は年下だと思って接している。</p>
+<p>赤ちゃんみたいなあやちゃんです。</p>
+<p>舞台お疲れ様！</p>
+<p>行けなかったのが本当に悔しいです。</p>
+<p>明日は大阪にて個別握手会です！</p>
+<p>素敵な時間になるよう</p>
+<p>笑顔いっぱいお待ちしております。</p>
+<p>楽しもうね☀︎</p>
+<p>では。</p>
+<p>人の優しさに触れる度に</p>
+<p>心が痛く熱くなりますね( .. )</p>
+<p>たくさんの方の支えに感謝しています。</p>
+<p>色んな場所で恩返しが出来ますように</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/53601?ima=4941&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/53601?ima=4941&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-11-05_53495_似たようなものを好むらしい/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">似たようなものを好むらしい</span>
+      <span class="nav-date">2019-11-05</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-11-25_53702_笑顔をあげられるなら/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">笑顔をあげられるなら</span>
+      <span class="nav-date">2019-11-25</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

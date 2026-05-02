@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>温情</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/104264?ima=4930&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>温情</h1>
+        <div class="date">2026.01.06 21:00</div>
+      </header>
+
+      <main class="body">
+        <p>明けましておめでとうございます。</p>
+<figure><img src="images/image_001.jpg" alt=""></figure>
+<p>煌びやかな年末を過ごせました。</p>
+<p>みんなのお顔が</p>
+<p>いつも以上にわくわくしている気がして</p>
+<p>どこ見てもみんな笑顔で</p>
+<p>嬉しくなっちゃったなあ。</p>
+<p>皆様のおかげです！</p>
+<p>ありがとうございます(^^)</p>
+<p>わたしは狂おしいほど</p>
+<p>乃木坂が好きだなーと思ったし、</p>
+<p>乃木坂46というものに、</p>
+<p>これでもかってくらいこだわりたい。</p>
+<p>私が好きな、信じた乃木坂は</p>
+<p>失いたくないし</p>
+<p>乃木坂らしさを与えてくれる、</p>
+<p>作ってくれる、</p>
+<p>全ての方からの言葉を聞いて</p>
+<p>それを私たちが、</p>
+<p>きちんと守らなきゃと 思ったのです(^^)</p>
+<p>あんなにもキラキラしていた年末なのに</p>
+<p>お正月を過ごすわたしは</p>
+<p>あまりにもぐーたらしちゃってました。</p>
+<p>家族はみーんな、甘やかしてくれるので</p>
+<p>いいのです。お正月だけはね。</p>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<p>かわいいかわいいみっちゃん</p>
+<p>大好きな先輩の中に、3期生もいれてくれてありがとう。</p>
+<p>その言葉に、あまりにも救われすぎちゃったよ。</p>
+<p>いつも一生懸命に頑張る、</p>
+<p>熱い眼差しが好きでした。</p>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<p>自分が思っているより、この子に救われていたようです！</p>
+<p>どんなにステージに立ってもどんな言葉を受け取っても自惚れることなく</p>
+<p>媚びずにここに居続ける姿があまりにも眩しかった。</p>
+<p>一人にならないように、わたしは周りの人に甘えて暖を取るよ、ありがとう</p>
+<p>大好きな子達を、送り出せました(^^)</p>
+<p>ありがとう〜〜</p>
+<p>寂しくなるよ〜〜</p>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<p>同じような顔してるわ</p>
+<p>そしてわたくし本日、</p>
+<p>27歳になりました！</p>
+<p>年々、アイドルとしての可愛げが</p>
+<p>無くなってきた気がします、、</p>
+<p>受け入れてくれてありがとうね、、</p>
+<p>26歳、無我夢中にがんばった。</p>
+<p>26歳を生きるわたしは</p>
+<p>過去の後悔が突き動かしてくれた全てのことが、</p>
+<p>原動力でした。</p>
+<p>出来るだけ失敗したくないし</p>
+<p>正しい道を選び続けたいけど</p>
+<p>間違えないとね、意外と気づけないものなので</p>
+<p>全部意味があったと、今は思えています(^^)</p>
+<p>近くで見ていてくださる方々からいただく言葉はなによりも染みるし、</p>
+<p>心に残る言葉がたくさんあります。</p>
+<p>そんな言葉たちを思い返したら</p>
+<p>いくらでも頑張れる(^^)</p>
+<p>ただ、自分を好きになるには</p>
+<p>自分が自分自身にかける言葉が前向きにならなきゃ</p>
+<p>ずっと平行線のままだから</p>
+<p>まずは、自分が認められる自分であれるために</p>
+<p>生きていきたいです。</p>
+<figure><img src="images/image_005.jpg" alt=""></figure>
+<p>27歳も、頑張らせてくださいね(^^)</p>
+<p>熱苦しくなりすぎずね、、</p>
+<p>頑張りますのでね、、</p>
+<p>私はすぐ熱くなっちゃうからね、、</p>
+<p>誕生日プレイリスト、作りました！</p>
+<p>https://nogizaka46.lnk.to/BirthdayPlaylist</p>
+<p>10曲目はこのあと0:00公開の</p>
+<p>アルバムリード曲｢My respect｣です。</p>
+<p>今の私たちみんなで歌ってます。</p>
+<p>皆さんにとって、具体的な人が思い浮かぶような</p>
+<p>そんな曲になっているんじゃないかなあ。</p>
+<p>日付変わってすぐ聴いてね(^^)</p>
+<p>それでは！</p>
+<p>また書きます</p>
+<p>楽しいことたくさんだね</p>
+<p>元気で過ごしていてください</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/104264?ima=4930&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/104264?ima=4930&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2025-12-02_104148_夢の近くに 触れたとき/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">夢の近くに 触れたとき</span>
+      <span class="nav-date">2025-12-02</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2026-01-13_104273_尊敬は愛だね〜/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">尊敬は愛だね〜</span>
+      <span class="nav-date">2026-01-13</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

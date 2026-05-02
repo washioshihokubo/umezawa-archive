@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>２１歳になっちゃいました！加入当時は１７歳、、高校生でした</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/54314?ima=4940&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>２１歳になっちゃいました！加入当時は１７歳、、高校生でした</h1>
+        <div class="date">2020.01.06 19:54</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>２０２０年になりました！</p>
+<p>明けましておめでとうございます。</p>
+<p>今年の年越しは例年のように楽屋ではなく</p>
+<p>CDTVさんの番組内で年越ししました！</p>
+<p>あっという間でしたね〜</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>２０２０年がスタートしたという確かな事実がある訳ですが</p>
+<p>本当に、本当に実感が湧きません。（笑）</p>
+<p>環境と思い出とが、</p>
+<p>懐かしさや年明けの雰囲気を倍増させてくれていたから</p>
+<p>私の場合毎年同じような行動をしなければ</p>
+<p>中々実感が湧かないのだと思います。</p>
+<p>そうです、今年はいつもと違うお正月でした。</p>
+<p>初詣も、毎年行く場所とは別の場所に。</p>
+<p>全てが新鮮だったからかもしれません。</p>
+<p>年明けてすぐは楓と過ごしました〜</p>
+<p>本当にいつも笑わせてくれます。</p>
+<p>新年早々腹筋割れるほど笑ったので</p>
+<p>きっと今年は良い年になります。</p>
+<p>いつも何かしら遠慮がちなでんだけど、</p>
+<p>ずっと隣にいて欲しい人です( &#x27;-&#x27; )</p>
+<p>なんの遠慮もなくガツガツ来て欲しい、梅澤にだけはね、ふふ</p>
+<p>今年も一緒にたくさん笑いたいね︎︎︎︎✌︎</p>
+<p>やはりお正月は食べすぎてしまいますね</p>
+<p>だって美味しすぎますもん。</p>
+<p>毎日は食べられない母のご飯も</p>
+<p>久しぶりに会う家族や友人と食べるご飯は</p>
+<p>とんでもなく美味しすぎますもん。</p>
+<p>お正月くらい、いいですよね。◎</p>
+<p>新年早々 &quot;光&quot; を観に行ったり</p>
+<p>（笑）</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>綺麗。クリスマスの残り香がした。</p>
+<p>いや、けど、イルミネーションがクリスマスだけのものなんて決まりはないのか、完全に固定観念ですね。</p>
+<p>初詣にも行きましたよ。</p>
+<p>あ、おみくじは引いてません。</p>
+<p>毎年引きません。怖い。（笑）</p>
+<p>お父さんも引いたことないって。</p>
+<p>理由も、似てた。親譲りでした。</p>
+<p>初夢はまだ観てないです〜(  &#x27;-&#x27;   )</p>
+<p>毎年何見たか忘れちゃうから今年はメモに残そうかな〜なんて思ってます。</p>
+<p>夢って面白いですからね。</p>
+<p>日頃から見るものも全て。</p>
+<p>小さい頃見た夢でずっと忘れられない夢があります。</p>
+<p>現実でなく架空の物語なのに</p>
+<p>どうしてもトラウマで忘れられない。</p>
+<p>夢なのにね、ふしぎ。</p>
+<p>知り合いでない人とも</p>
+<p>夢の中では親しかったりして、ね</p>
+<p>面白いですよね</p>
+<p>そして本日２１歳になりました！</p>
+<p>一年早すぎてどうしましょう。</p>
+<p>そんな今日は映像研の撮影現場で迎えました。</p>
+<p>どんな一年になるのかは</p>
+<p>自分の行動次第である程度変えられることだと思います。</p>
+<p>それを理解しつつも２０歳の一年は</p>
+<p>自分から行動したり発言したり</p>
+<p>中々できない年だったので、今年は頑張ります。</p>
+<p>口だけにならぬよう、ちゃんとしなきゃですね〜</p>
+<p>２０歳と、２１歳。</p>
+<p>一年だけの差だけど響きが全然違いますね。</p>
+<p>気持ちも、全然違います。</p>
+<p>ここまで育ててくれた両親には</p>
+<p>本当に感謝しています。</p>
+<p>今年のお正月にやっと両親と姉とお酒を飲めました。大人になりました。</p>
+<p>今年の目標を大きくまとめると！</p>
+<p>&quot; 表現力を高める &quot; ことです。</p>
+<p>去年と一緒ですね。</p>
+<p>今年の目標というかこの世界にいる限りずっと追求し続けたいものです。</p>
+<p>一人の表現者としてステージに立ったり</p>
+<p>カメラの前に立ったり。</p>
+<p>変化し続ける中で今の私の表現でたくさんの方に今しか魅せれないものを届けたいです( &#x27;-&#x27; )</p>
+<p>やはり今はまだまだ表現力が足りません。</p>
+<p>自分自身のレベルアップに努め、</p>
+<p>グループに貢献できる人になりたいです！</p>
+<p>細かい目標リストはちゃんと、</p>
+<p>メモに残しました。</p>
+<p>ひとつでも多く、叶いますように</p>
+<p>20歳のうちにやり残したことは？と</p>
+<p>よく聞かれるのですが、</p>
+<p>これからでもできることだと思ってます。</p>
+<p>自分のペースで、一つ一つ叶えていけるよう努めます。</p>
+<p>私だけの夢ではなかったりもするのでね◎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>さやちゃん。妹のようです！</p>
+<p>あと、１期生２期生の先輩方や</p>
+<p>４期生のみんなと、</p>
+<p>もっとたくさんお話ししたいなあ〜</p>
+<p>今年は映画 「映像研には手を出すな！」の</p>
+<p>公開も控えています。</p>
+<p>撮影ももう終盤に差し掛かってきました。早い。</p>
+<p>今は完成が楽しみでなりません！</p>
+<p>一人一人のキャラクターが愛おしくてたまりません。</p>
+<p>悩むことも多いですが、</p>
+<p>お芝居がより好きになる期間です。</p>
+<p>貴重です。きっと、未来の私から見ても</p>
+<p>物凄く大切な期間になる気がしています。</p>
+<p>あと少し、皆様に素敵な作品をお届けできるよう</p>
+<p>金森さやか を精一杯演じさせて頂きます。</p>
+<p>お楽しみに！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>では。</p>
+<p>おやすみなさい。</p>
+<p>いつも本当にありがとうございます！</p>
+<p>今年も一緒に笑いましょう。</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/54314?ima=4940&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/54314?ima=4940&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-12-31_54286_ありがとうございます！/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">ありがとうございます！</span>
+      <span class="nav-date">2019-12-31</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-02-01_54803_じっくーり。ゆっくーり。/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">じっくーり。ゆっくーり。</span>
+      <span class="nav-date">2020-02-01</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>成人の日</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/48827?ima=4946&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>成人の日</h1>
+        <div class="date">2019.01.15 22:42</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！！</p>
+<p>新成人の皆様、</p>
+<p>おめでとうございます！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>そして私もその一人です！</p>
+<p>昨日は地元に帰り、</p>
+<p>家族と会い親しい友人にも</p>
+<p>会うことが出来ました。</p>
+<p>20年間育ててくれた両親には</p>
+<p>本当に本当に感謝しています。</p>
+<p>急激に何かが急に変わる訳では無いですが、</p>
+<p>ひとつの節目として</p>
+<p>覚悟を持って心構えを持って</p>
+<p>毎日を過ごしていけたらなあと思います！</p>
+<p>20歳を過ぎたら</p>
+<p>きっとこれまで以上に</p>
+<p>時間の経過があっという間に感じるんだろうな〜って思います。</p>
+<p>１日１日を大切に</p>
+<p>人との出逢いを大切に、</p>
+<p>自分の意志をしっかり持って</p>
+<p>これからも日々精進して参ります！</p>
+<p>よろしくお願いします！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>乃木神社での成人式にも</p>
+<p>参加させて頂きました！</p>
+<p>素敵に着付けして下さり</p>
+<p>ヘアーもセットしてくださいました、</p>
+<p>一生に一度の大切な時間でした。</p>
+<p>まあやさんが舞台で参加出来ずだったのが</p>
+<p>すごく寂しかったですが、</p>
+<p>朝全員で写真撮ることが出来ました！！</p>
+<p>舞台お疲れ様でした(；；)！！</p>
+<p>そして遅くなりましたが</p>
+<p>１月６日の大阪での握手会</p>
+<p>お越しくださった皆様、</p>
+<p>ありがとうございました！！</p>
+<p>年明け一番最初の握手会！</p>
+<p>そして2年連続誕生日当日に握手会！</p>
+<p>奇跡のようなことです！</p>
+<p>たくさんすぎるおめでとうを頂きました、</p>
+<p>たくさんのありがとうをお返ししました。</p>
+<p>本当に幸せな時間でした(；；)</p>
+<p>2部後には生誕祭も開いて頂いて</p>
+<p>たくさんの方に見守っていただいて</p>
+<p>本当に嬉しかったです。</p>
+<p>寒い中本当にありがとうございました(；；)</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>お手紙はたまみが読んでくれました(；；)</p>
+<p>よく一緒にいるたまみです◎</p>
+<p>ありがとう、</p>
+<p>お手紙大切にするね！！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>お花も、、</p>
+<p>信じられないくらいたくさん</p>
+<p>後ろに隠れちゃってるのもあるんです</p>
+<p>ごめんね(；；)</p>
+<p>一つ一つしっかり目を通して</p>
+<p>メッセージも読みました、</p>
+<p>携帯のフォルダに</p>
+<p>動画で一つ一つ残してあります、</p>
+<p>本当にありがとう(；；)</p>
+<p>レーンに行ってお花見た途端</p>
+<p>信じられないくらいたくさんあって</p>
+<p>嬉しくて嬉しくて仕方なかったです(；；)</p>
+<p>レーンの装飾も時間をかけて準備してくれて</p>
+<p>本当にありがとう(；；)</p>
+<p>年に一度の誕生日に</p>
+<p>大好きな皆様にお祝いして頂けて</p>
+<p>とても特別な一日になりました！</p>
+<p>次の握手会は</p>
+<p>２０日の東京ビッグサイトです！！</p>
+<p>お越しくださる方は</p>
+<p>よろしくお願いします∠(　˙-˙ )／</p>
+<p>お知らせ◎</p>
+<p>雑誌</p>
+<p>▽「月刊ヤングマガジン」</p>
+<p>▽「アップトゥボーイ」</p>
+<p>▽「日経エンタテイメント！」</p>
+<p>▽１／１０ 「20±SWEET」</p>
+<p>振袖を着て撮っていただきました！</p>
+<p>暗い中での撮影に物凄く憧れていて、</p>
+<p>それがやっと！念願で叶いました！</p>
+<p>楽しすぎる撮影でした、、！</p>
+<p>インタビューものっています！</p>
+<p>よろしくお願いします！</p>
+<p>▽１／１５ 「EX大衆」</p>
+<p>久保と二人での対談！！色々語りました〜</p>
+<p>とても盛り上がりました◎ぜひ！</p>
+<p>▽１／２８ 「with」３月号</p>
+<p>&quot;5年目OLと2年目OLの新・オフィスカジュアル&quot;という企画に飛鳥先輩と出させて頂きます！</p>
+<p>お話を聞いた時本当に嬉しくて</p>
+<p>撮影当日はめちゃくちゃ緊張しました、、！</p>
+<p>大人っぽく撮って頂いたのでぜひ！！</p>
+<p>〜ラジオ</p>
+<p>▽毎週月〜木 ニッポン放送 19:56〜20:00 「乃木坂46 梅澤美波の『のぎぼき』！」</p>
+<p>▽１／２０ 個別握手会@東京ビッグサイト</p>
+<p>▽１／２７ 「NOGIZAKA46 Live in Taipei 2019」</p>
+<p>〜DVD</p>
+<p>▽２／６ 「七つの大罪 The STAGE Blu-ray&amp;DVD」</p>
+<p>〜TV</p>
+<p>▽１／２３ 24:59〜25:29 日本テレビ系「ザンビ」</p>
+<p>舞台に続き、</p>
+<p>ドラマにも出演させて頂きます！</p>
+<p>舞台のザンビとはまた全く違った人物、</p>
+<p>木内加奈を演じています。</p>
+<p>初めてのドラマ、</p>
+<p>ほぼほぼ初めての映像でのお芝居！</p>
+<p>とてもいい経験になりました。</p>
+<p>チェックよろしくお願いします！</p>
+<p>年明けてから最近は</p>
+<p>生田さんが出演されている「グレート・コメット」、</p>
+<p>桜井さんが出演されている「レベッカ」、</p>
+<p>まあやさんが出演されている「ユニコーン」</p>
+<p>観劇させて頂きました！！</p>
+<p>どの作品も本当に本当に素敵で</p>
+<p>舞台の上の先輩方の姿を見て</p>
+<p>刺激を受ける毎日でした。</p>
+<p>私も先輩方のように</p>
+<p>誰かの心を動かせるような人になりたいです、、！</p>
+<p>それが私の絵馬に書いた目標にも</p>
+<p>繋がっています！</p>
+<p>色々勉強して吸収して</p>
+<p>成長できるよう頑張ります！！</p>
+<p>久しぶりになってしまい</p>
+<p>内容上手くまとまらずすみません、、</p>
+<p>TGCのことなどは</p>
+<p>また別で更新します！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>それではおやすみなさい〜</p>
+<p>外は寒いのに室内が暖かくて</p>
+<p>寒暖差にやられております、、</p>
+<p>皆様風邪にはお気をつけくださいね！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/48827?ima=4946&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/48827?ima=4946&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-01-06_48727_ハタチですって/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">ハタチですって</span>
+      <span class="nav-date">2019-01-06</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-01-21_48923_薄着で毛布にくるまるのが好き、、寝る時は暖かくするけどねっ/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">薄着で毛布にくるまるのが好き、、寝る時は暖かくするけどねっ</span>
+      <span class="nav-date">2019-01-21</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

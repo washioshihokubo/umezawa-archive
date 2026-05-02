@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>全部が美しさに見えた</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/104407?ima=4930&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>全部が美しさに見えた</h1>
+        <div class="date">2026.02.25 22:00</div>
+      </header>
+
+      <main class="body">
+        <p>皆様いかがお過ごしですか？</p>
+<p>4Days、とても楽しかったです。</p>
+<p>ステージ好きだなあと思ったし、</p>
+<p>みんなのことずーっとみていたいなーと、思いました</p>
+<p>好きが止まらなかったですね</p>
+<p>好きというよりも、愛してますね、</p>
+<p>こんなにも心を動かしてくれる</p>
+<p>このグループにいる人達はみーんな、</p>
+<p>すごいのです(^^)</p>
+<p>今日は、皆様にお知らせがあります。</p>
+<p>41枚目シングルの活動をもって</p>
+<p>乃木坂46を、卒業します。</p>
+<p>もう誰一人として、</p>
+<p>驚きはないかもしれないですね(^^)</p>
+<p>先に言います！長くなります！</p>
+<p>ひとりよがりな文章だけど、今日だけは許してください。</p>
+<p>少し、懐かしい話をします。</p>
+<p>当時17歳、乃木坂に加入してすぐのある日</p>
+<p>父と母に乃木坂を知ってもらうために</p>
+<p>当時公開されて間もなかった映画</p>
+<p>｢悲しみの忘れ方｣を観てもらいました。</p>
+<p>映画を見終えた後、</p>
+<p>娘がこれから味わうであろう</p>
+<p>美しくも残酷かもしれない未来と</p>
+<p>芸能界へ足を踏み入れるということの現実を</p>
+<p>くっきりと感じたであろうときの</p>
+<p>希望混じりに寂しそうに笑う両親の顔が、</p>
+<p>今でも忘れられません。</p>
+<p>姉は唯一、この世界へ入ることを</p>
+<p>一度止めてくれた大切な人であり</p>
+<p>弟は、幼いながらも 私がステージに立つことへ</p>
+<p>誰よりも輝かしい目を向けてくれていました。</p>
+<p>自分の人生が変わると同時に</p>
+<p>大切な人の未来も変えることになった、</p>
+<p>それが、この世界へ足を踏み入れたとき</p>
+<p>私が一番最初に感じた重さだったかなあ。</p>
+<p>でも、この責任があったから私は</p>
+<p>壊れず強くあれたのだと思います(^^)</p>
+<p>卒業が頭によぎったのは、</p>
+<p>もう何年も前だったと思います。</p>
+<p>先輩や同期、そして後輩たちの卒業を見送り</p>
+<p>あまりにも眩しく見える背中を眺めながら</p>
+<p>私はいつこの選択をするのだろうと、考えていました。</p>
+<p>２０２３年の２月２２日、</p>
+<p>キャプテンというバトンを受け取ったあの日</p>
+<p>卒業という選択は、自分の中で一度無くしました。</p>
+<p>乃木坂人生また一からスタートする気持ちで</p>
+<p>より乃木坂46と真正面から向き合い</p>
+<p>それまでよりも、ここにかける時間と想いを費やしてきたつもりです。</p>
+<p>私は、ここ数年のグループの大きな転換期に</p>
+<p>こんなにも愛おしく思える同期と後輩たちと共に</p>
+<p>戦えたことが、そばにいられたことが</p>
+<p>ただただ、なによりも、幸せでした。</p>
+<p>日々頼もしくなる大切な後輩たちの姿を眺めながら</p>
+<p>みんながより、</p>
+<p>自信と欲を持ち始めてくれたなと思った今</p>
+<p>卒業を決めました。</p>
+<p>色んなことがあった9年半！</p>
+<p>高校生だった私も、27歳になりました。</p>
+<p>あの日から私は、何が変わって</p>
+<p>何が変わっていないのか</p>
+<p>ふと考えるときがあります。</p>
+<p>私は自分を鎧で取り繕うほど器用な人間ではなく</p>
+<p>いつだってありのままで戦うことしか出来ず</p>
+<p>傷つくことも当たり前に引き受けながら、</p>
+<p>ここまでやって来ました。</p>
+<p>ずっと笑えていたわけでもない</p>
+<p>常に堂々とできていたわけでもない</p>
+<p>風当たりの強さを知っているが故に</p>
+<p>今だってステージに立つ時の手の震えは</p>
+<p>あの頃と何も変わらずあるのですが</p>
+<p>それでも、</p>
+<p>自分の中の信念みたいなものは</p>
+<p>いつだって変わらずに、9年半</p>
+<p>強く持ち合わせていました。</p>
+<p>しんどくても手放さなかったし</p>
+<p>お仕事をする上で選び続けた姿勢があったし</p>
+<p>乃木坂としてはみ出さない形を持ち続けたし</p>
+<p>自分が特別でないと分かっていたからこそ、</p>
+<p>崩さずに、持っていた在り方がありました。</p>
+<p>つらくて仕方がなかった時、孤独だった時、</p>
+<p>逃げたいと思ったことはあっても</p>
+<p>辞めようなんて選択はありませんでした。</p>
+<p>大好きな乃木坂を、</p>
+<p>今なら大好きなまま、去ることができそうです(^^)</p>
+<p>私は、ここに集まる人が、大好き！</p>
+<p>チーム乃木坂スタッフの皆様(^^)</p>
+<p>私は、ステージで笑えなくなったとき、</p>
+<p>スタッフの皆様にスポットライトを当てて歌ってた。</p>
+<p>まずは誰よりも</p>
+<p>近くにいるこの人たちの幸せをと思ったし、</p>
+<p>何よりも私たちを見て、笑っていて欲しかった。</p>
+<p>私たちを愛してもらうために、</p>
+<p>この人達を誰よりも愛したいと思っていました。</p>
+<p>色んなことがありました。</p>
+<p>いつだって見捨てずに、愛と熱と鞭をもって、</p>
+<p>私たちを乃木坂46として送り出してくれました。</p>
+<p>今近くにいてくれているスタッフの皆様も</p>
+<p>ここを去っていったスタッフの皆様も、</p>
+<p>誰一人として忘れずにいたいです。</p>
+<p>考えれば、涙が出るくらい、</p>
+<p>愛せるスタッフの皆様です(^^)</p>
+<p>17歳の小娘から、</p>
+<p>27歳のより生意気になった小娘を、</p>
+<p>ここで輝かせてくれてありがとうございました！</p>
+<p>敬愛する先輩方(^^)</p>
+<p>乃木坂が愛される理由の全ては</p>
+<p>乃木坂を作った先輩方の人間力でしかないと思っています。</p>
+<p>惹かれた理由がなんであれ、</p>
+<p>どっぷりハマったその先にそれ以上のものが無いと、</p>
+<p>長くは愛せないと思うんです。</p>
+<p>何よりも私は、</p>
+<p>先輩方の内側にある優しさや強さや</p>
+<p>ここにしかない温かさが、大好きだったんです。</p>
+<p>先輩方が全員ご卒業されたあの日、</p>
+<p>ここからが私のやるべき事の本番が始まるんだと、気づきました。</p>
+<p>大好きな先輩方が生きた乃木坂46、</p>
+<p>乃木坂46だけにあるもの、乃木坂46というもの</p>
+<p>私はその意志を誰よりも強く持っていたいと思ったし、</p>
+<p>しつこいくらいこだわってやると、誓った！</p>
+<p>頑固にだってなったし、孤独を感じたときもあった、</p>
+<p>間違った日だってあった、でも</p>
+<p>絶対に何ひとつこぼしたくない</p>
+<p>失いたくないと思った。</p>
+<p>あの日からの私の心の支えはいつだって</p>
+<p>大好きな先輩たちとの</p>
+<p>生き生きとした思い出たちでした(^^)</p>
+<p>今でも私の憧れの女性たちです。</p>
+<p>そして、ファンの皆様！</p>
+<p>まずは、</p>
+<p>ファンの皆様がいなければ私たちは誰一人として、</p>
+<p>乃木坂46として生きられないのです。</p>
+<p>いつも、本当にありがとうございます。</p>
+<p>きっと確定していなくても</p>
+<p>色々頑張ってくれていたよね、</p>
+<p>その気持ちも どこへいってしまうのだろうとか</p>
+<p>こんな私でも、きっと</p>
+<p>誰かの人生の選択の一部だったはずなんです。</p>
+<p>それを分かっていたからこそ</p>
+<p>この選択を伝えるまでドキドキだったのだけど、</p>
+<p>私のファンの皆様のこと思い浮かべたら</p>
+<p>なんだか妙に安心しちゃって(^^)</p>
+<p>察していただろうに 待っていてくれた皆だから</p>
+<p>いつ私がこの選択をしようと</p>
+<p>きっと、笑って受け止めてくれるはずで。</p>
+<p>いつもありがとう。感謝でいっぱいです。</p>
+<p>最近は、他の子のファンの方も</p>
+<p>私のところにお話しに来てくれて</p>
+<p>色んな言葉をかけてくれるんです！</p>
+<p>梅が笑ってると安心する、とか</p>
+<p>キャプテンでいてくれてありがとう、とか</p>
+<p>私にはもったいないくらいの言葉をたくさんいただいて</p>
+<p>私、それでどれだけ救われ、頑張れたか(^^)</p>
+<p>どんなことも、</p>
+<p>いただいた言葉たちを思えばへっちゃらでした。</p>
+<p>私たちの抱えている感情は</p>
+<p>痛いほどファンの皆様に伝わるんだなと思った。</p>
+<p>だから私はいつだって</p>
+<p>前を向いていようと決めたの！</p>
+<p>前向きな言葉を発していこうと決めたの！</p>
+<p>ありがとう。皆さん！！</p>
+<p>これからも、よろしく頼みました。</p>
+<p>最後に、</p>
+<p>残りの時間で</p>
+<p>たくさんの感謝は伝えていくつもりだけど</p>
+<p>年齢や期を問わず、</p>
+<p>心からみんなのことを尊敬しています。</p>
+<p>無邪気に笑う日もあれば、</p>
+<p>笑えていない日もあって。</p>
+<p>毎日、時間が経つたびに コロコロと変わる表情と</p>
+<p>持ち合わせる感情が変わるみんなが、大好きでした。</p>
+<p>皆が心悩ませる先はきっと</p>
+<p>いつだって乃木坂だったはずだから</p>
+<p>ここで戦ってくれる皆の姿は、</p>
+<p>どんな姿も私にとっては宝物のように映っていました。</p>
+<p>みんなも不安だったろうに</p>
+<p>こんなに頼りない私にいつも笑顔を向け</p>
+<p>拙い言葉に耳を傾け、さり気なく背中を支えてくれ</p>
+<p>腕を掴み手を握り、いつでもそばに居てくれました。</p>
+<p>かっこよく引っ張れなくて、ごめんね</p>
+<p>でも、私はみんなだったから毎日頑張れた！</p>
+<p>みんなのもとで、より、</p>
+<p>みんなと言葉を交わせる役割をいただけたことに</p>
+<p>乃木坂人生意味があったと思えるくらい</p>
+<p>感謝しています。</p>
+<p>誰一人として私にはなくてはならない存在です(^^)</p>
+<p>みんなの不安な涙や</p>
+<p>悲しい涙は見たくない。</p>
+<p>どうにか幸せな涙で溢れる未来であってほしい。</p>
+<p>そうあれるように、</p>
+<p>私にできることが残されているのならば</p>
+<p>変えていきたい！頑張るね。</p>
+<figure><img src="images/image_001.jpg" alt=""></figure>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<p>5月21日に 卒業コンサートをさせて頂くことになりました。</p>
+<p>私にはもったいなさすぎる時間と場所ですが</p>
+<p>乃木坂46と名乗れる時間を</p>
+<p>最後まで誇らしく、ステージに立ちたい。</p>
+<p>どうか、皆様会いに来てください(^^)</p>
+<p>私は乃木坂46なので</p>
+<p>乃木坂46として、私が信じる大好きな乃木坂の形を</p>
+<p>心を込めてお届けします。</p>
+<p>以上です！読んでくれてありがとう！</p>
+<p>卒業をみんなに伝えた帰りの車</p>
+<p>高速道路の同じ間隔で光るライトを見ながら</p>
+<p>涙が止まらなくなったのを思い出しました。</p>
+<p>なんで泣いてんねん！と思いながら、</p>
+<p>あー、終わりまでの時間が始まったぞ、と</p>
+<p>寂しくなっちゃったんだあ</p>
+<p>限られたタイムリミットを切ったのは自分なのに</p>
+<p>大切なものを手放すということは</p>
+<p>こういう事なんだと、実感した日</p>
+<p>とにかく、最後の日まで</p>
+<p>みんなのことを、乃木坂のことを</p>
+<p>考え続けたい</p>
+<p>よろしくお願いします。</p>
+<p>それでは！また！</p>
+<figure><img src="images/image_005.jpg" alt=""></figure>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/104407?ima=4930&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/104407?ima=4930&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2026-01-13_104273_尊敬は愛だね〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">尊敬は愛だね〜</span>
+      <span class="nav-date">2026-01-13</span>
+    </a>
+    
+      <span class="disabled">次の記事 →</span>
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>簡単なことはなにもない</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/45841?ima=4952&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>簡単なことはなにもない</h1>
+        <div class="date">2018.07.03 19:48</div>
+      </header>
+
+      <main class="body">
+        <p>皆様こんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>おでこ。</p>
+<p>かなりレアかと。</p>
+<p>選抜発表がありました。</p>
+<p>今回私は２列目の真ん中に</p>
+<p>呼ばれたときは</p>
+<p>一瞬時が止まったような感覚というか</p>
+<p>記憶にないくらいの感覚というか。</p>
+<p>嬉しいという感情を得られるほど</p>
+<p>心に余裕はなくて</p>
+<p>実感もなく</p>
+<p>ただただ頭の中が混乱していました、、</p>
+<p>こういうとき、</p>
+<p>真っ先にマイナスな未来を考えてしまう私の性格では、心の中はぐちゃぐちゃでした</p>
+<p>時間が経った今は</p>
+<p>とても前向きな気持ちです。</p>
+<p>それに、嬉しいと今は感じられています！</p>
+<p>とても嬉しいです！幸せです。</p>
+<p>そして、</p>
+<p>皆様への感謝の気持ちが</p>
+<p>どばどば溢れてきています、</p>
+<p>早くファンの皆様のお顔が見たい</p>
+<p>私のアイドルとしての始まりは</p>
+<p>１番後ろの１番端っこでした。</p>
+<p>ずっと後ろからの景色を</p>
+<p>いろんな感情を持ちながら見ていました</p>
+<p>それと同時に</p>
+<p>きっとどこか任せっきりにしてしまっていた部分もあったと思います</p>
+<p>苦しかったりもしたけど</p>
+<p>今の私にはこの位置が見合っているんだと思って活動する毎日でした。</p>
+<p>いつかあの景色を、、と思いながら！</p>
+<p>私はきっと誰よりも普通の人です（笑）</p>
+<p>自分で誇れる部分が無いです。</p>
+<p>けど、出来ることは自分なりに</p>
+<p>コツコツ頑張ってきたつもりでした</p>
+<p>少しずつ、少しずつ</p>
+<p>わたしのペースで！</p>
+<p>３期生曲では３列目から一気に</p>
+<p>フロントに立たせて頂いたりもしました！</p>
+<p>加入してすぐに</p>
+<p>３期生を応援してくださっている方からしたら</p>
+<p>私の環境の変わり方の凄まじさに気づいてくださると思います。</p>
+<p>私がこんなに心も環境も成長でき</p>
+<p>前向きになれたのは</p>
+<p>紛れもなくファンの皆様の力が１番に大きい！</p>
+<p>３列目にいた頃から</p>
+<p>あまり目立っていなかった私を</p>
+<p>どこからか見つけてくれて</p>
+<p>会いに来てくれて</p>
+<p>前へ前へ背中を押してくれた。☺︎</p>
+<p>選抜発表を受け、</p>
+<p>ファンの方に届くまでの間、</p>
+<p>握手会があったのだけど</p>
+<p>一人一人の顔を見ながら</p>
+<p>この方達のおかげで</p>
+<p>私は頑張れたんだなって</p>
+<p>そんなことを考えながら握手してたよ〜（笑）</p>
+<p>涙が出そうになった時もあったな〜</p>
+<p>今まで会いに来てくれた</p>
+<p>初期から支えてくださった方を含め</p>
+<p>今も変わらず会いに来てくれる方、</p>
+<p>そして、遠くから応援してくれてる</p>
+<p>皆様の力のおかげです。</p>
+<p>本当に、１番にありがとう。</p>
+<p>２１枚目で活動する中での目標は</p>
+<p>「自信をつける」！！</p>
+<p>今の私に１番必要なモノだと思います</p>
+<p>２列目の真ん中、</p>
+<p>生駒さんがいらっしゃったポジション</p>
+<p>全体の中心のポジション</p>
+<p>とてもプレッシャーもあります。</p>
+<p>けど、</p>
+<p>先輩方に囲まれ、そして</p>
+<p>両サイドには心強い同期。</p>
+<p>なにも不安に思うことは無い、</p>
+<p>自分らしく頑張ればきっと大丈夫☺︎</p>
+<p>なぜ今私がここに立つのか</p>
+<p>与えられた場所の意味も考えながら</p>
+<p>活動していきたいです</p>
+<p>実力も飛び抜けた才能も</p>
+<p>何も無い私だけど</p>
+<p>とにかくがむしゃらに頑張ります！</p>
+<p>一緒に前を向いて歩いてくれたら</p>
+<p>私はとっても幸せです。☺︎</p>
+<p>ここで終わらせないように頑張るから！</p>
+<p>改めて、</p>
+<p>本当にいつもありがとうございます。</p>
+<p>これからも一緒に</p>
+<p>たくさんの景色が見たいです！</p>
+<p>まだまだ、目指すものは沢山あります</p>
+<p>迷走したりもするけど</p>
+<p>今はグループのために頑張りたい！</p>
+<p>身長高いアイドルは</p>
+<p>偏見を持たれることが多いですが</p>
+<p>少しずつそれを挽回していきたい、</p>
+<p>こんな形のアイドルもあるんだぞ！と。</p>
+<p>２列目の真ん中にデカいのいるけど</p>
+<p>中々いいじゃんいけてるじゃん！て</p>
+<p>たくさんの人に思ってもらえるように</p>
+<p>身長高いアイドルはどうとか</p>
+<p>そんなの崩してやる！</p>
+<p>ってくらいの強い気持ちを持って。</p>
+<p>私は前を向きます！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>ありがとう、見つけてくれて</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>笑顔でいればきっと大丈夫だよね☺︎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>梅澤、全力で頑張ります！！</p>
+<p>今年の夏は</p>
+<p>というか今もう真っ最中ですが</p>
+<p>やらなければいけないことが山ほどあって</p>
+<p>今は余裕がない不安ばかり、</p>
+<p>最近は冷静でいられないことばかりです。</p>
+<p>でも、今のこの経験が</p>
+<p>これからの私をきっと変えてくれる！</p>
+<p>今、とても幸せだなと実感しています。</p>
+<p>一回りも二回りも</p>
+<p>梅澤はパワーアップしたい！！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>素敵な思い出が沢山出来ますようにっ</p>
+<p>書けていなかった握手会のことやら</p>
+<p>告知やら更新します！</p>
+<p>おやすみ！！</p>
+<p>いつもいつも本当にありがとう☺︎</p>
+<p>みんながいれば何も怖くないです！</p>
+<p>私のパワーの源です。これからもよろしくねっ</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/45841?ima=4952&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/45841?ima=4952&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-06-30_45790_乃木坂46版 ミュージカル「美少女戦士セーラームーン」！千秋楽を迎えてから１週間/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">乃木坂46版 ミュージカル「美少女戦士セーラームーン」！千秋楽を迎えてから１週間経った今でも毎日舞台に立ってる夢を見る！それくらい私にとって大切な時間でした！まだ９月にもあるけど！</span>
+      <span class="nav-date">2018-06-30</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-07-11_45938_七つの大罪と握手会とライブと告知と、、/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">七つの大罪と握手会とライブと告知と、、</span>
+      <span class="nav-date">2018-07-11</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

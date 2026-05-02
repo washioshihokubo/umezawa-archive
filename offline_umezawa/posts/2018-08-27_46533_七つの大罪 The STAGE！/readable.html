@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>七つの大罪 The STAGE！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/46533?ima=4951&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>七つの大罪 The STAGE！</h1>
+        <div class="date">2018.08.27 17:36</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！</p>
+<p>乃木坂４６の</p>
+<p>梅澤美波です！！</p>
+<p>「七つの大罪 The STAGE」</p>
+<p>大千穐楽を終えました！</p>
+<p>劇場に足を運んでくださった皆様、</p>
+<p>ニコ生、RakutenTVにてご視聴くださった皆様、</p>
+<p>応援してくださった皆様、</p>
+<p>本当にありがとうございました！</p>
+<p>まとめるの時間かかって</p>
+<p>遅くなりました〜</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>みんな本当にいい笑顔☺︎</p>
+<p>去年の１２月にオーディションを受け</p>
+<p>絶対にこの役がやりたいと、</p>
+<p>エリザベスちゃんは私が演じる！と、</p>
+<p>今まで弱気で生きてきた私が</p>
+<p>初めてここまで強い思いで、</p>
+<p>そう意気込んで望んだオーディション。</p>
+<p>とても懐かしく感じます( ¨̮ )</p>
+<p>もうそこから始まっていたんですね〜</p>
+<p>顔合わせの時から、稽古場から感じた、</p>
+<p>皆さんの技術もプロ意識も</p>
+<p>知恵も対応力も作品に対する愛も</p>
+<p>その場にいるだけで感じる熱量が</p>
+<p>本当に凄まじく心強くカッコよかった。</p>
+<p>稽古にも中々出れなかったり、</p>
+<p>遅れをとった分は支えてくれて</p>
+<p>一から全て教えてくれて、、、</p>
+<p>私はただただみんなの歩む道を</p>
+<p>みんなが引いてくれたレールを</p>
+<p>着いていくのに必死でした。</p>
+<p>毎日一人一人のお芝居に心動かされ</p>
+<p>それぞれのキャラクターが</p>
+<p>七つの大罪の世界の中の人物として捉えて見られるからこそ</p>
+<p>私はエリザベスとして在り続けられました。</p>
+<p>それと、</p>
+<p>エリザベスちゃんの発する言葉と、</p>
+<p>エリザベスちゃんが</p>
+<p>その場で感じているであろう感情が</p>
+<p>七ステの現場での私とリンクする部分がすごく多かった！</p>
+<p>エリザベスちゃんと向き合う毎日の中で</p>
+<p>教わったことが沢山あったし、</p>
+<p>私とエリザベスちゃんを重ね合わせて</p>
+<p>感情がより強く出た部分もありました☺︎</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>一緒のシーンが多かった</p>
+<p>たくさん助けられたし、</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>ディアンヌ役長谷川かすみちゃん！</p>
+<p>かすみんがいたから私は</p>
+<p>毎日笑顔で楽しくいられたと思います！</p>
+<p>かすみんとはこの先もずっと会う気がしてるから寂しくない！</p>
+<p>またご飯行く約束したんだ〜☺︎</p>
+<p>早く会いたいなあ〜</p>
+<p>まだまだみんなのこと</p>
+<p>書き足りないけど、、</p>
+<p>長くなりすぎちゃうから</p>
+<p>心に閉まっておきます。</p>
+<p>一人一人から頂いた言葉は</p>
+<p>今の、これからの私の中で</p>
+<p>支えてくれる言葉たちであり、</p>
+<p>とても宝物☺︎</p>
+<p>言葉って難しくもあり</p>
+<p>とても素敵なもので</p>
+<p>たかが一言であろうと</p>
+<p>何よりも人を支えるモノだったりする☺︎</p>
+<p>この期間この場所で教わったことを胸に</p>
+<p>みんなにまた会えると信じて、</p>
+<p>その日まで</p>
+<p>頑張ろうと思います！</p>
+<p>終わってしまったのに</p>
+<p>終わった感じがしないのは</p>
+<p>またみんなとこの世界に飛び込める気がしているからだと思います☺︎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>もしまた、</p>
+<p>みんなでこの世界に飛び込める日が来るのなら</p>
+<p>私は一回りも二回りも成長して</p>
+<p>みんなを驚かせたいんだっ！！</p>
+<p>儚く素敵な時間を</p>
+<p>本当にありがとうございました！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>ありがとうエリザベスちゃんっ</p>
+<p>あなたのおかげで素敵な人たちに出逢えたよ</p>
+<p>またあなたになれる日が来るといいな☺︎</p>
+<p>七つの大罪観たことないよって方！</p>
+<p>女性でも男性でも</p>
+<p>ぜひ観てほしい作品です！</p>
+<p>面白かったからって</p>
+<p>原作、アニメ見始めてくれた子もいます☺︎</p>
+<p>嬉しいなあ〜</p>
+<p>原作も今すごく盛り上がっています、</p>
+<p>アニメも！！</p>
+<p>そして現在公開中の</p>
+<p>映画「七つの大罪 天空の囚われ人」も</p>
+<p>ぜひご覧下さい！！</p>
+<p>主題歌は乃木坂46 ２１枚目シングルに</p>
+<p>収録されている楽曲、</p>
+<p>「空扉」です☺︎</p>
+<p>素敵な特別な曲だから、、</p>
+<p>大切に歌っていきます！！</p>
+<p>よーし！</p>
+<p>二日目！</p>
+<p>がんばるぞー！</p>
+<p>お越しくださる方は楽しみましょうっ</p>
+<p>来られる方、よろしくね☺︎</p>
+<p>タオルやサイリウム</p>
+<p>たくさん見つけるぞー！</p>
+<p>それではのちほど〜</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/46533?ima=4951&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/46533?ima=4951&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-08-16_46428_イヤホンから流れるメロディ〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">イヤホンから流れるメロディ〜</span>
+      <span class="nav-date">2018-08-16</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-08-30_46574_金木犀の季節がもうすぐやってきますね〜/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">金木犀の季節がもうすぐやってきますね〜</span>
+      <span class="nav-date">2018-08-30</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

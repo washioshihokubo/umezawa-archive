@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ありがとうございました、そしてよろしくお願いします！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/48598?ima=4947&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ありがとうございました、そしてよろしくお願いします！</h1>
+        <div class="date">2019.01.02 19:12</div>
+      </header>
+
+      <main class="body">
+        <p>新年、明けましておめでとうございます( ¨̮ )</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！！</p>
+<p>２０１９年になりました！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>下書きしていたものの</p>
+<p>言葉下手で上手く書けなくて</p>
+<p>書いては消しての繰り返しで、、</p>
+<p>遅くなってごめんなさい( .. )</p>
+<p>２０１８年、</p>
+<p>関わってくださった全ての方へ、</p>
+<p>本当にありがとうございました！</p>
+<p>２０１８年は出会いの年でした！</p>
+<p>色々お仕事の幅が広がって</p>
+<p>させて頂くことが増えて</p>
+<p>たくさんの方に支えられ助けられ</p>
+<p>背中を押して頂いて</p>
+<p>前を向いて立っていられた１年でした。</p>
+<p>日経エンタテインメント！さんにて</p>
+<p>初めての連載をさせて頂いたり、</p>
+<p>星の王女さま、セラミュ、</p>
+<p>初めてのランウェイ、舞台ザンビ出演、</p>
+<p>ラジオのレギュラー番組、初の単独表紙、</p>
+<p>CMへの出演、ソログラビア、</p>
+<p>初めてのセンター曲を頂いたり、</p>
+<p>思い返せば</p>
+<p>数え切れないほど大切なものが増えました。</p>
+<p>たくさんのチャンスを頂きました、</p>
+<p>その度自分の力不足さに落ち込んだり、、</p>
+<p>でも、堂々と立っていたいと</p>
+<p>自信が無くとも堂々としていたいと</p>
+<p>そう心に決めて活動する毎日でした！</p>
+<p>毎日本当に幸せだったのだなと。</p>
+<p>辛かったこともひっくるめて</p>
+<p>それが全て自分の原動力になっているし</p>
+<p>力に、パワーになっています。</p>
+<p>全てのことに意味があったんだなあと</p>
+<p>今すごく実感しています！</p>
+<p>２０１９年は</p>
+<p>どうなるか想像もつかないけど</p>
+<p>20歳になる人生でも節目の年。</p>
+<p>一つ一つのお仕事を大切に、</p>
+<p>夢を探していきたいです。</p>
+<p>２０１９年の抱負は</p>
+<p>一人の表現者として</p>
+<p>パフォーマンスなど表現力を上げること！</p>
+<p>時にはお芝居をさせて頂いたり、、</p>
+<p>歌やダンス、お芝居で</p>
+<p>たくさんの方の心を</p>
+<p>動かせるような人になりたいです。</p>
+<p>簡単な目標ではないですが、</p>
+<p>今の自分に必要な事だと思いました！</p>
+<p>特に去年は、舞台がすごく</p>
+<p>好きになった一年だったから</p>
+<p>今年はプライベートでも</p>
+<p>観に行く機会を増やして</p>
+<p>たくさん勉強して、いつかまた</p>
+<p>舞台に立てる日が来たらなあ、、</p>
+<p>２０１９年は</p>
+<p>レベルアップできるよう努めたいと思います！</p>
+<p>今年も何卒よろしくお願いします！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>紅白歌合戦、</p>
+<p>ご覧下さった皆様ありがとうございました！</p>
+<p>DA PUMPさんの</p>
+<p>U.S.A.にも参加させて頂き、</p>
+<p>最高に楽しくて仕方なかったです(；；)</p>
+<p>真後ろで見るDA PUMPさんのダンスが</p>
+<p>キレキレで素敵でした！！</p>
+<p>そして帰り道は遠回りしたくなるでは</p>
+<p>西野さんと最後の歌番組でした、、！</p>
+<p>パフォーマンス始まる前から、</p>
+<p>曲中に西野さんを見つめる振り付けでも</p>
+<p>涙が出そうになってしまいました(；；)</p>
+<p>西野さんのパフォーマンスが</p>
+<p>本当に大好きです、、！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>本当にお疲れ様でした！(；；)</p>
+<p>バナナマンさんが来てくださったのも、</p>
+<p>曲中に気づきました！</p>
+<p>とても嬉しかったです(；；)！！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>たまさん</p>
+<p>衣装が好きすぎて素敵すぎて、、</p>
+<p>めちゃくちゃお気に入りです！！</p>
+<p>そして先日、</p>
+<p>乃木坂46がレコード大賞を頂きました！</p>
+<p>おめでとうございます！</p>
+<p>そしてありがとうございます。</p>
+<p>乃木坂46の一員でいられること、</p>
+<p>本当に誇りに思います。</p>
+<p>私は代打で出演させて頂きました。</p>
+<p>シンクロニシティ選抜から</p>
+<p>卒業された生駒さんと若月さんを思いながら</p>
+<p>自分なりに精一杯、</p>
+<p>パフォーマンスさせて頂きました。</p>
+<p>パフォーマンスする前、</p>
+<p>全員で円陣を組みました。</p>
+<p>その時点で涙がこぼれましたが、</p>
+<p>本番は楽しんでパフォーマンスできました！</p>
+<p>シンクロニシティ、</p>
+<p>私もとても想い入れが強く大好きな曲です！</p>
+<p>今後もたくさんの方に愛される曲でありますように、、！</p>
+<p>２０１９年になった瞬間は</p>
+<p>全員で手を繋いでジャンプしました、</p>
+<p>いい年になるといいなあ( ¨̮ )</p>
+<p>そして年明けてすぐに</p>
+<p>CDTVにも出演させて頂きました！</p>
+<p>なんと３曲も！！</p>
+<p>ご覧下さった皆様、</p>
+<p>ありがとうございました！</p>
+<p>なってしまいましたが、、</p>
+<p>本当にいつもありがとうございます。</p>
+<p>皆様の支えがあって</p>
+<p>わたしは毎日笑顔でいられます( ¨̮ )</p>
+<p>これからもよろしくお願いしますっ</p>
+<p>また更新します〜！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>アクセサリーもお気に入りっ</p>
+<p>おやすみなさい</p>
+<p>私の初夢に、</p>
+<p>若月さんと生駒さんが出てきたんです</p>
+<p>幸せな気持ちになりました。</p>
+<p>起きたら泣いていました（笑）</p>
+<p>いい一年になりそうです！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/48598?ima=4947&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/48598?ima=4947&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-12-25_48476_クリスマスですって皆さん〜！！！/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">クリスマスですって皆さん〜！！！</span>
+      <span class="nav-date">2018-12-25</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-01-06_48727_ハタチですって/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">ハタチですって</span>
+      <span class="nav-date">2019-01-06</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>６月になってもうこんなに経ってるなんて、、</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/51126?ima=4943&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>６月になってもうこんなに経ってるなんて、、</h1>
+        <div class="date">2019.06.11 21:00</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>歯みがき〜</p>
+<p>２３枚目シングル握手会、</p>
+<p>一発目の個別握手会でした〜！ぱちぱち</p>
+<p>楽しかったよ〜</p>
+<p>仙台！</p>
+<p>来てくださった皆様ありがとうございました！</p>
+<p>初めましての方が</p>
+<p>物凄く多かった印象でした。</p>
+<p>嬉しい嬉しい、、ぜひまた来てね〜</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>お花たくさん(；；)</p>
+<p>見にくくてごめんなさい。</p>
+<p>いつもありがとう〜！</p>
+<p>可愛いのばかり。ふふ</p>
+<p>今回も毎部服装変えたよ〜</p>
+<p>全部撮れていないですが、、</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>デニムデニム〜</p>
+<p>デニムすき〜</p>
+<p>これはアップトゥボーイさんの撮影で</p>
+<p>着たやつを好きすぎて買ってしまいました</p>
+<p>好評だった！嬉しい！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>ポニーしたりしたよ〜う</p>
+<p>どんなんが好きでしたかねえ。</p>
+<p>普段グループでの活動の中だと</p>
+<p>ヘアアレンジあまりしないので</p>
+<p>握手会で色々やってみるの楽しいです〜</p>
+<p>牛タン買ってこれた！</p>
+<p>やった！嬉しい！</p>
+<p>食べるの楽しみにしておる。わくわく</p>
+<p>そして握手会翌日は</p>
+<p>アルバムのスペシャルイベントでした！</p>
+<p>今回イベント内容がかなり増えたので</p>
+<p>ずっと楽しみにしてまして、</p>
+<p>やっと！でした！楽しすぎた！</p>
+<p>大縄は回す係！</p>
+<p>学生の頃背が高いからと何度か回したことがあったけど(背高いあるある</p>
+<p>やっぱり難しい！</p>
+<p>負けちゃったけど楽しかった〜</p>
+<p>頑張ってくれてありがとう！！</p>
+<p>玉入れはね、意外と難しいくて</p>
+<p>みんなに任せてわたしは漏れてきた玉を後ろから入れる係してた！</p>
+<p>ほぼほぼ全部入れたのに</p>
+<p>みんな強敵で勝てなかった〜( .. )</p>
+<p>卓球も楽しすぎて</p>
+<p>もっとやりたかったな〜</p>
+<p>一応卓球経験者なので、手加減せず戦わせていただきました！ふふ</p>
+<p>結構勝ったと思います〜嬉しいなあ。</p>
+<p>そして定番の黒ひげくん！</p>
+<p>こちらはまったりお話出来て楽しです。</p>
+<p>なかなか長くお話できる機会も少ないので貴重ですね。大切な時間でした</p>
+<p>そんな感じで！</p>
+<p>来てくださった皆様ありがとうございました！</p>
+<p>３期生みんなとファンの方と</p>
+<p>プチ運動会した気分でした！</p>
+<p>わちゃわちゃできて楽しかった本当に〜</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>髪型はツインしました。</p>
+<p>途中でゴムが切れて下ろしました。</p>
+<p>ツーパターンの梅澤でお送りしました〜</p>
+<p>まだ書きたいことも</p>
+<p>載せたい写真もあるので</p>
+<p>またかきます！！</p>
+<p>ではでは！</p>
+<p>雨に濡れるの苦手だけど</p>
+<p>匂いは好きなのよね〜</p>
+<p>梅雨がやってきましたね</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/51126?ima=4943&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/51126?ima=4943&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-06-02_50988_夜はまだ涼しいですね/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">夜はまだ涼しいですね</span>
+      <span class="nav-date">2019-06-02</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-06-16_51185_まっしろコーデ/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">まっしろコーデ</span>
+      <span class="nav-date">2019-06-16</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

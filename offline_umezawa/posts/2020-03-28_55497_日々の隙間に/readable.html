@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>日々の隙間に</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/55497?ima=4940&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>日々の隙間に</h1>
+        <div class="date">2020.03.28 20:30</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>Premium Music 2020</p>
+<p>ありがとうございました！</p>
+<p>新衣装でした。</p>
+<p>物凄く好きです！</p>
+<p>色んな形のパターンがあるけど</p>
+<p>どれも可愛かったなあ。</p>
+<p>歌番組の告知をさせてください。</p>
+<p>２／２８ 「CDTV」</p>
+<p>TBS系 24:58〜</p>
+<p>TBS系19:00〜</p>
+<p>３／３１ 「うたコン」</p>
+<p>NHK総合19:57〜</p>
+<p>４／３ 「ミュージックステーション 3時間スペシャル」</p>
+<p>テレビ朝日系 19:00〜</p>
+<p>４／５ 「シブヤノオト」</p>
+<p>NHK総合 24:05〜</p>
+<p>盛りだくさんです！有難いです。</p>
+<p>ぜひ、ご覧下さい！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>ももこ〜</p>
+<p>最近の歌番組ではほとんど一緒のリップ付けてるんです〜</p>
+<p>本日、with ５月号発売です！</p>
+<p>今月は、</p>
+<p>「春ワンピMUST BUY 30」</p>
+<p>「乃木坂OLプロジェクト第19弾 オフィスで映えるブラウス&amp;シャツコーデ」</p>
+<p>「大人のキュロット入門」</p>
+<p>の企画に出させていただいております！</p>
+<p>春ワンピの企画では</p>
+<p>由依さんと紙面共演させていただいてます❤︎</p>
+<p>そして本日３／２８ 発売の</p>
+<p>with ５月号で、専属モデルを</p>
+<p>務めさせて頂いてから１年が経ちました！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>専属決定号の撮影のとき。</p>
+<p>懐かしいなあ。</p>
+<p>毎月の撮影が楽しくて楽しくて、</p>
+<p>仕方がありません！</p>
+<p>自分の中で、with専属モデルになれたことは</p>
+<p>大きな自信に繋がりました。</p>
+<p>グループ外で一人で務める責任感。</p>
+<p>コンプレックスだった身長をコンプレックスに感じない場所、存分に活かせる場所。</p>
+<p>何よりこんなにも大きな夢が叶ったとき、</p>
+<p>喜びを共有できる方達の存在が</p>
+<p>とても嬉しく幸せでした。</p>
+<p>参加してみたい企画、沢山あります！</p>
+<p>この場でもっともっと成長できるよう</p>
+<p>今後も楽しみながら、</p>
+<p>読者の皆様にファッションや美容をお届けできたらなと思います❤︎</p>
+<p>まだまだ未熟ですが、</p>
+<p>大好きなwithに少しでも貢献できるように</p>
+<p>これからも精一杯務めさせて頂きます！</p>
+<p>そして来月号、</p>
+<p>小林由依さんと二人で</p>
+<p>初表紙を務めさせて頂きます、、！</p>
+<p>本当にありがとうございます(；；)</p>
+<p>まだ実感が湧きません、、</p>
+<p>撮影の楽しさは、</p>
+<p>きっと誌面から伝わるかと思います。</p>
+<p>緊張もしますが、、完成が楽しみです。</p>
+<p>ネット予約も時期始まるかと思いますので</p>
+<p>皆様ぜひ、ぜひゲットしてください！</p>
+<p>昔からメイクはピンク派で</p>
+<p>アイシャドウ、チーク、リップ、全て</p>
+<p>ピンク系や赤系で仕上げていた私ですが</p>
+<p>最近はオレンジにハマっております。</p>
+<p>肌もマット派だったのが、</p>
+<p>今やツヤが綺麗に出るハイライトにもハマっております。</p>
+<p>好みは変わるものですね〜</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>写真だと伝わりにくいですね。</p>
+<p>またコスメやら載せようかな、、？</p>
+<p>質問などあれば、ぜひコメントに☀︎</p>
+<p>では。</p>
+<p>また更新します！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>さくらちゃん〜。たまらなく可愛いです。</p>
+<p>ジャケ写撮影のときの。</p>
+<p>赤と青︎︎︎︎✌︎</p>
+<p>歌番組を通して</p>
+<p>音楽の力を皆でお届けしますね。</p>
+<p>たくさんの笑顔のきっかけになりますように。</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/55497?ima=4940&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/55497?ima=4940&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-03-23_55376_不安を遮るように/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">不安を遮るように</span>
+      <span class="nav-date">2020-03-23</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-04-04_55652_なんちゅう早さや/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">なんちゅう早さや</span>
+      <span class="nav-date">2020-04-04</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

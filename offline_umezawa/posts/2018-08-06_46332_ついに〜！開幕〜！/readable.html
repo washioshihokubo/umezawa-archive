@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ついに〜！開幕〜！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/46332?ima=4952&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ついに〜！開幕〜！</h1>
+        <div class="date">2018.08.06 20:30</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>新制服〜！！</p>
+<p>私はボタンタイプ〜</p>
+<p>少しの空き時間ができると</p>
+<p>お洋服を見に行っちゃうのだけど</p>
+<p>最近は明るめの服を着ることが増えたよ〜</p>
+<p>夏だからかな（笑）</p>
+<p>ワンピースにものすごく目がいくの、</p>
+<p>可愛い！と思う服がだいたいワンピースで</p>
+<p>着回しがあまりできないから</p>
+<p>買いすぎに気をつけてる( .. )（笑）</p>
+<p>ほんで毎日桃を食べてる</p>
+<p>フルーツ食べないと寝れない！</p>
+<p>夜の楽しみなんだ〜∠(　˙-˙ )／</p>
+<p>そんな最近の梅澤でした（笑）</p>
+<p>先日放送されたガクタビ！</p>
+<p>ご覧下さった皆様、</p>
+<p>ありがとうございました！</p>
+<p>山村国際高等学校のダンス部の皆さんと</p>
+<p>パフォーマンスをさせて頂きました！</p>
+<p>乃木坂で踊るダンスとは</p>
+<p>また違ったジャンルのダンス、、</p>
+<p>私はダンスが下手だし</p>
+<p>自分の体のコントロールが</p>
+<p>まだまだ下手くそなので</p>
+<p>この企画を聞いた時はとても不安でした、、</p>
+<p>その上、</p>
+<p>色んなお仕事の重なりがあり</p>
+<p>練習時間も中々取れずに</p>
+<p>生徒さんやかおり先生には</p>
+<p>たくさんご迷惑をおかけしました、、</p>
+<p>だけど終えた今は</p>
+<p>とても楽しかったし良い経験でした！</p>
+<p>生徒のみんなは</p>
+<p>本当に純粋で真面目で</p>
+<p>ダンスへの熱がひしひしと伝わってきて、</p>
+<p>ああ、こんな青春な時間を</p>
+<p>共に過ごせて幸せだなあって</p>
+<p>みんなを見てて思いました。</p>
+<p>今後もみんなを応援したい！</p>
+<p>大会、そして目標の全国制覇</p>
+<p>頑張ってください、</p>
+<p>またどこかで一緒に踊れたらいいなあ☺︎</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>衣装も素敵なものを</p>
+<p>用意して頂きました(；＿；)</p>
+<p>この２人で私は幸せだった、</p>
+<p>だいすき！！</p>
+<p>そして「七つの大罪 The STAGE」</p>
+<p>開幕しました！！</p>
+<p>遂に！です！</p>
+<p>情報解禁されてから</p>
+<p>本当にあっという間でした、</p>
+<p>短い稽古期間の中で</p>
+<p>たくさん色んなことを学んだなあ</p>
+<p>キャストの皆さんには</p>
+<p>色んな言葉をかけていただき、</p>
+<p>それのどれもが私の支えになり</p>
+<p>私の宝物になりました！</p>
+<p>言葉の力は偉大です！</p>
+<p>始まってしまったらきっと</p>
+<p>本当にあっという間に終わりが来てしまう</p>
+<p>毎日大切に新鮮に！</p>
+<p>楽しみたいと思います！</p>
+<p>毎日本当に楽しいです。☺︎</p>
+<p>劇場入りしてから</p>
+<p>毎日エリザベスとしてステージに立つ夢を見ています（笑）</p>
+<p>毎日続くものだから</p>
+<p>びっくりしちゃう( .. )（笑）</p>
+<p>これから観に来て下さる方はお楽しみに！</p>
+<p>たくさんの驚きや感動がつまっています！</p>
+<p>ぜひ観ていただきたい☺︎</p>
+<p>今日は休演日だから</p>
+<p>みんなに会えなくて寂しいね〜</p>
+<p>￼</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>大罪チームと！！</p>
+<p>メリオダス役 納谷健さん</p>
+<p>バン役 有澤樟太郎さん</p>
+<p>ディアンヌ役 長谷川かすみさん</p>
+<p>キング役 斎藤直紀さん</p>
+<p>と！！</p>
+<p>ゴウセル様がどこかへ行っていた、、</p>
+<p>また今度載せます∠(　˙-˙ )／（笑）</p>
+<p>そんな今日は舞台が休演日で、</p>
+<p>「劇場版 七つの大罪 天空の囚われ人」</p>
+<p>完成披露上映会に参加させて頂きました！</p>
+<p>舞台に映画に、</p>
+<p>色々な方面からこの作品に関われること</p>
+<p>本当に嬉しく思います。</p>
+<p>一足先に映画を観ましたが</p>
+<p>わくわくどきどきが止まらず</p>
+<p>終わったあとは感想をぶわあーっと</p>
+<p>誰かに話さないと気が済まないくらい（笑）</p>
+<p>ひたすら興奮していました！</p>
+<p>主題歌の「空扉」も</p>
+<p>歌詞、メロディー共に</p>
+<p>映画ととてもリンクしている部分も</p>
+<p>多くあります！</p>
+<p>ぜひ、皆様劇場へ！</p>
+<p>￼</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>よゐこさん、</p>
+<p>久野美咲さん、</p>
+<p>梶裕貴さんと☺︎！</p>
+<p>ホークちゃん！誕生日おめでとう！</p>
+<p>明日からもよろしくね✌︎(　˙-˙　)✌︎</p>
+<p>とんとことことん</p>
+<p>２１枚目シングル、</p>
+<p>MVが全て公開されました〜！ぱちぱち</p>
+<p>どれも本当に素敵だなあ。</p>
+<p>空扉、とても大切な曲。☺︎</p>
+<p>大好きなMVになりました！</p>
+<p>監督は大好きな伊藤衆人監督！</p>
+<p>若様軍団のMVなど撮ってくださってる方！</p>
+<p>一人一人のことを知ってくださってるからこその作品です！！</p>
+<p>白石さんと姉妹設定、</p>
+<p>２人のシーンは緊張しすぎて</p>
+<p>顔面がガチガチですが、、</p>
+<p>とても幸せでした☺︎</p>
+<p>８月８日、</p>
+<p>もうすぐ発売日です！</p>
+<p>２１枚目シングル、</p>
+<p>よろしくお願い致します！</p>
+<p>それではまた更新します！</p>
+<p>短くてごめんね(；＿；)</p>
+<p>お知らせやら色々</p>
+<p>またお伝えしたいことも沢山あるので</p>
+<p>お待ちを〜！！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>鼻にほくろがいます、</p>
+<p>知ってましたか？</p>
+<p>それではおやすみ〜</p>
+<p>この先同じ環境、同じシチュエーションはもうきっと無いから</p>
+<p>なにをするにも大切に過ごしたいなあ〜</p>
+<p>いつもありがとう！皆様の支えが何よりも私のパワーになります！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/46332?ima=4952&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/46332?ima=4952&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-07-28_46213_一度ハマったら飽きるまでひたすら貫き通す/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">一度ハマったら飽きるまでひたすら貫き通す</span>
+      <span class="nav-date">2018-07-28</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-08-10_46364_どもどもども〜/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">どもどもども〜</span>
+      <span class="nav-date">2018-08-10</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

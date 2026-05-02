@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ちょっとの移動時間でもすぐ眠れる最近です</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/49239?ima=4946&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>ちょっとの移動時間でもすぐ眠れる最近です</h1>
+        <div class="date">2019.02.16 20:42</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>久しぶりになってしまいました、</p>
+<p>ごめんね(；；)</p>
+<p>最近はとても寒くて</p>
+<p>この間は雪が降りましたね〜</p>
+<p>積もるかな積もるかなとワクワクでした</p>
+<p>雪が見れたからもう大満足！！</p>
+<p>今日も寒い！この感じがたまらなく好き！</p>
+<p>まだずっと冬がいい！！</p>
+<p>皆様風邪にはお気をつけを〜</p>
+<p>今日は東京ビッグサイトにて</p>
+<p>個別握手会でした〜！！</p>
+<p>お越しくださった皆様</p>
+<p>寒い中ありがとうございました(；；)</p>
+<p>でも今日はまず３日にあった個握のこと</p>
+<p>そちらの写真やら載せていきますね〜！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>お花たち〜</p>
+<p>可愛いものばかりで</p>
+<p>毎回目も心も癒されます、、</p>
+<p>ありがとう！！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>ピース！！</p>
+<p>毎回とても元気をもらいます。</p>
+<p>私の活動を見てくれて</p>
+<p>直接声を聴けるのは</p>
+<p>本当に大切な時間です！！</p>
+<p>今の時期は寒いから</p>
+<p>手が冷たかったり鼻が赤かったり</p>
+<p>寒い中並んでくれたのかなーと思うと</p>
+<p>とても嬉しくなります、</p>
+<p>いつも本当にありがとう！</p>
+<p>ここで一つお知らせを◎</p>
+<p>２月１４日より</p>
+<p>飛鳥さん、白石さん、未央奈さん、私が</p>
+<p>はるやま/P.S.FAのフレッシャーズ＆就活応援新CMに出演させて頂いています！</p>
+<p>撮影もとても楽しくて</p>
+<p>完全見て感動しました、、</p>
+<p>画面の向きに</p>
+<p>皆様驚いたのではないでしょうか！！</p>
+<p>YouTube公式アカウントには</p>
+<p>メイキング映像などもあります！</p>
+<p>皆様ぜひチェックをお願いします！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>そしてこの日はれんかの生誕祭も</p>
+<p>れんかちゃんが</p>
+<p>１５歳になったのだと</p>
+<p>１２歳で加入して</p>
+<p>かなり大人っぽくなったけど</p>
+<p>やっぱりまだ子供だなあと思う一面が多くて</p>
+<p>可愛くて仕方がないです。</p>
+<p>たくさん愛でます。</p>
+<p>れんか改めておめでとう！！</p>
+<p>そしてそんなれんかが出演している</p>
+<p>舞台ザンビ！</p>
+<p>観に行けました〜！！(；；)</p>
+<p>行けなさそうで諦めてたら</p>
+<p>まさかの行ける日が見つかり！</p>
+<p>行ってきました！</p>
+<p>ストーリーも演出もとても素敵で</p>
+<p>客席の後方で観劇させて頂いたのですが</p>
+<p>四方八方から聴こえる音や声に</p>
+<p>ビビりっぱなしでした、、</p>
+<p>第一弾のザンビの舞台に</p>
+<p>出演させて頂いた時は</p>
+<p>チームレッドの方を客席から</p>
+<p>見させて頂いていたこともあったけど</p>
+<p>その時とはまた視点も違うし、</p>
+<p>一人のお客さんとしてフラットな目線でで見られて本当に楽しかったです！</p>
+<p>あの演出やあのシーン、、</p>
+<p>鳥肌がたつような衝撃的なシーンがたくさんで</p>
+<p>最後までドキドキしっぱなしでした！</p>
+<p>渡辺梨加さん、佐々木久美さんとも</p>
+<p>ご挨拶させて頂きました！</p>
+<p>全チーム見たいくらいです、、</p>
+<p>明日千秋楽ですね！</p>
+<p>最後まで無事駆け抜けられますように。</p>
+<p>早い、、とても早い！！</p>
+<p>今日握手会で</p>
+<p>バスラ行くよ〜って声を沢山聴いて</p>
+<p>すごく嬉しくなりましたっ</p>
+<p>お越しくださる方、</p>
+<p>一緒に楽しみましょう〜！</p>
+<p>短くてごめんなさい(；；)</p>
+<p>今日はここまで！また更新します！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>大人ぽく撮って頂いた</p>
+<p>梅澤でさよなら〜</p>
+<p>気づけば２月も後半に差し掛かっていますね〜</p>
+<p>きっと今年もあっという間に過ぎていくんだろうなと思うと毎日大切にしなきゃですね</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/49239?ima=4946&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/49239?ima=4946&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-02-06_49151_DVD＆Blu-ray発売です〜！/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">DVD＆Blu-ray発売です〜！</span>
+      <span class="nav-date">2019-02-06</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-02-21_49291_1日目！！/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">1日目！！</span>
+      <span class="nav-date">2019-02-21</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

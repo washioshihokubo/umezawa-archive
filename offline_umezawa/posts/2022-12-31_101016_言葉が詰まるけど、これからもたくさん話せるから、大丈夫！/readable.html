@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>言葉が詰まるけど、これからもたくさん話せるから、大丈夫！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/101016?ima=4932&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>言葉が詰まるけど、これからもたくさん話せるから、大丈夫！</h1>
+        <div class="date">2022.12.31 23:59</div>
+      </header>
+
+      <main class="body">
+        <p>まあ怒涛な日々すぎて</p>
+<p>３年くらい一気に凝縮してあるんじゃないかってくらいの１年でした。</p>
+<p>何がそう思わせるのかよく分からないですが</p>
+<p>皆様、本当にお疲れ様でした。</p>
+<figure><img src="images/image_001.jpg" alt=""></figure>
+<p>なーんか１２月は特に</p>
+<p>たくさん付きまとっちゃった気がする！</p>
+<p>わたしはたぶん</p>
+<p>飛鳥さんがいなくなることで</p>
+<p>ここで見せる 自分の人格をひとつ失うような、そんな気持ちです（笑）</p>
+<p>大袈裟すぎる？</p>
+<p>飛鳥さんがいたから出せた一面とか</p>
+<p>出てくるテンション感とか 、あって、</p>
+<p>そういうの引き出してくれる人だったから</p>
+<p>すごく、寂しいとか以上に</p>
+<p>結構これから何か変わっていきそうで、不安。</p>
+<p>あ、でも</p>
+<p>いい方向に持っていきたいとおもってますもちろん！</p>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<p>最後の置き土産として受け取ります</p>
+<p>ロボット兵もね</p>
+<p>本当に全部のチョイスが、天才！</p>
+<p>あんまり多く語らない方だから</p>
+<p>私もあんまり、なんとなく、</p>
+<p>話すの控えたくて写真もね</p>
+<p>でも最後くらい！</p>
+<p>もう載せるタイミング無くなっちゃうのかなあ</p>
+<p>１２月入ってから</p>
+<p>会う度盗撮してました</p>
+<p>全部はもちろん見せないし、</p>
+<p>私の中に留めておきたいのもあるから</p>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<p>なんかこう、圧倒的でしたよね。</p>
+<p>圧倒的な存在でした。</p>
+<p>本人が一番、</p>
+<p>けろっとしていたように見えた時もあったけど</p>
+<p>でも、</p>
+<p>珍しくカメラを構える姿を見ることが増えたり</p>
+<p>密になっていったり</p>
+<p>ちょっとうるってしてるのかな？って顔とか</p>
+<p>そんなの見る度寂しかった！</p>
+<p>感謝しかない、</p>
+<p>梅澤美波としても。</p>
+<p>これからも、変わらない距離にいてくれますように！</p>
+<p>本当にお疲れ様でした飛鳥さん〜</p>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<p>リング交換してました実は</p>
+<p>誰一人、気づいてないと思うけど(^^)</p>
+<p>こういうの、すきなんです</p>
+<p>すきというか こういうのって残るからさ意外と わたしの心には</p>
+<p>飛鳥さんの小指のが、わたしの</p>
+<p>わたしの薬指のが、飛鳥さんの（写真反転してるので右手です）</p>
+<figure><img src="images/image_005.jpg" alt=""></figure>
+<p>これからも、たくさん話聞いてもらうし、</p>
+<p>私の家にも来てもらうので、</p>
+<p>何も変わらない！(^^)</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/101016?ima=4932&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/101016?ima=4932&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2022-12-31_101017_まとまらないですが、年が明けたら兎年、年女です。/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">まとまらないですが、年が明けたら兎年、年女です。</span>
+      <span class="nav-date">2022-12-31</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2023-01-06_101040_冬は、越せそうですか？１２月は越せましたか？/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">冬は、越せそうですか？１２月は越せましたか？</span>
+      <span class="nav-date">2023-01-06</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

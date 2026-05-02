@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>久しぶりになってしまった書きたいことが沢山あります</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/48120?ima=4947&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>久しぶりになってしまった書きたいことが沢山あります</h1>
+        <div class="date">2018.12.01 18:12</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<p>かなりお久しぶりになってしまいました、、</p>
+<p>書きたいことがたくさんあります！</p>
+<p>順番にすこしずつ</p>
+<p>更新出来たらなあと思います！</p>
+<p>ごめんね(；；)</p>
+<p>舞台「ザンビ」</p>
+<p>千秋楽無事迎えることが出来ました！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>終わってしまった寂しさよりも</p>
+<p>達成感、そして全員で駆け抜けられた喜びの方が今はすごく大きい！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>TDCホール、</p>
+<p>本当に本当に大きかった。</p>
+<p>この場所でお芝居が出来るなんて、、</p>
+<p>夢のまた夢の舞台でした。</p>
+<p>毎日たくさんのお客様が</p>
+<p>足を運んでくださったこと、</p>
+<p>当たり前ではない光景に、</p>
+<p>感謝でいっぱいでした。</p>
+<p>皆様本当にありがとうございました！</p>
+<p>チームBLUE！！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>久保！！</p>
+<p>毎日毎日話し合いを重ねて、</p>
+<p>摩耶と杏奈の関係性を深めて、</p>
+<p>時にはぶつかり合ったりもしたけど</p>
+<p>この期間久保と話した一言一言全てが</p>
+<p>お芝居に活きていたなあと思う( ¨̮ )</p>
+<p>同じ方向を見て、</p>
+<p>しっかり頑張れて本当に良かった。</p>
+<p>久保が戻ってきて一番最初のお仕事で一番近くで支えられる相方でいられてよかった！</p>
+<p>本当にお疲れ様！</p>
+<p>ゆうかさんは、すごく優しくて</p>
+<p>面倒みがよいお姉ちゃんのような存在でした。</p>
+<p>真面目で熱心で、</p>
+<p>その姿勢には何度も刺激を受けたし</p>
+<p>常に台本と睨めっこしてる姿が印象的で、</p>
+<p>その姿がBLUEを引っ張ってくれた、</p>
+<p>出逢えて本当に良かったです(；；)</p>
+<p>茜さんは、一色彩菜そのものでした。</p>
+<p>茜さん演じる彩菜が大好きで、</p>
+<p>お芝居の中でも普段からも</p>
+<p>みんなのお姉さん的存在！！</p>
+<p>歌う姿がかっこよくて</p>
+<p>壁を作らず接してくれたのが</p>
+<p>本当に嬉しかったなあ。</p>
+<p>摩耶と杏奈を助けにくるシーンが</p>
+<p>私はとっても好きでした☺︎</p>
+<p>めみたん！毎日見てて本当に可愛くて</p>
+<p>仕方ない存在でした( .. )</p>
+<p>めみたんのお芝居に心動かされ</p>
+<p>何度涙したことか、、。</p>
+<p>年下とは思えないほど</p>
+<p>しっかりしてるめみたんが</p>
+<p>本当にかっこよくてかっこよくて。</p>
+<p>一緒にお芝居できて嬉しかったです(；；)</p>
+<p>としちゃんはムードメーカー！</p>
+<p>よくへにょへにょって言うけど</p>
+<p>そこが私は大好き！お芝居に入ると</p>
+<p>ゆかりそのものだったとしちゃん！</p>
+<p>としちゃんのお芝居が物凄く好きでした。</p>
+<p>仲良くなれてとても嬉しいし、</p>
+<p>としちゃんの存在はチームBLUEに</p>
+<p>笑顔をもたらしてくれる、</p>
+<p>本当に大切な存在でした。</p>
+<p>早くあそこへ、行きましょうねっ</p>
+<p>毎日杏奈として立てていたし、</p>
+<p>一人一人のお芝居に毎日心動かされ</p>
+<p>何度も涙しました、何度も助けられました。</p>
+<p>この6人で本当によかった！</p>
+<p>チームREDの皆様、</p>
+<p>メインキャストの皆様、</p>
+<p>アンサンブルの皆様、</p>
+<p>スタッフの皆様、、</p>
+<p>本当にたくさんお世話になりました。</p>
+<p>プリンシパル、見殺し姫、</p>
+<p>星の王女さま、七つの大罪、セラミュ</p>
+<p>今までやらせていただいた舞台で</p>
+<p>お世話になった方がたくさんいて</p>
+<p>いろんなご縁がありまたこうして</p>
+<p>ご一緒できて本当に嬉しかったです！</p>
+<p>またどこかでご一緒できますように、、！</p>
+<p>この期間は、自分の中で悩んで悩んで</p>
+<p>頭を抱える毎日で</p>
+<p>壁にぶつかってばかりで</p>
+<p>難しくて上手くいかなくて</p>
+<p>悔しくって悔しくって仕方なくて</p>
+<p>何もかも分からなくなることもありました、</p>
+<p>正解はないけど、</p>
+<p>私なりの杏奈を、、、！と思い</p>
+<p>毎日奮闘してきました</p>
+<p>色んな物事に大して</p>
+<p>色んな意見を受け入れる大切さとか</p>
+<p>色んな角度からの視野の広げ方とか</p>
+<p>学ぶこともたくさんの現場でした、</p>
+<p>自分の課題も改めて見つかりました( ¨̮ )</p>
+<p>私の中で、</p>
+<p>お芝居が、舞台が、大好きになって</p>
+<p>その中でのこの舞台だったので</p>
+<p>すごく気合いが入っていました、、！</p>
+<p>引っ張らなきゃ、、！</p>
+<p>なにか力にならなきゃ！！って</p>
+<p>常に思ってはいたけど</p>
+<p>実力もないし上手くもない、</p>
+<p>役柄的にも中々そうすることも出来ず。</p>
+<p>でも、自分で思ったことは</p>
+<p>みんなにシェアしてみたり</p>
+<p>意見を出してみたり</p>
+<p>言葉に出すことを恐れず挑めた期間でした</p>
+<p>杏奈になる毎日は</p>
+<p>終わると毎日へとへとで</p>
+<p>家に帰るとバタンキューで、、</p>
+<p>苦しくなって苦しくなって</p>
+<p>体力よりも気力を使う毎日だったけど、</p>
+<p>だからこそ終わったあとの達成感が大きくて</p>
+<p>お客様からの拍手を頂いた時に、</p>
+<p>ああ、今日も杏奈になれて良かったって</p>
+<p>そう思える毎日でした。</p>
+<p>ザンビの期間は</p>
+<p>梅澤美波として生きる日常の中でも</p>
+<p>敏感で常に何かに恐怖心があって</p>
+<p>何かに怯えていた感覚があったのは</p>
+<p>毎日杏奈になっていたからかな（笑）</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>支えられてばかりの毎日でした！</p>
+<p>本当にありがとうございました。</p>
+<p>改めて、</p>
+<p>舞台がお芝居がとても好きです( ¨̮ )</p>
+<p>今は殺陣やってみたいな〜とか</p>
+<p>ああいう役やってみたいな〜とか</p>
+<p>想像することが増えました( ¨̮ )</p>
+<p>実力も無いし知識も全然無いけど、</p>
+<p>また違う私になって</p>
+<p>皆様の前に立てる日が来ることを夢見て</p>
+<p>頑張ろうと思います。</p>
+<p>もっともっと、、！</p>
+<p>これから、、！</p>
+<p>って、欲が出てきた時に終わってしまう</p>
+<p>そんな儚さがある舞台が大好き( ¨̮ )</p>
+<p>出演させて頂くことになりました！</p>
+<p>遅めの発表になってしまい</p>
+<p>申し訳ないです(；；)</p>
+<p>空港に着いた時から</p>
+<p>ファンの皆様が暖かく迎えてくれて、</p>
+<p>わたしのタオル持ってくださってる方も</p>
+<p>何人もいて、、</p>
+<p>普段握手会に海外から</p>
+<p>足を運んでくださる方もいるけど</p>
+<p>こうして自分達が会いに来れて本当に嬉しいし</p>
+<p>いつも遠くから</p>
+<p>応援して下さってるんだな〜って思ったら</p>
+<p>改めて本当に嬉しく思いましたし</p>
+<p>今日の公演で少しでも</p>
+<p>恩返しが出来ればなあと思いました！</p>
+<p>楽しみましょう！！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>確認しているももこさん</p>
+<p>ももこのこと書けばいいじゃん〜って</p>
+<p>言ってきたからしかたなく( ¨̮ )</p>
+<p>昨日は遅くまで一緒でした</p>
+<p>今日は隣で寝ました</p>
+<p>昔よく聴いてた曲が一緒すぎて</p>
+<p>育ってきた環境が似てたんだなと</p>
+<p>嬉しくなりました( ¨̮ )</p>
+<p>相変わらず赤ちゃんみたいなももこさんです</p>
+<p>今日も平和です！</p>
+<p>長くなりましたすみません(；；)</p>
+<p>それでは！</p>
+<p>色々書きたいこともあるので</p>
+<p>また更新します！</p>
+<p>これは何に関しても言えることだけど</p>
+<p>苦しまずして乗り越えられることなんて</p>
+<p>無かったりするんだなあと</p>
+<p>色々なことをさせていただいて思いました！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/48120?ima=4947&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/48120?ima=4947&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-11-18_47836_気づけば街はすっかりクリスマスモードでした、/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">気づけば街はすっかりクリスマスモードでした、</span>
+      <span class="nav-date">2018-11-18</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-12-09_48182_だいすき/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">だいすき</span>
+      <span class="nav-date">2018-12-09</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

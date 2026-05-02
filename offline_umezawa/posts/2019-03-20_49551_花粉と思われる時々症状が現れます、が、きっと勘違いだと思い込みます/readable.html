@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>花粉と思われる時々症状が現れます、が、きっと勘違いだと思い込みます</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/49551?ima=4946&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>花粉と思われる時々症状が現れます、が、きっと勘違いだと思い込みます</h1>
+        <div class="date">2019.03.20 21:42</div>
+      </header>
+
+      <main class="body">
+        <p>皆様こんにちは！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>先日の個別握手会！</p>
+<p>お越しくださった皆様</p>
+<p>ありがとうございました！</p>
+<p>名古屋での個別はかなり久しぶりでした</p>
+<p>この日はめちゃくちゃ寒くて</p>
+<p>来てくださった方もみなさま</p>
+<p>手が冷たくて、、</p>
+<p>寒い中本当にありがとうございました(；；)</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>お花もたくさん頂きましたっ！</p>
+<p>ありがとう〜</p>
+<p>いい香りがするんですよ〜</p>
+<p>メッセージもありがとうございます！</p>
+<p>1部の私服はこんな感じでした〜</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>私の選ぶ服は</p>
+<p>柄やロゴがあるものが圧倒的に少ないので</p>
+<p>アクセサリーで遊ぶのが好きです</p>
+<p>大きめのものを選びます</p>
+<p>この付けてるのもお気に入りのイヤリング◎</p>
+<p>最近専らベージュが好きです</p>
+<p>黒ばっかり人間だった梅澤ですが</p>
+<p>最近は黒とベージュが並んでたら</p>
+<p>ベージュを手に取ることが増えました</p>
+<p>春の力でしょうか、</p>
+<p>流行りの力でしょうか、、</p>
+<p>黒ももちろん好きです、が</p>
+<p>明るい色も目を引きます。</p>
+<p>あ、でも原色とかパキッとした色は</p>
+<p>今もなかなか手を出せずにいますが（笑）</p>
+<p>今年はどんな服を着ましょう</p>
+<p>空き時間やお休みができれば</p>
+<p>何度も何度もお店に足を運びますが</p>
+<p>なかなかピン！と来るものに出逢えません。</p>
+<p>私のクローゼットは</p>
+<p>圧倒的にトップスが少ないのです</p>
+<p>買いに行かねば</p>
+<p>こんなの着てほしいだとか</p>
+<p>リクエストあればお待ちしています◎</p>
+<p>最近の休日やお仕事終わりは</p>
+<p>先輩方の舞台を観させて頂いたり</p>
+<p>気になったものを一人で観にいったり</p>
+<p>完全に趣味といいますか</p>
+<p>お勉強も兼ねてですが、観劇が好きです◎</p>
+<p>朗読劇も初めてこの間観ました〜！</p>
+<p>ページが減っていくのが目に見えるのも</p>
+<p>すごく新鮮でしたし</p>
+<p>言葉だけで浮かんでくる情景に</p>
+<p>終始感動しておりました、、</p>
+<p>生田さんのロミジュリも</p>
+<p>井上さんの愛のレキシアターも</p>
+<p>能條さんのHARUTOも、、！</p>
+<p>どれも本当に素敵でした(；；)</p>
+<p>感想を書きたいとこですが</p>
+<p>メールに送ったので長くなってしまいそうなので</p>
+<p>やめておきますっ</p>
+<p>気になるのを片っ端から観るのが好きで</p>
+<p>最近は観劇だらけの日々です〜</p>
+<p>楽しい！</p>
+<p>そろそろ一人で旅行に行きたいなあ〜</p>
+<p>20歳の目標です</p>
+<p>でもまだ一人焼肉も</p>
+<p>挑戦出来ていないからなあ、、</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>いつかのスピリッツさんのオフショット。</p>
+<p>この衣装好きだったなあ〜</p>
+<p>お知らせ◎</p>
+<p>▽３／２３ B.L.T. さま</p>
+<p>山下久保と表紙巻頭を務めさせて頂きます！新鮮な3人でした！春らしい衣装を用意して下さりピンク一面の表紙になっています！ぜひ！</p>
+<p>▽３／２５ OVERTURE さま</p>
+<p>掘り下げ企画をさせて頂き、かなり面白く、かっこよく、色んな梅澤が見られるのではないかなぁと思います！ちび梅澤がいたり、あの方からのコメントだったり、、盛りだくさんです！ぜひ読んでいただきたいです！</p>
+<p>〜ラジオ</p>
+<p>▽毎週月〜木 ニッポン放送 19:56〜20:00 「乃木坂46 梅澤美波の『のぎぼき』！」</p>
+<p>〜DVD</p>
+<p>▽３／２０ 乃木坂46版 ミュージカル 『美少女戦士セーラームーン』Blu-ray&amp;DVD</p>
+<p>本日発売です！</p>
+<p>特典映像盛りだくさんです！</p>
+<p>わたしも早くみたいなあ</p>
+<p>感想教えてください◎</p>
+<p>〜テレビ</p>
+<p>▽毎週水曜24:59~25:29 日本テレビ系 「ザンビ」</p>
+<p>〜イベント</p>
+<p>▽３／３０ マイナビpresents 第28回 東京ガールズコレクション2019 SPRING/SUMMER</p>
+<p>▽４／２０ TGC KUMAMOTO 2019 by TOKYO GIRLS COLLECTION</p>
+<p>TGCに出演させて頂きます、、！！</p>
+<p>嬉しいです(；；)</p>
+<p>握手会でも行くよって声を聞いて</p>
+<p>とても心強いです！楽しみます！</p>
+<p>そして昨日は</p>
+<p>衛藤さんの卒業ソロコンサート。</p>
+<p>アンコールに出演させて頂きました！</p>
+<p>裏の楽屋でみんなで</p>
+<p>モニターを見ていました！</p>
+<p>初めから最後まで、とても綺麗でした。</p>
+<p>綺麗な歌声もずっと聴けて</p>
+<p>衛藤さんのファンの方にとって</p>
+<p>本当に幸せな時間になったんだろうなあって</p>
+<p>観ていて思いました。</p>
+<p>思い出ファーストも歌ってくださって</p>
+<p>嬉しかったなあ〜(；；)</p>
+<p>本当にお疲れ様でした。</p>
+<p>まだ握手会で会えるので、</p>
+<p>残り少ない時間ですが大切に一緒に過ごせたらなと思います！</p>
+<p>明日は名古屋にて</p>
+<p>全国握手会があります！</p>
+<p>握手会は二会場に別れますので</p>
+<p>推しに会いに行く際には</p>
+<p>皆様お間違いなく！！</p>
+<p>公式ホームページに</p>
+<p>レーンの詳細がのっています！</p>
+<p>私は第一展示館の第4レーンにて</p>
+<p>元気いっぱいお待ちしております</p>
+<p>ぜひ遊びに来てください待ってます！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>ももさん</p>
+<p>梅桃でさようなら</p>
+<p>おやすみなさい！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/49551?ima=4946&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/49551?ima=4946&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-03-18_49517_寒いのか暖かいのか、いやまだ寒いのか/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">寒いのか暖かいのか、いやまだ寒いのか</span>
+      <span class="nav-date">2019-03-18</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-04-03_49861_追いつかないまま過ぎていってしまう/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">追いつかないまま過ぎていってしまう</span>
+      <span class="nav-date">2019-04-03</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

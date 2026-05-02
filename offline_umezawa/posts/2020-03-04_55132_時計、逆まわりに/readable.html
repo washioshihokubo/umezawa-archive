@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>時計、逆まわりに</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/55132?ima=4940&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>時計、逆まわりに</h1>
+        <div class="date">2020.03.04 23:30</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>お久しぶりになってしまいました。</p>
+<p>いかがお過ごしですか？</p>
+<p>最近悲しかったことがありましてですね、</p>
+<p>お気に入りのイヤホン、</p>
+<p>左側から音が流れなくなりました。</p>
+<p>うわ〜、ショックだなあ〜と思いつつ</p>
+<p>壊れたまま１ヶ月ほどずっと使ってる︎︎︎︎✌︎</p>
+<p>愛着が湧いているもので中々手放せない。</p>
+<p>新しい相棒を探しに行かねば。</p>
+<p>なんて、どうでもいい報告を</p>
+<p>下書きに記していました。</p>
+<p>気づけば前回の更新から早１ヶ月。</p>
+<p>ここ最近は風のように日々が去っていってしまってどうも時間に追いつけません。</p>
+<p>待ってくださってた方がいたら、</p>
+<p>お待たせしました。</p>
+<p>少し前になりますが、</p>
+<p>企画させて頂きました〜！</p>
+<p>加入前の視聴者だった頃から大好きな企画に参加出来て感無量でした、、</p>
+<p>どの作品も物凄くドキドキするので</p>
+<p>楽しんでいただけたのではないでしょうか☀︎</p>
+<p>スタジオでずっとキュンキュンでした！</p>
+<p>私達のはほんの日常、て感じで</p>
+<p>見てほっこりして貰えたら。（笑）</p>
+<p>バレンタイン設定は必須ではなかったので</p>
+<p>大好きなクリスマスにしました（笑）</p>
+<p>実は収録はクリスマス前だったの。</p>
+<p>大好きな音楽と共に。</p>
+<p>中学の頃からもう７年くらいずっと好きなアーティストさん♪</p>
+<p>￼</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>この幸せそうな顔。（笑）</p>
+<p>じゅんなさんとでした❤︎きゃ〜</p>
+<p>相変わらずのかっこよさ。包容力。</p>
+<p>リハーサルからあれやこれやと追加でやってくれるものだから、身を委ねてました（笑）❤︎</p>
+<p>楽しかったなあ〜</p>
+<p>グランプリのあやめちゃんレンくんペア、可愛すぎました。</p>
+<p>無事４日間終えることが出来ました！</p>
+<p>￼</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>大好きな乃木坂46として</p>
+<p>日々活動させていただく中で、</p>
+<p>時折長すぎる夢を見ているのではないかという感覚に陥ることがありますが</p>
+<p>ステージに立っているときは特に、感じます。</p>
+<p>パフォーマンスしながらも</p>
+<p>色んな思いが湧き出てくる瞬間でもあります。</p>
+<p>２００曲、数字だけで見ても</p>
+<p>とてつもない曲数。</p>
+<p>本当に全員で乗り越えたのか〜と思うと</p>
+<p>感慨深い。凄いですね。</p>
+<p>色んな人の思いやエピソードが</p>
+<p>沢山詰まった楽曲達。</p>
+<p>毎回パフォーマンスの形は違うかもしれないけれど、一人一人、心を込めて届けています。</p>
+<p>観に来て受け取ってくださる皆様がいて、</p>
+<p>成り立つものです。</p>
+<p>笑顔も歓声もたくさん受け取りましたよ。</p>
+<p>本当にありがとうございます！そして、</p>
+<p>私たちがステージに立つ裏側には</p>
+<p>たくさんのスタッフさん方のお力があります。</p>
+<p>本当に本当にありがとうございました！</p>
+<p>準備期間は大変なこともありますが</p>
+<p>ステージでライトを浴びたとき</p>
+<p>あぁ、このためにいくらでも頑張れるんだよなあ〜って、思うんです︎︎︎︎✌︎</p>
+<p>できる限りいつまでも見続けたい景色。</p>
+<p>去年の７thバースデーのときの私よりは</p>
+<p>ずっと、強くなれた気がしてます。</p>
+<p>堂々と立てた気がします。</p>
+<p>楽しめた気がします。︎︎︎︎</p>
+<p>怖いものも、誰かのためになれるのなら</p>
+<p>恐れず向き合える気がします！</p>
+<p>グループの歴史ある日を</p>
+<p>過ごすことが出来て幸せでした。</p>
+<p>４日目ラスト、</p>
+<p>２００曲目に披露させていただきました、</p>
+<p>２５枚目シングル「しあわせの保護色」</p>
+<p>日々応援して下さる皆様のおかげです。</p>
+<p>本当にありがとうございます！</p>
+<p>とても心温まる曲です。</p>
+<p>聴いていても流れていても踊っていても、</p>
+<p>落ち着き癒されるような楽曲です。</p>
+<p>一つ一つ大切にじっくり味わいながら</p>
+<p>過ごしていきたいと思っています。</p>
+<p>時間はずっと早く去っていってしまうから。</p>
+<p>後輩の身としてまだまだ</p>
+<p>先輩方から学ぶこと、山ほどあります。</p>
+<p>それとは反対に、先輩という立場にもなった今、後輩たちに見せなければならない伝えなければならない姿もあります。</p>
+<p>もう一歩、二歩、変わりたいです。</p>
+<p>今のこのタイミングで、すごく思うことです。</p>
+<p>もっともっと出来ることを増やしたい、</p>
+<p>ジャンル関係なく挑戦していきたいです。</p>
+<p>自分自身のレベルアップに務めたい。</p>
+<p>グループの力になれる力が欲しいです。</p>
+<p>日々変わり続けるグループの中で</p>
+<p>自分の役目をしっかり見つけ、</p>
+<p>今をしっかり味わって、楽しんで、</p>
+<p>このシングルを皆様に届けられるよう精一杯務めさせて頂きます！</p>
+<p>自分の頑張りや活動が</p>
+<p>誰かの幸せになれているということに</p>
+<p>気づかせてくれる人がいます。</p>
+<p>それが、</p>
+<p>自分が崩れそうになった時の柱です︎︎︎︎✌︎</p>
+<p>どうしてもマイナスに向かってしまいそうな時</p>
+<p>そんな大事な人達の顔が浮かびます。</p>
+<p>私がここで折れたら悲しむ人がいる。</p>
+<p>私にとってのブレーキです。</p>
+<p>永遠が無いということは、このお仕事を始めて今まで何度も実感してきました。</p>
+<p>ならばその限られた時間の中で、</p>
+<p>幸せをたっぷり余すことなく感じたいのです。</p>
+<p>今シングルも大切な人達と最高の作品を</p>
+<p>待ってくださってるファンの皆様、</p>
+<p>いつも応援してくれる家族や友人たちに</p>
+<p>歌を届けたいです！</p>
+<p>シングル詳細も発表されましたが、</p>
+<p>３期生楽曲の「毎日がBrand new days」</p>
+<p>MVも撮って頂きました。</p>
+<p>個々では進化しているみんなも</p>
+<p>全員が集まると初期とどこか変わらぬ雰囲気。</p>
+<p>何にも変えられない同期の存在は</p>
+<p>本当に尊く、愛おしくてたまりません。</p>
+<p>みんなの笑顔がたまらなく大好きだから、</p>
+<p>その笑顔を守りたいと思う１１人。</p>
+<p>みんなが幸せであれ！と願います。</p>
+<p>飛鳥さん、山と私３人のユニット曲</p>
+<p>「ファンタスティック３色パン」</p>
+<p>タイトルからお察しの通り、</p>
+<p>とてもキャッチーで不思議な世界観です。</p>
+<p>私個人としては１９枚目シングル以来、</p>
+<p>２年半ぶりのユニット曲です。</p>
+<p>いつか、またいつかと願っていたユニット曲。</p>
+<p>どんな形であれ、、、やったー！</p>
+<p>嬉しいです！ぜひお楽しみに。</p>
+<p>新４期生の皆さんと活動できるの、</p>
+<p>すごく楽しみです！</p>
+<p>￼</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>愛おしい</p>
+<p>愛おしくてたまりません。</p>
+<p>改めまして 乃木坂４６ ８周年</p>
+<p>おめでとうございました！</p>
+<p>ありがとうございました！</p>
+<p>さあ、気づけばもうすぐホワイトデー。</p>
+<p>大好きな方達に</p>
+<p>バレンタインチョコを頂いたので❤︎</p>
+<p>ホワイトデーになにか作ろうかなあと</p>
+<p>今から考えております。</p>
+<p>お菓子作り。しばらくしていないなあ</p>
+<p>￼</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>大好きで、大好きで、なりません。！！</p>
+<p>ばばっと文字だらけで、、</p>
+<p>読みにくくてごめんなさい。</p>
+<p>では。</p>
+<p>また書きます</p>
+<p>少しずつ素の自分を見せることが</p>
+<p>出来るようになってきた気がします！</p>
+<p>飾らずにいる、って簡単なようで物凄く難しいことですよね。</p>
+<p>だから飾らずに素直に生きる人にわたしはすごく惹かれます。そんな人になりたいなあ〜</p>
+<p>人の前でも、カメラの前でも。</p>
+<p>目標です！☀︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/55132?ima=4940&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/55132?ima=4940&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-02-01_54803_じっくーり。ゆっくーり。/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">じっくーり。ゆっくーり。</span>
+      <span class="nav-date">2020-02-01</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-03-23_55376_不安を遮るように/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">不安を遮るように</span>
+      <span class="nav-date">2020-03-23</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

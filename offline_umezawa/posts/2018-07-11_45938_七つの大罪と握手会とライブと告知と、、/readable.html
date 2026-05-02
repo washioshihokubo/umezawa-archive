@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>七つの大罪と握手会とライブと告知と、、</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/45938?ima=4952&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>七つの大罪と握手会とライブと告知と、、</h1>
+        <div class="date">2018.07.11 21:36</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>最近自撮り全然してないや〜( .. )</p>
+<p>皆様いかがお過ごしですか？</p>
+<p>最近毎日暑いですね〜</p>
+<p>夏バテしてない？( .. )</p>
+<p>夏が苦手な私は</p>
+<p>毎日へとへとだよ〜∠(　˙-˙ )／</p>
+<p>日焼け止めきらいだけど</p>
+<p>頑張って塗ってる( .. )</p>
+<p>白くなりたい、、</p>
+<p>今日はまず、遅くなってしまった</p>
+<p>握手会のことを！！</p>
+<p>６／１７ 個別握手会！</p>
+<p>夢メッセみやぎにお越しくださった皆様</p>
+<p>ありがとうございました！</p>
+<p>この日は前日と翌日に</p>
+<p>セラミュ本番があったため</p>
+<p>って方がたくさんいて</p>
+<p>とても嬉しかったよ〜！！(；；)</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>その日のお花たち！</p>
+<p>とってもかわいい〜！(；＿；)</p>
+<p>ありがとう！！</p>
+<p>そして６／２３ 個別握手会！</p>
+<p>東京ビッグサイトにお越しくださった皆様</p>
+<p>ありがとうございました！</p>
+<p>この日はなんとね</p>
+<p>TeamSTARで</p>
+<p>お揃いTシャツ着たよ〜！！</p>
+<p>最近はSTARのみんなと現場が一緒だと</p>
+<p>集まっちゃう！（笑）</p>
+<p>すきすぎるんだよなあ(；＿；)</p>
+<p>そしてこの日のお花</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>たくさんありがとう(；＿；)</p>
+<p>セーラームーンに関するお花が</p>
+<p>多かったかな☺︎♪</p>
+<p>いつも本当にありがとうございます！</p>
+<p>次の個別握手会は</p>
+<p>７／１６！！</p>
+<p>浴衣着ようかな〜なんて</p>
+<p>おもてます∠(　˙-˙ )／</p>
+<p>そして２１枚目シングルの</p>
+<p>個別握手会申し込みもありました！</p>
+<p>追加会場以外は</p>
+<p>なんと2次で完売みたいで、、</p>
+<p>ありがとうね本当に(；＿；)</p>
+<p>楽しもうぜっ</p>
+<p>１０月はハロウィンだし</p>
+<p>コスプレしようかな〜</p>
+<p>なんておもてます∠(　˙-˙ )／（笑）</p>
+<p>何みたい〜？</p>
+<p>まだ全然決めてないや〜</p>
+<p>今回のシングルは</p>
+<p>追加会場含め４会場しか参加できませんが、、(；＿；)</p>
+<p>追加会場は</p>
+<p>明日から申し込みがはじまります！</p>
+<p>今の私に会えるのは今だけなので、</p>
+<p>ぜひ、会いに来てねっ</p>
+<p>そしてそして</p>
+<p>３日間完走しました〜！ぱちぱち</p>
+<p>いや〜ほんとに</p>
+<p>どうなることかと思いましたが</p>
+<p>すっごく楽しかった！</p>
+<p>セラミュー期間でもあり</p>
+<p>色んなこととリハーサルが被り</p>
+<p>リハに参加出来ないことが</p>
+<p>ほとんどだったので不安で不安で、、</p>
+<p>みんなに支えてもらいながら</p>
+<p>なんとか無事終えることが出来ました！</p>
+<p>自分の容量の悪さに腹が立ったり</p>
+<p>自分を見直す機会でもあったかなあと。</p>
+<p>ダメ人間だなって思うことが増えた！</p>
+<p>なので見直します！うん！</p>
+<p>たくさんのタオルやサイリウム</p>
+<p>ありがとうございました！</p>
+<p>見つけた方には</p>
+<p>ほとんど何かしらしたつもりだよっ</p>
+<p>届いたかしら∠(　˙-˙ )／</p>
+<p>たくさんたくさんタオルが見えて</p>
+<p>本当に嬉しくって楽しくって仕方なかった！</p>
+<p>神宮にいた方にも秩父宮にいた方にも</p>
+<p>楽しんでいただけてたら嬉しいなあ。</p>
+<p>雨降ったけど</p>
+<p>雨に濡れるのも悪くない！</p>
+<p>気持ちよかった！！</p>
+<p>この年になると雨をあんなに被ることも</p>
+<p>中々ないからなあ( .. )</p>
+<p>これも野外の良さかなあと◎</p>
+<p>そして</p>
+<p>すごくすごく寂しいけど</p>
+<p>ステージの上でキラキラ輝くお2人を見て</p>
+<p>私ももっともっと頑張らなきゃ！って</p>
+<p>思いました。</p>
+<p>セラミューがあり</p>
+<p>お2人と一緒のステージに立てて</p>
+<p>近くでパフォーマンスができて</p>
+<p>本当に嬉しかった！！</p>
+<p>ご卒業されるその日まで</p>
+<p>思い出が作れたらいいなあ(；＿；)</p>
+<p>お知らせ◎</p>
+<p>▽７／２４ B.L.T. さま</p>
+<p>れんかとももことの撮影でした！久しぶりにわちゃわちゃできた撮影だったなあ〜とても楽しかった！！ぜひチェックしてください！</p>
+<p>▽７／２６ 週刊少年チャンピオン さま</p>
+<p>なんと！初ソロ表紙を努めさせていただきました！この間撮影してきました！とってもとっても楽しかったなあ。夏を満喫しました！夏にやりたいこと一通りできた撮影って感じ！スタッフさんもとにかく優しくてうきうきな撮影でした☺︎セラミュもあったりで中々撮影出来ずだったので、１人での撮影はかなり久しぶりだったなあ〜☺︎</p>
+<p>▽OVERTURE さま</p>
+<p>発売中！</p>
+<p>▽連載中の日経エンタテイメント！さま</p>
+<p>発売中です！</p>
+<p>セラミュのことなど！！</p>
+<p>▽モデルプレスさんにて</p>
+<p>私のソロインタビューの記事を</p>
+<p>書いてくださっています！！</p>
+<p>結構色んなことを包み隠さずお話したので</p>
+<p>ぜひ読んでみてね！！</p>
+<p>告知が追いつかなかったものもあったりで</p>
+<p>すみません(；＿；)</p>
+<p>できるだけモバメでもなんでも</p>
+<p>お知らせできるようにします！！</p>
+<p>「七つの大罪 The STAGE」</p>
+<p>只今絶賛稽古中です！！</p>
+<p>ついに始動です！</p>
+<p>勉強の毎日です。</p>
+<p>初めて経験することも多く</p>
+<p>戸惑いもありますが</p>
+<p>想像力を働かせながら稽古する毎日です！</p>
+<p>ただでさえまだまだなのに、、</p>
+<p>人一倍、誰よりも頑張らないといけない！</p>
+<p>不安になることもありますが</p>
+<p>周りの皆さんの優しさに</p>
+<p>毎日救われてばかりです、、</p>
+<p>常に背中を支えてくれる</p>
+<p>とても暖かく明るい現場です！</p>
+<p>お芝居に対する姿勢や</p>
+<p>舞台上でのキャストの皆さんの姿が</p>
+<p>本当に素敵で刺激を受けてばかりです。</p>
+<p>この作品に参加出来て幸せ！</p>
+<p>まだ始まったばかりだけど</p>
+<p>もうそう感じています。</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>楽しみです！！</p>
+<p>色んなことを教わりながら</p>
+<p>助けてもらいつつ</p>
+<p>この作品に花を添えられるように頑張ります！</p>
+<p>そして７／１４の音楽の日に</p>
+<p>出演させて頂きます！</p>
+<p>ぜひみてね！</p>
+<p>それではまた更新します！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>めがね</p>
+<p>西日本の豪雨被害状況を観て</p>
+<p>とても胸が痛みます。</p>
+<p>一日でも早い復興と、</p>
+<p>亡くなられた方のご冥福をお祈り申し上げます。</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/45938?ima=4952&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/45938?ima=4952&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-07-03_45841_簡単なことはなにもない/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">簡単なことはなにもない</span>
+      <span class="nav-date">2018-07-03</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-07-17_46039_すっかり夏だね〜気づけば７月もあと半月/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">すっかり夏だね〜気づけば７月もあと半月</span>
+      <span class="nav-date">2018-07-17</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

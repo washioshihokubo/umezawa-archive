@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>1日目！！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/49291?ima=4946&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>1日目！！</h1>
+        <div class="date">2019.02.21 16:12</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>１６日個別握手会</p>
+<p>ありがとうございました〜！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>5部の私服はこんな感じでした！</p>
+<p>真っ黒〜</p>
+<p>最近割と色物着るようになったのだけど</p>
+<p>久しぶりに全身黒！</p>
+<p>やっぱり黒が好きです〜落ち着く</p>
+<p>オールインワンなので楽ちんだし</p>
+<p>何よりデザインがどストライクで</p>
+<p>一目惚れして最近買いましたっ</p>
+<p>本当は半袖だけど</p>
+<p>中にハイネックのニットを◎</p>
+<p>また私服載せますっ！！</p>
+<p>そしてそしてお花もたくさん！！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>毎回本当にありがとうございます(；；)</p>
+<p>楽しみにしてる〜</p>
+<p>って声をたくさん聞きました！！</p>
+<p>そう！</p>
+<p>遂に本日初日を迎えます！</p>
+<p>全曲披露、、！</p>
+<p>とても緊張しますが何より楽しみです</p>
+<p>私たち３期生は</p>
+<p>もう３度も参加させて頂くのか、、と</p>
+<p>振り返ると本当にあっという間で驚きます( .. )</p>
+<p>ファーストシングルから</p>
+<p>曲を毎回辿っていくと</p>
+<p>まだ加入前ですが懐かしさを感じたり</p>
+<p>大好きな曲もたくさん聴けたり、</p>
+<p>参加する身でもありながら</p>
+<p>リハーサルからすでに楽しめていて</p>
+<p>今はすごくわくわくどきどきしています！</p>
+<p>もちろん不安もありますが。</p>
+<p>来て下さる方と一緒に</p>
+<p>思い出に残る１日に出来たらなと思います！</p>
+<p>４期生とも初めて同じステージに立てます！</p>
+<p>嬉しいです！！</p>
+<p>私達と時期もすごく似てるから</p>
+<p>なんだか懐かしくなります。</p>
+<p>みんなとても可愛い(；；)</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>れんかちゃん</p>
+<p>少し長めの大阪への滞在なので</p>
+<p>癒されるような香りものだったり</p>
+<p>バスソルトだったりたくさん持ってきたら</p>
+<p>大きめのキャリーケースが</p>
+<p>いつの間にかパンパンでした︎︎︎︎✌︎</p>
+<p>心配性なのもあり</p>
+<p>絶対使わないやろって物も詰め込んでしまう</p>
+<p>どこかへ遠出する時</p>
+<p>準備するのは好きだけど</p>
+<p>片付けるのがちょっと苦手です( .. )（笑）</p>
+<p>衛藤さんの卒業発表がありました。</p>
+<p>とても寂しいです</p>
+<p>でもまだ全く実感がなくて。</p>
+<p>コスメに関するお仕事で</p>
+<p>ご一緒させて頂いたり、</p>
+<p>思い返せばたくさんお話させて頂いたり、、</p>
+<p>お姉さんのような存在だったので</p>
+<p>すごく寂しいですが、</p>
+<p>一緒にステージに立てることを</p>
+<p>大切に噛み締めながら楽しめたらなと思います！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>黒目がとても茶色いです</p>
+<p>母と同じなんです◎</p>
+<p>光に当たってるから余計茶色く見えるけど( .. )</p>
+<p>では！</p>
+<p>お越しくださる方！後ほど！</p>
+<p>一緒に楽しみましょう！！</p>
+<p>コールもぜひお願いします！</p>
+<p>タオルやボード、サイリウム</p>
+<p>出来る限り全部見つけるね！！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/49291?ima=4946&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/49291?ima=4946&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-02-16_49239_ちょっとの移動時間でもすぐ眠れる最近です/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">ちょっとの移動時間でもすぐ眠れる最近です</span>
+      <span class="nav-date">2019-02-16</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-03-09_49427_春服が可愛くて可愛くて仕方がないですっ！/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">春服が可愛くて可愛くて仕方がないですっ！</span>
+      <span class="nav-date">2019-03-09</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

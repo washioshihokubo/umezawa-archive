@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>DVD＆Blu-ray発売です〜！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/49151?ima=4946&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>DVD＆Blu-ray発売です〜！</h1>
+        <div class="date">2019.02.06 21:42</div>
+      </header>
+
+      <main class="body">
+        <p>去年８月に上演した</p>
+<p>私も出演させて頂いた</p>
+<p>舞台「七つの大罪 The STAGE」の</p>
+<p>DVD&amp;Blu-rayが本日発売になりました！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>載せてなかった</p>
+<p>パンフレット撮影時のオフショット！</p>
+<p>懐かしい〜</p>
+<p>あれからもう半年、、</p>
+<p>あっという間すぎて驚きます</p>
+<p>たくさんの方との出逢いで</p>
+<p>色々なことを学び成長させてくれました。</p>
+<p>DVDの特典映像を以前収録したとき</p>
+<p>お先に完成したものを見たのですが</p>
+<p>あの時の記憶が蘇ってきました</p>
+<p>楽しかった思い出がぽんぽんと浮かんだり</p>
+<p>こうすれば良かった</p>
+<p>ああすれば良かったとか</p>
+<p>今更ながら改めて未熟さを感じたり、、</p>
+<p>キャストの皆さんスタッフの皆さんが</p>
+<p>たくさん手を差し伸べてくれて</p>
+<p>原作のエリザベスちゃん同様</p>
+<p>助けられていてばかりだったけど</p>
+<p>私は何よりもすごく楽しかったし、</p>
+<p>そんなみんなの温かさを改めて感じられる作品になりました。</p>
+<p>こうして形になって</p>
+<p>皆様の元へ届けられること、</p>
+<p>とても嬉しく思います！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>とてもキュートだった</p>
+<p>ラブヘルムと！！</p>
+<p>生駒さんの舞台を観劇させて頂いたとき</p>
+<p>こういう偶然みたいなのが</p>
+<p>このカンパニーは稽古時から沢山あったので</p>
+<p>原作にも大切に描かれているように</p>
+<p>運命のカンパニーだなと改めて感じました！</p>
+<p>かすみんとはまさかの席が隣で(；；)</p>
+<p>驚いちゃった本当に</p>
+<p>ご飯行く約束もしてるんだ〜</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>ももこが来てくれた時のっ</p>
+<p>あと、公演終わったあと</p>
+<p>キャスト、スタッフさん用の</p>
+<p>七ステTシャツがありまして、</p>
+<p>そこにね、衣装さんが</p>
+<p>演じるキャラクターに関するマークだったり</p>
+<p>文字を一人一人入れてくださったの！</p>
+<p>出来上がったの見てもう嬉しくて仕方なくて</p>
+<p>たくさん着ていたのだけど</p>
+<p>お見せしてなかったな〜と思ったので</p>
+<p>このタイミングで！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>素敵でしょ〜(；；)</p>
+<p>背中には</p>
+<p>今回の台詞の中から</p>
+<p>印象深い大切な台詞をチョイスして</p>
+<p>それをプリントして下さりました！</p>
+<p>それはモバメに送りますね〜</p>
+<p>世界に一つだけのTシャツ︎︎︎︎✌︎</p>
+<p>キャスト、スタッフのみんなも</p>
+<p>それぞれ本当にすごいんだよ〜！</p>
+<p>では！</p>
+<p>長くなりましたが</p>
+<p>ぜひたくさんの方に見て欲しい作品になってますのでお手に取ってみてください！</p>
+<p>またこのカンパニーで舞台に立てること、</p>
+<p>そしてエリザベスとして</p>
+<p>皆様とお逢い出来ることを願って！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>懐かしの写真でばいばい！</p>
+<p>また更新します！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/49151?ima=4946&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/49151?ima=4946&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-02-02_49082_文章が下手ですみません、、盛りだくさんです/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">文章が下手ですみません、、盛りだくさんです</span>
+      <span class="nav-date">2019-02-02</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-02-16_49239_ちょっとの移動時間でもすぐ眠れる最近です/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">ちょっとの移動時間でもすぐ眠れる最近です</span>
+      <span class="nav-date">2019-02-16</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

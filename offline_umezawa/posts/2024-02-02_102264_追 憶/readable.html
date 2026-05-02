@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>追  憶</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/102264?ima=4932&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>追  憶</h1>
+        <div class="date">2024.02.02 22:03</div>
+      </header>
+
+      <main class="body">
+        <p>６期生オーディションの開催が</p>
+<p>決定いたしました！</p>
+<p>https://nogizaka46audition.com/</p>
+<p>何者でなくても、</p>
+<p>なにも持っていなくても</p>
+<p>当たり前に大丈夫で、そのままでよくて</p>
+<p>ここはなにかを持たせてくれたり</p>
+<p>気づかせてくれたり</p>
+<p>何者かを教えてもらえたり</p>
+<p>知ることができたり</p>
+<p>違う自分をスタートさせてくれる場所なので、</p>
+<p>もしも迷っているのなら</p>
+<p>少しでも気持ちが傾いているのなら</p>
+<p>挑戦してみてもいいんじゃないかな〜って、</p>
+<p>思います。</p>
+<p>と言っても、人生は大きく変わっていくし</p>
+<p>学校や友達、家族はもちろん</p>
+<p>色んなこととの関わり方も変わり</p>
+<p>今あるものとの距離が</p>
+<p>少し広がるかもしれません。</p>
+<p>覚悟とか、不安とか、</p>
+<p>抱えきれないほど考えたり</p>
+<p>自信のなさに震えたり</p>
+<p>自分も経験したからこそ</p>
+<p>すごく、</p>
+<p>痛いほど気持ちが分かるけど</p>
+<p>進む過程で 固まっていくし</p>
+<p>定まっていくものだったりも、します！</p>
+<p>今、乃木坂46にいてくれているみんなは</p>
+<p>それを乗り越えて</p>
+<p>色んなことを変えて、変わらせて</p>
+<p>その中で変わらないものを守りながら</p>
+<p>自分の可能性とか 新しい夢とか</p>
+<p>探して、みんなで頑張っています(^^)</p>
+<p>たくさん考えてくれて</p>
+<p>悩んでくれている方がいるのなら、</p>
+<p>その気持ちだけでも、真剣に考えてくれて</p>
+<p>本当にありがとうございます。</p>
+<p>とっても嬉しいです(^^)</p>
+<p>わたしは乃木坂４６が大好きで</p>
+<p>オーディションを受けた時は</p>
+<p>その気持ちだけ、持っていました。</p>
+<p>特技も、出来ることも、</p>
+<p>なーんにもなくて</p>
+<p>それしかなくて</p>
+<p>あまりにも手ぶらだったわたしだけど</p>
+<p>乃木坂への気持ちってすごく大切で、</p>
+<p>自分の気持ちが折れそうになった時に</p>
+<p>それが一番、ストッパーになったし</p>
+<p>起き上がらせてくれる材料になりました。</p>
+<p>だから、乃木坂のこと</p>
+<p>すごく好きでいてくれる子が</p>
+<p>来てくれたら、嬉しいです(^^)</p>
+<p>その気持ちは、内面からすごく</p>
+<p>感じられるものだから</p>
+<p>そんな子がいてくれたら、幸せ！</p>
+<p>あとは、本当に素敵な仲間たちに出会えます！</p>
+<p>学校が変わったりとか</p>
+<p>職場が変わったりとか</p>
+<p>今ある環境は少し、遠ざかるかもしれないけど</p>
+<p>ここには、本当に素敵な子達がたくさんいるから</p>
+<p>どうかそれも楽しみに</p>
+<p>わくわくしてもらえたら(^^)</p>
+<figure><img src="images/image_001.jpg" alt=""></figure>
+<figure><img src="images/image_002.jpg" alt=""></figure>
+<figure><img src="images/image_003.jpg" alt=""></figure>
+<figure><img src="images/image_004.jpg" alt=""></figure>
+<p>懐かしい写真たちでも</p>
+<p>のせておきます</p>
+<p>私たちが導いてあげられることも</p>
+<p>教えてあげられることも</p>
+<p>寄り添えることも、きっとできるはず。</p>
+<p>楽しみに、待っています(^^)</p>
+<figure><img src="images/image_005.jpg" alt=""></figure>
+<p>私たちも、どきどきだよ〜。</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/102264?ima=4932&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/102264?ima=4932&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2023-12-31_102198_おわりとはじまり/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">おわりとはじまり</span>
+      <span class="nav-date">2023-12-31</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2024-07-04_102601_未来の仲間たちに/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">未来の仲間たちに</span>
+      <span class="nav-date">2024-07-04</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

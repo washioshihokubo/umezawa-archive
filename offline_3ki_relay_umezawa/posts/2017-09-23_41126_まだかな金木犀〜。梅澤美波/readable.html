@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>まだかな金木犀〜。梅澤美波</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/41126?ima=0520&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source relay">3期生リレーブログ</div>
+        <h1>まだかな金木犀〜。梅澤美波</h1>
+        <div class="date">2017.09.23 21:54</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>きのう！</p>
+<p>SHOWROOMありがとうございました☺︎</p>
+<p>最近はね〜、外出ると、</p>
+<p>高校のときテストで午前中で学校が終わり</p>
+<p>自転車で帰ってた頃を思い出す☺︎（笑）</p>
+<p>あとは文化祭の準備をしてた頃☺︎</p>
+<p>そんな時期の匂いに似てる！！</p>
+<p>マニアック（笑）</p>
+<p>まだ金木犀の匂い嗅いでないな〜</p>
+<p>やることが可愛くてたまんないよね（笑）</p>
+<p>全握のとき写真撮るの忘れてて</p>
+<p>あ〜忘れちゃったね〜って話してて</p>
+<p>だけど急に自撮りちょうだいって言ってきて</p>
+<p>なんだと思ったらあんなことして</p>
+<p>かわいい（笑）（笑）</p>
+<p>ほっておけない存在です☺︎</p>
+<p>ももこの持つ雰囲気とか性格とか</p>
+<p>きっと今までも周りの人や友達や先輩に</p>
+<p>愛されて大切にしてもらってきたんだろうな〜と思う☺︎</p>
+<p>ももこの今の周りを見ても改めて思うし☺︎</p>
+<p>だって、守りたくなる、し、ほっておけないもん（笑）</p>
+<p>ももこ、誕生日おめでとう☺︎</p>
+<p>しばらくの間同い年☺︎</p>
+<p>ももこらしく！！( ˙-˙ )౨</p>
+<p>先週末のスペイベありがとうございました！</p>
+<p>アーチェリー大会と乃木坂検定と黒ひげ！！</p>
+<p>あのね〜アーチェリーはみなみもやりたいって思ったし、乃木坂検定は試験監督みたいに出来たのがたまらなく楽しかった☺︎（笑）</p>
+<p>黒ひげはいつもの顔ぶれの方がたくさんで</p>
+<p>いつもより長くお話できるし</p>
+<p>ゲームはどきどき楽しいしで幸せで貴重な時間でした☺︎☺︎</p>
+<p>ありがとう！みんな頑張ってて刺激を受けたよ〜わたしも頑張らなければ〜みんな色々がんばれ〜</p>
+<p>そして月曜は久しぶりすぎる個別握手会！</p>
+<p>18枚目１発目の個握なんだけど</p>
+<p>もう19枚目が発表されてるから</p>
+<p>なんだか不思議な感覚でございましたん( ¨̮ )</p>
+<p>１．２．３部は浴衣！</p>
+<p>５部は私服！</p>
+<p>５部に来た方が</p>
+<p>浴衣見れなかったのめちゃくちゃ悔しい〜</p>
+<p>って口を揃えていくの、申し訳無かったけどなんだか可愛かったよ（笑）</p>
+<p>心の中でへっへっへと悪魔が笑ってた☺︎</p>
+<p>また来年ね、おあずけ！</p>
+<p>１部は赤で３部は白紫( ˙-˙ )౨</p>
+<p>乃木坂入る前は毎年浴衣着てお祭り行ってたり姉がいたりで浴衣はたくさんありまして☺︎</p>
+<p>自分で着たんだよ〜( ˙-˙ )౨</p>
+<p>時間が無くて写真撮れなかったの(；＿；)</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>今回もこんなにかわいいいいお花、たくさんありがとう☺︎☺︎</p>
+<p>３期生１周年のお花も！！！</p>
+<p>幸せでいっぱい！</p>
+<p>17枚目よりも確実に来て下さる方の数が増えてるのを実感してて、なんだか嬉しい限りです。初めましての方が増えた☺︎</p>
+<p>顔覚えるのは得意と言いつつも</p>
+<p>名前は時間がかかります、ごめんね</p>
+<p>名札とかあるとめちゃ覚えやすい！</p>
+<p>次来るから名前覚えててって言われても脳みそが追いつかず覚えてられない時もあります、、</p>
+<p>時間をかけてゆっくりね☺︎</p>
+<p>顔はだいたいすぐ覚えるよ（笑）( ˙-˙ )౨</p>
+<p>いつもの方もいつも本当にありがとう。☺︎</p>
+<p>来てくれると安心します、来ないと不安になります、馴れ馴れしくなってごめんね〜仲良くなったってことで許して(..)</p>
+<p>すごく存在が大きいんだ〜</p>
+<p>また明日もよろしく頼んだ( ˙-˙ )౨</p>
+<p>(もう季節的に秋だけど夏服着ちゃおうかな〜いい？( .. )（笑）</p>
+<p>質問返し◎</p>
+<p>Q.お風呂の設定温度は？</p>
+<p>A.マニアックな質問（笑）42℃！</p>
+<p>Q.冬ソングと言えば！</p>
+<p>A.ん〜、、</p>
+<p>AAAさんの「Miss you」、</p>
+<p>ハジ→さんの「White Winter Love」とか</p>
+<p>Aimerさんの「雪の降る街」とか</p>
+<p>Nissyさん「GIFT」、</p>
+<p>SILENT SIRENさん「恋い雪」、</p>
+<p>back numberさんの「クリスマスソング」</p>
+<p>とかたくさん！！冬ソングに限らず、冬の時期によく聴いていた曲は私の中で冬ソングになります☺︎（笑）</p>
+<p>舞台『見殺し姫』、メインビジュアル公開されました！</p>
+<p>今回はとても独特な世界観があり、</p>
+<p>撮影時もすごく緊張したのですが</p>
+<p>背の高い私に着せたいと衣装さんが選んでくださったお洋服を着たら</p>
+<p>想像よりモード寄りになってしまったということで</p>
+<p>メイクさんが急遽変更でメイクも髪型も衣装に合わせてしてくださいました！</p>
+<p>下ろしストレート予定だった髪の毛も</p>
+<p>アップすることに！</p>
+<p>輪郭がコンプレックスな私からしたら</p>
+<p>顔周りの髪の毛も無しなのがとても不安で</p>
+<p>公開がものすごく怖かったのですが</p>
+<p>新しい１面を見てもらえる、と思って</p>
+<p>とてもいい機会だなと思いました！</p>
+<p>ここまでさらけ出すのはあまりない気が！</p>
+<p>演技は新しい発見の日々！</p>
+<p>簡単なことでもない、</p>
+<p>単純なことでもなくって</p>
+<p>とても難しくて格闘する日々です。</p>
+<p>正解がないのが面白いな〜って思う</p>
+<p>同じ役でも演じる人が変われば全く別人物になる</p>
+<p>難しい！難しい！って悩む日々！</p>
+<p>そんな作業も当たり前ではないんだなあとしみじみ！ありがたいです！</p>
+<p>とりあえず私はプリンシパルで出られなかった２幕の分、インフルエンザで出られなかった２日間４公演分、</p>
+<p>ここに全てぶつけるつもりです！</p>
+<p>舞台なんてそうそうできることではない！</p>
+<p>やるならやってやる！</p>
+<p>という気持ち( ˙-˙ )౨（笑）</p>
+<p>楽しんだら勝ちだと思ってる！</p>
+<p>楽しみたいと思ってる！</p>
+<p>せっかく毎日舞台に立てるんだから！</p>
+<p>素敵な脚本があるのだから！</p>
+<p>見に来る方、お楽しみに！</p>
+<p>応援しててね、ずっと見てろよ〜</p>
+<p>メインビジュアルがとても素敵なので</p>
+<p>それに負けずに舞台がんばります！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>妹たち〜〜</p>
+<p>かわいい妹たち〜〜</p>
+<p>たまみとれんか☺︎</p>
+<p>２人ともかなりの甘えんぼうだよ〜</p>
+<p>告知◎</p>
+<p>▽９／２３ Samurai ELO さま</p>
+<p>美女散歩連載、本日発売！</p>
+<p>美しくて可愛すぎる白石さんの表紙が目印です☺︎</p>
+<p>(白石さん前髪切ったみたいで、、長いのもすき、短いのもとてもすき( .. )♡</p>
+<p>▽９／２７ OVERTURE さま</p>
+<p>私とかえでと久保ちゃんの3人で！</p>
+<p>▽９／２９ 平塚ウォーカー さま</p>
+<p>創刊号！地元トークたっぷり！</p>
+<p>▽１０／６〜１５ 舞台『見殺し姫』</p>
+<p>(８．９除く)</p>
+<p>いよいよ近づいてきました！頑張ります！☺︎</p>
+<p>▽１０／８．９ 全国ツアー@新潟</p>
+<p>地方公演ラストです！楽しみます！☺︎</p>
+<p>▽１０／２２ めざましテレビ PRESENTS T-SPOOK ～TOKYO HALLOWEEN PARTY～</p>
+<p>３期生が出演させて頂くことになりました！ハロウィン大好きなのでとても嬉しい、こうして３期生として出演させて頂けること、本当に有り難く思います。このイベントは以前から知っていたのでとても楽しみです！ぜひ遊びに来てください☺︎</p>
+<p>チェックよろしくお願い致します☺︎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>Samurai ELOさまオフショット！</p>
+<p>前回出させていただいた時からELOさまのお洋服がとても好きで楽しかったの☺︎</p>
+<p>お家に住んでる風かな？こんなとこ住みたいって思う撮影でしたん☺︎</p>
+<p>私ももう買ったのだけど、いつもと違う表情してた気がする！不意の顔だったり、、、</p>
+<p>ぜひチェックしてね！！</p>
+<p>あっそういえば相変わらず空フォルダちょこちょこ活動してます☺︎</p>
+<p>毎日撮れないことがほとんどだけど</p>
+<p>気づいたらすぐ撮る！</p>
+<p>癒される。☺︎</p>
+<p>また今度載せるね〜☺︎</p>
+<p>10月の個握のコスプレ探さなきゃ〜</p>
+<p>なににしよかな〜（笑）</p>
+<p>あ〜顔がお饅頭になってきた〜</p>
+<p>明日握手会来て下さる方、よろしくね〜☺︎</p>
+<p>最近よく、「もっと話したいことたくさんある」って言ってくださる方が多いんです</p>
+<p>長く話したい、時間足りないって私自身思うことめちゃくちゃある、だけど、会いに来てくれるだけで嬉しい！気持ちは届いてる！</p>
+<p>時間は短くても大切にしたい！って思う☺︎</p>
+<p>来年まで握手会の日程は決まっているし</p>
+<p>楽しみたい！</p>
+<p>だからこれからもよろしくね☺︎</p>
+<p>(よそ見しすぎないでね、悲しくなるよ〜</p>
+<p>初めましての方もよろしくね( ¨̮ )</p>
+<p>楽しみにしてます☺︎</p>
+<p>新しいであいが楽しみだ〜</p>
+<p>来られない方も、</p>
+<p>パワ〜( ˙-˙ )౨</p>
+<p>19枚目の握手会取ってくださった皆様も</p>
+<p>本当にありがとう！来年まで楽しみが詰まってる〜☺︎☺︎</p>
+<p>さあ明日のお洋服決めて寝ます〜</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>だいふくみなみが最近ないと言われたので、、</p>
+<p>おやすみ〜</p>
+<p>みんながんばれ〜うめもがんばってるよ〜</p>
+<p>夢で逢おうな〜（笑）</p>
+<p>(握手会で夢で会えなかったって結構言われたんだけど、たぶんだけどたぶん、想いが足りてない( ˙-˙ )౨（笑）</p>
+<p>１人空振りしていることが多々あるんだな〜と最近気づきました、☺︎</p>
+<p>でも私は私なりにありのままでいたいなあと思っている、変に曲がりたくはない、曲げたくはない</p>
+<p>きっと人生こんなもんって考えれば軽い！余裕！</p>
+<p>みんながんばろな〜</p>
+
+        <div class="original">
+          Source：3期生リレーブログ・梅澤美波<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/41126?ima=0520&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/41126?ima=0520&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2017-09-11_40617_秋のにおい〜。梅澤美波/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">秋のにおい〜。梅澤美波</span>
+      <span class="nav-date">2017-09-11</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2017-10-05_41306_姫〜。梅澤美波/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">姫〜。梅澤美波</span>
+      <span class="nav-date">2017-10-05</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

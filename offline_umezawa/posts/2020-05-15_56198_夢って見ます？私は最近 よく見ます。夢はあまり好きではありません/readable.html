@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>夢って見ます？私は最近 よく見ます。夢はあまり好きではありません</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/56198?ima=4938&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>夢って見ます？私は最近 よく見ます。夢はあまり好きではありません</h1>
+        <div class="date">2020.05.15 20:06</div>
+      </header>
+
+      <main class="body">
+        <figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>もうパーカーも暑いですねえ。</p>
+<p>気づいたら随分</p>
+<p>お久しぶりになってしまいました。</p>
+<p>いかがお過ごしですか？</p>
+<p>もう外から入ってくる匂いが</p>
+<p>完全に夏に近い。ですね。</p>
+<p>いつの間に季節をまたぎそう。</p>
+<p>季節の変わり目は悲しくなりますね( &#x27;-&#x27; )</p>
+<p>昼間の風もすごく好きだけど</p>
+<p>夜風が気持ちくて夜は特に</p>
+<p>窓の近くにいてます。気持ちい</p>
+<p>季節の変わり目は特に、</p>
+<p>温度調節が難しいし</p>
+<p>風邪も引きやすいので皆様ご自愛くださいね。</p>
+<p>そんなこんなでもうスーパーには</p>
+<p>桃が並んでいましたよ。</p>
+<p>桃大好きなので嬉しい☀︎</p>
+<p>それと同時に苺が無くなってしまうのが</p>
+<p>凄く悲しい。</p>
+<p>今日は鶏もも肉と卵の甘酢煮 作りました☀︎</p>
+<p>豚の角煮もいいけれど、</p>
+<p>鶏もも肉もすごく美味しいですねえ。</p>
+<p>さて！ドラマ 「映像研には手を出すな！」</p>
+<p>先日TBSにて最終回の放送が終わりました！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>いやあ、本当にあっという間でした。</p>
+<p>ご覧くださった皆様、</p>
+<p>本当にありがとうございました！</p>
+<p>テレビの前で観ていると</p>
+<p>撮影の日々がフラッシュバックしてきましたねえ。</p>
+<p>長い期間ずっと撮影していたものだから</p>
+<p>沢山の思い出が詰まっているのです。</p>
+<p>色々思い出しながら重ね合わせながら</p>
+<p>毎話観ていました☀︎</p>
+<p>まだ地域によって放送は続きますし</p>
+<p>先日映画の予告編も公開になりまして</p>
+<p>まだまだ映像研はここからですので、皆様</p>
+<p>今後とも引き続きよろしくお願い致します！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>何してるのだろうか？</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>懐かしい。</p>
+<p>衣装がめちゃくちゃに夏だ☀︎</p>
+<p>そうそう、</p>
+<p>ちょっと前に頼んだ</p>
+<p>楽しみにしていた夏服が届きました。</p>
+<p>とっても可愛いの〜( .. )</p>
+<p>可愛くて可愛くてすぐ着てみた☀︎</p>
+<p>早く外で着られる日が来ますように。</p>
+<p>春服も一緒に買っていたけど</p>
+<p>来年に持ち越しかなあ。</p>
+<p>握手会でも着たい！ので</p>
+<p>開催できる日が待ち遠しいです☀︎</p>
+<p>本当にありがとうございます！</p>
+<p>皆様の近況が知れてとても嬉しいです。</p>
+<p>楽しくコメント読ませていただいてます◎</p>
+<p>また書きますね</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>フードの安心感って</p>
+<p>すごいっすよね</p>
+<p>では</p>
+<p>また。</p>
+<p>毎日の献立を考えるのって本当に大変。</p>
+<p>全国のお母さん、本当に尊敬します。</p>
+<p>母の日でしたね☀︎</p>
+<p>大好きな母には贈り物を贈りました！感謝でいっぱいです︎︎︎︎✌︎</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/56198?ima=4938&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/56198?ima=4938&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2020-04-29_56062_気づいたら もう 明るかった/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">気づいたら もう 明るかった</span>
+      <span class="nav-date">2020-04-29</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2020-05-28_56314_そういえば空はいつだって綺麗だったなあ/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">そういえば空はいつだって綺麗だったなあ</span>
+      <span class="nav-date">2020-05-28</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

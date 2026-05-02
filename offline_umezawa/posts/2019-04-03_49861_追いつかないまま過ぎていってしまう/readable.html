@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>追いつかないまま過ぎていってしまう</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/49861?ima=4944&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>追いつかないまま過ぎていってしまう</h1>
+        <div class="date">2019.04.03 22:06</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！</p>
+<p>お久しぶりになってしまいました、、</p>
+<p>書きたいことがたくさん( .. )</p>
+<p>新年号が令和に決定しましたね！</p>
+<p>みんなで画面の前に集まって</p>
+<p>発表の瞬間を迎えました！</p>
+<p>歴史的瞬間に立ち会えた嬉しさ( .. )</p>
+<p>令和、すごく素敵ですね！！</p>
+<p>予想してみたものの</p>
+<p>全然当たらなかった（笑）</p>
+<p>平成もあと一ヶ月かあ、寂しいなあ</p>
+<p>そして４月になりましたね〜</p>
+<p>新入生の方や新社会人の方、</p>
+<p>おめでとうございます！</p>
+<p>新しい環境へ足を踏み入れる方が</p>
+<p>たくさんいるかと思います。</p>
+<p>期待と不安を抱いてみんなそれぞれの夢や目標に向かって生きていくんだな〜</p>
+<p>春は出会いと別れの季節であり</p>
+<p>わたし的に少し寂しさも感じる季節だけど</p>
+<p>前向きになれる気がして好きです！</p>
+<p>４月の１日は</p>
+<p>お仕事の合間にみりあさんとご飯へ行きましたよ〜お久しぶりだったのです</p>
+<p>相変わらずみりあさんといると</p>
+<p>おかしなテンションになる梅澤です。</p>
+<p>それだけ心が許せるってことです◎</p>
+<p>なんでも話せちゃいます</p>
+<p>歩いてたら桜が沢山だったので</p>
+<p>2人でお花見気分でした◎</p>
+<p>お知らせです◎</p>
+<p>この度、２８日発売の</p>
+<p>ファッション誌「with」5月号から</p>
+<p>専属モデルを努めさせて頂くことになりました！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>皆様の応援があったからこそです。</p>
+<p>本当にありがとうございます！</p>
+<p>何度か出させて頂いてから、</p>
+<p>初めてのファッション誌のロケ撮影だったり</p>
+<p>ストーリー仕立ての撮影で</p>
+<p>初めてのことをたくさん経験させて頂き、撮影では毎回色んなことを学びました</p>
+<p>そして以前から読んでいた雑誌。</p>
+<p>いつかこんな大人な女性になりたいな〜って、</p>
+<p>そんな風に思っていました。</p>
+<p>なのですごく嬉しいです！(；；)</p>
+<p>不安もたくさんありますが、</p>
+<p>with読者の皆様に</p>
+<p>素敵なファッションやメイクをお届けできるよう</p>
+<p>これから頑張っていきたいです。</p>
+<p>コンプレックス、たくさんあります</p>
+<p>顔も体も、コンプレックスだらけです。（笑）</p>
+<p>だけど、</p>
+<p>どんな自分も受け入れて</p>
+<p>色んな私を誌面で見て頂けるように</p>
+<p>精一杯努めさせて頂きます！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>口元しかうつってないですが(；；)</p>
+<p>専属決定後初の撮影を終えた時</p>
+<p>編集部の方々に頂いたお花です。</p>
+<p>本当に優しい方ばかりで、幸せです</p>
+<p>最後に頂いた言葉を胸に、</p>
+<p>精一杯務めて参ります！！！</p>
+<p>握手会でたくさんお祝いしてくださって</p>
+<p>とっても幸せでした。</p>
+<p>自分の事のように喜んでくれる人が</p>
+<p>こんなに沢山いるんだなって</p>
+<p>私だけの人生じゃないなって思いました</p>
+<p>いつもありがとうございます！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>今後ともぜひよろしくお願い致します！</p>
+<p>そして</p>
+<p>乃木坂46 梅澤美波の「のぎぼき！」</p>
+<p>3月28日をもって終了致しました。</p>
+<p>聴いてくださったリスナーの皆様、</p>
+<p>本当にありがとうございました！</p>
+<p>半年間に渡って、月曜から金曜まで</p>
+<p>毎日短い時間の中でたくさんの情報をお届けしてきました。</p>
+<p>もう半年も経っていたのか！と</p>
+<p>時間の流れの速さに驚いています( .. )</p>
+<p>簿記を習っている学生さんや</p>
+<p>普段お仕事をされている方々の力に</p>
+<p>少しでもなれればなあという想いで、</p>
+<p>澤さん、そしてスタッフの皆様と取り組んで参りました！</p>
+<p>握手会で、</p>
+<p>簿記の検定受けることにしたよ！とか</p>
+<p>検定合格したよ！とか</p>
+<p>簿記興味持って始めてみましたとか</p>
+<p>いろんな声を聞いて</p>
+<p>少しでも力になれてるんだなって</p>
+<p>本当に嬉しくて仕方なかったです</p>
+<p>初めは緊張していたけど</p>
+<p>回数を重ねるうちにかなり楽しくなり</p>
+<p>いつからか私の一つのホームみたいな場所になりました</p>
+<p>頼りない私でしたが、、</p>
+<p>解説を含め分かりやすくラジオを作ってくださった澤先生、スタッフの方々には</p>
+<p>本当に感謝しています。</p>
+<p>半年間、聴いてくださった皆様</p>
+<p>本当にありがとうございました！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>メールにも送りましたが</p>
+<p>れんかちゃんです</p>
+<p>かわいいれんかちゃんです</p>
+<p>今日も可愛かったれんかちゃんです</p>
+<p>わたしはもう甘々です、、参った参った</p>
+<p>先日、ゆうりさんとかりんさんの</p>
+<p>卒業発表がありました。</p>
+<p>ゆうりさんは</p>
+<p>いつも笑顔をたくさんくれました。</p>
+<p>帰り道の2番の振りで、</p>
+<p>向き合って目が合うところがあるんです、</p>
+<p>そこでいつもニコッとしてくれる</p>
+<p>ゆうりさんが本当に大好きで(；；)</p>
+<p>ゆうりさんがいるだけで</p>
+<p>場の雰囲気が明るくなります。</p>
+<p>かりんさんは</p>
+<p>いつもたくさんのことを教えてくれました。</p>
+<p>3期生を集めて振りを残って教えてくれたり、</p>
+<p>振りの動画を撮って送ってくださったり</p>
+<p>今思えば助けて頂いたエピソードがたくさん浮かんできます</p>
+<p>壁を作らず接してくれるのが</p>
+<p>本当に嬉しくて仕方なかったです。</p>
+<p>すごくすごく寂しいけど</p>
+<p>残りの時間を大切に</p>
+<p>笑顔で見送れたらいいなあ。</p>
+<p>当たり前が当たり前でなくなる瞬間が</p>
+<p>この世にいくつも存在することを</p>
+<p>信じたくなくて必死にもがきます</p>
+<p>寂しさはきっとずっと拭えないけど</p>
+<p>先輩達が残してくださったものを</p>
+<p>私たち後輩が受け継いでいって</p>
+<p>乃木坂がずっとずっと愛されるグループであれるように</p>
+<p>私達もなにかを残せる人であれるように</p>
+<p>今は頑張るのみです。</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>髪色落ちるスピード早すぎて困ってます</p>
+<p>髪質なのでしょうか、、</p>
+<p>だいぶ髪も伸びました</p>
+<p>これ以上伸びてくれません</p>
+<p>人生ほとんどロングなので</p>
+<p>ショートに憧れます</p>
+<p>ショートカット似合う人が本当に素敵だなぁって思います</p>
+<p>わたしはきっと絶望的に似合わないので、、</p>
+<p>それでは今日はこの辺で</p>
+<p>泡風呂に浸かってきます</p>
+<p>お風呂の時間が好きです</p>
+<p>おやすみなさい</p>
+<p>握手会のこと全然かけてなくてごめんなさい！</p>
+<p>次の更新でまとめて書きます！</p>
+<p>書きたいこと沢山あるので</p>
+<p>徐々に更新していきますね！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/49861?ima=4944&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/49861?ima=4944&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2019-03-20_49551_花粉と思われる時々症状が現れます、が、きっと勘違いだと思い込みます/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">花粉と思われる時々症状が現れます、が、きっと勘違いだと思い込みます</span>
+      <span class="nav-date">2019-03-20</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2019-04-08_49907_お部屋を大改造したくて仕方ありません/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">お部屋を大改造したくて仕方ありません</span>
+      <span class="nav-date">2019-04-08</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

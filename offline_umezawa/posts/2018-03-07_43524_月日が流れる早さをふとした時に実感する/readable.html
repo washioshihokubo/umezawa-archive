@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>月日が流れる早さをふとした時に実感する</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/43524?ima=4955&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>月日が流れる早さをふとした時に実感する</h1>
+        <div class="date">2018.03.07 20:36</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>だいぶ前のです〜</p>
+<p>最近暖かかったけど</p>
+<p>今日は冷たいね〜</p>
+<p>私はやっぱり寒いのが好きみたいです☺︎</p>
+<p>冬に生まれたからかな( ¨̮ )（笑）</p>
+<p>皆様花粉は大丈夫ですか？( .. )</p>
+<p>私は全然大丈夫な人なんです！</p>
+<p>でも花粉症ってすごく辛いって聞くから( .. )</p>
+<p>対策しっかりしてお仕事や学校やバイト</p>
+<p>頑張ってね( ˙-˙ )౨！</p>
+<p>最近のことを！！</p>
+<p>３／４にありました</p>
+<p>「らじらー！サンデー」</p>
+<p>聴いてくださった方、そして</p>
+<p>公開生放送の仙台にお越しくださった方</p>
+<p>本当にありがとうございました！</p>
+<p>いや〜</p>
+<p>本当に楽しかったです、、！！</p>
+<p>通常ラジオって音声だけでお伝えするものだから</p>
+<p>リスナーさんと同じ場所で同じ空間を過ごすのってとても素敵だなって思うんです☺︎</p>
+<p>自分が発したことや起こした言動に</p>
+<p>反応がその場で返ってくるのも好きです◎</p>
+<p>って、レギュラーでもない私が生意気ですが</p>
+<p>いくつかラジオを出演させていただいてきて</p>
+<p>思うことです☺︎</p>
+<p>ファンの方がいると安心します！</p>
+<p>最近ラジオに出させていただくことが増えて</p>
+<p>やりたいと思うお仕事の１つなので</p>
+<p>物凄く嬉しいんです( .. )</p>
+<p>初めてお会いしたオリラジさんは</p>
+<p>本当に優しくて</p>
+<p>リハーサルの時から緊張している久保と梅澤に</p>
+<p>ずっとお話かけてくださったり</p>
+<p>本当に温かい方で</p>
+<p>とても救われました！</p>
+<p>井上さんとオリラジさんが</p>
+<p>ガッシリ支えてくださっていたので</p>
+<p>心配せず私達らしくできたのではないかなあと思います。</p>
+<p>スタッフの皆様も優しくて</p>
+<p>楽しんでね！と声をずっとかけてくださって</p>
+<p>幸せすぎる環境でした！</p>
+<p>しゃゆにゃんこスターの井上さんがとにかく可愛い！</p>
+<p>乃木中で見たのを生で見れた幸せと！</p>
+<p>皆様に見せてあげたい気持ちでいっぱい！</p>
+<p>そして私もみなにゃんこスター</p>
+<p>まさかの披露しました〜∠(　˙-˙ )／ぱちぱち</p>
+<p>（笑）</p>
+<p>殻を破れた気がします！</p>
+<p>この機会をくださったことに感謝です。</p>
+<p>楽しかったな〜( ¨̮ )</p>
+<p>牛タンも食べました！</p>
+<p>牛タンの概念が変わるくらい</p>
+<p>信じられないくらい美味でした！</p>
+<p>また呼んでいただけるように</p>
+<p>頑張ります！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>天気が良い日に</p>
+<p>たまみとランチ行った時の〜！</p>
+<p>散歩楽しいよね〜</p>
+<p>日光浴びるのって大切！！</p>
+<p>髪色だいぶ落ちてきて</p>
+<p>明るくなってきたの！</p>
+<p>それでね最近また</p>
+<p>お洋服買いに行ったんだけどね</p>
+<p>買ってきたもの広げたら</p>
+<p>ぜーんぶ黒と白だったよ〜（笑）</p>
+<p>明るい色の買おうとしても</p>
+<p>きっと目に止まるのが黒なんだろうね( ¨̮ )</p>
+<p>黒大好き人間( ¨̮ )</p>
+<p>まっくろくろすけ〜</p>
+<p>春だから挑戦せな！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>指入ってもうてるやん〜の巻</p>
+<p>あ〜この間恥ずかしかったことね</p>
+<p>電車乗ってて降りようと思って</p>
+<p>すごい勢い良く立ち上がったら</p>
+<p>つり革が頭にゴンッてなった( ¨̮ )</p>
+<p>ちょっとだけヒールあったから</p>
+<p>なんかすごいゴンってなった( ¨̮ )</p>
+<p>周りの人の目が痛かったな〜（笑）</p>
+<p>縄跳びしたとき</p>
+<p>最高２回しか飛べなくて</p>
+<p>自分でも驚きました( .. )衰えてきてる</p>
+<p>鍛えなければ！（笑）</p>
+<p>よし！</p>
+<p>また更新するね！</p>
+<p>色々書きたいことありますが</p>
+<p>順番に書いていくのでまっててね◎</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>メガネ〜</p>
+<p>出かけてる時に</p>
+<p>お忍びで自撮りするシリーズ</p>
+<p>いっぱい撮っとくね◎（笑）</p>
+<p>それじゃあまたね</p>
+<p>おやすみ！♪</p>
+<p>先を見据えて動くことって</p>
+<p>すごく大切だと思うんです、難しいけど</p>
+<p>気づいたのならばすぐ行動！</p>
+<p>自分を信じてがんばれたらいいなと思います！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/43524?ima=4955&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/43524?ima=4955&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-03-04_43484_高校の学生時代テストが午前中で終わって自転車で帰宅してる時の匂い〜/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">高校の学生時代テストが午前中で終わって自転車で帰宅してる時の匂い〜</span>
+      <span class="nav-date">2018-03-04</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-03-10_43565_お花見いきたいんだ〜お弁当持ってね/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">お花見いきたいんだ〜お弁当持ってね</span>
+      <span class="nav-date">2018-03-10</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

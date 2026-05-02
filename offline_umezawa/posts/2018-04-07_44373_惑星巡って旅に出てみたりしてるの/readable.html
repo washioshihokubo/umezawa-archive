@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>惑星巡って旅に出てみたりしてるの</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/44373?ima=4954&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>惑星巡って旅に出てみたりしてるの</h1>
+        <div class="date">2018.04.07 20:42</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>ごろーんと</p>
+<p>更新久しぶりになってしまい</p>
+<p>すみません！</p>
+<p>本当にありがとうございました！</p>
+<p>不安もあるけど</p>
+<p>こうして応援して下さる方がいるから</p>
+<p>私らしく頑張ろう！と思えました</p>
+<p>稽古が始まったら</p>
+<p>また元気貰うためにコメント読み返そーっと( ˙-˙ )౨</p>
+<p>最近とても暖かいね〜！</p>
+<p>もうアウターいらないくらいですね☺︎</p>
+<p>春服を買いに行きたくて</p>
+<p>うずうずしてます、、</p>
+<p>ネットでチェックして</p>
+<p>欲しいものリストに追加されていく、、！</p>
+<p>明るめの色の服に挑戦したいなあ〜</p>
+<p>それと、</p>
+<p>今までは大丈夫だった花粉が</p>
+<p>今年から花粉症疑惑がでてまして</p>
+<p>とても苦しんでおります、！</p>
+<p>花粉症って認めたくなくて</p>
+<p>今までスルーしてただけかな（笑）</p>
+<p>頑張って乗る切るぞー！</p>
+<p>先日の全国握手会@インテックス大阪</p>
+<p>お越しくださった皆様</p>
+<p>ありがとうございました！</p>
+<p>１９枚目ラストの握手会でした〜！</p>
+<p>めちゃくちゃ汗かきました！</p>
+<p>本当に暑かった〜！</p>
+<p>失恋お掃除人は楽しみながら披露できて</p>
+<p>皆様のコールが完璧すぎて</p>
+<p>気分もテンションも</p>
+<p>上がりっぱなしでした∠(　˙-˙ )／</p>
+<p>僕の衝動も</p>
+<p>２番のダンスが大好きだから</p>
+<p>久しぶりに踊れて楽しかった〜！</p>
+<p>ガッツリ踊る曲大好きなんだー！</p>
+<p>フルサイズでの披露は中々無いと思うので</p>
+<p>全国握手会は貴重ですねっ</p>
+<p>そして握手はりりあとのペア！</p>
+<p>うめりりでした！</p>
+<p>たくさんの方が会いに来てくださり</p>
+<p>本当に嬉しかったなあ〜</p>
+<p>それと、</p>
+<p>お花たくさんありがとうございました！</p>
+<p>この日、</p>
+<p>たくさんの方が会場に足を運んで下さり</p>
+<p>会場が移動になったんです、、</p>
+<p>急遽だったし初めてのこともあり</p>
+<p>バタバタしていたため</p>
+<p>終わってから写真を撮ろうとしたら</p>
+<p>出が急ぎだったので撮れませんでした(；；)</p>
+<p>送ってくださった方</p>
+<p>本当にすみません(；；)</p>
+<p>とても素敵なお花がたくさんたくさんあって</p>
+<p>目に焼き付けておきました、</p>
+<p>本当にありがとうございました！！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>全握の時の！あやちゃんとー！</p>
+<p>みんてぃーだよ！</p>
+<p>そして全国握手会にて</p>
+<p>◎日程、会場</p>
+<p>〇＜新潟＞新潟県民会館 大ホール</p>
+<p>2018年5月15日(火)</p>
+<p>開場 17：30 ／ 開演 18：30</p>
+<p>〇＜石川＞本多の森ホール</p>
+<p>2018年5月16日(水)</p>
+<p>開場 17：30 ／ 開演 18：30</p>
+<p>〇＜愛知＞名古屋国際会議場 センチュリーホール</p>
+<p>2018年5月17日(木)</p>
+<p>開場 17：30 ／ 開演 18：30</p>
+<p>2018年5月18日(金)</p>
+<p>開場 17：30 ／ 開演 18：30</p>
+<p>〇＜静岡＞富士市文化会館 ロゼシアター 大ホール</p>
+<p>2018年5月19日(土)</p>
+<p>開場 17：30 ／ 開演 18：30</p>
+<p>2018年5月20日(日)</p>
+<p>①開場 12：00 ／ 開演 13：00</p>
+<p>②開場 17：00 ／ 開演 18：00</p>
+<p>中部地方での開催になります！</p>
+<p>ですが、私は参加しません。</p>
+<p>楽しみにしてくださっていた方がいたら</p>
+<p>本当に申し訳ないです</p>
+<p>２０枚目シングルから</p>
+<p>初めて３期生とアンダーが合同になり</p>
+<p>アンダー曲にも参加して</p>
+<p>初めて新しい形を</p>
+<p>ファンの方にお見せできる場だと</p>
+<p>思っていたので</p>
+<p>出演できないことがすごく悔しいです</p>
+<p>でも、私は私でやるべき事を頑張ります。</p>
+<p>皆様ぜひ足を運んで下さい！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>ぶりっこぽーーーず</p>
+<p>今日の写真です∠(　˙-˙ )／</p>
+<p>そしてアンダー曲</p>
+<p>「新しい世界」の音源が公開されました！</p>
+<p>好きすぎて毎日聴いてます！</p>
+<p>初めて聴いた時から</p>
+<p>この曲すごい好きだなって</p>
+<p>本当に大好きになって</p>
+<p>踊ったら尚更好きになって、、</p>
+<p>皆様にも愛してもらえる１曲になったらなあと思います！</p>
+<p>告知◎</p>
+<p>４／４ 日経エンタテインメント！さま</p>
+<p>発売中です！</p>
+<p>連載一回目の掲載になります！</p>
+<p>色々話してきました！</p>
+<p>私はどんな人なのか、乃木坂に加入した理由、20枚目シングルについて、舞台についてなどなど、、</p>
+<p>盛りだくさんなのでぜひ！</p>
+<p>そしてただいま発売中の</p>
+<p>月刊オーディションさまにも</p>
+<p>岩本、伊藤理々杏と掲載させて頂いています！</p>
+<p>舞台のことから乃木坂に入るきっかけなど</p>
+<p>色々話させていただきました！</p>
+<p>よろしくお願いします！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>ある日のわし</p>
+<p>ぱーかー！！！</p>
+<p>そして、舞台「星の王女さま」</p>
+<p>本番真っ只中です！</p>
+<p>千穐楽を迎えてから</p>
+<p>また書こうと思うので多くは語りませんが</p>
+<p>とにかく楽しんでできています！</p>
+<p>色んなことから、</p>
+<p>プレッシャーはかなりありますが</p>
+<p>なにより自分が楽しむことが大切だから</p>
+<p>そしたら観てる方も同じ気持ちになってくれるはずだ！って☺︎</p>
+<p>８人で毎日頑張っております！</p>
+<p>当日券もございます。</p>
+<p>ぜひ、気になった方は劇場に足を運んでみてください！</p>
+<p>笑顔で帰ってもらえるような</p>
+<p>そんな舞台にできたらなと思っています</p>
+<p>頑張ります！！</p>
+<p>そして先日お知らせした</p>
+<p>舞台「七つの大罪 The STAGE」</p>
+<p>モバイルでの先行予約が開始しました！</p>
+<p>１５日23:59までのお申し込みとなっています！</p>
+<p>先行購入特典として</p>
+<p>ブロマイドも付いてくるみたいです！</p>
+<p>詳しくは公式ホームページを</p>
+<p>チェックしてみてください！☺︎</p>
+<p>８月でまだ先のことですが、</p>
+<p>皆様ぜひお越しください☺︎</p>
+<p>銀河劇場のロビーにフライヤーがもう飾ってありました！</p>
+<p>配布される分も置いてあったので</p>
+<p>星の王女さまにいらっしゃる方は</p>
+<p>ついでにぜひ見てみてください！( .. )</p>
+<p>スウィングの皆様が</p>
+<p>褒めてくれたり楽しみって言ってくれたり</p>
+<p>とても嬉しいんです！☺︎</p>
+<p>実感がだんだん湧いてきます、、</p>
+<p>頑張ります！</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>本日の夜公演終わりのわたし！</p>
+<p>それではおやすみなさい！</p>
+<p>不安やプレッシャーで苦しくなることがあって</p>
+<p>マイナスな面が日頃から目立ちがちだけど</p>
+<p>なんだかんだ楽しく過ごせてる、それが幸せ！頑張ります！</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/44373?ima=4954&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/44373?ima=4954&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-04-03_44311_七つの大罪 The STAGE/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">七つの大罪 The STAGE</span>
+      <span class="nav-date">2018-04-03</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-04-11_44414_車から見える東京の夜の景色がすごくすき/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">車から見える東京の夜の景色がすごくすき</span>
+      <span class="nav-date">2018-04-11</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>

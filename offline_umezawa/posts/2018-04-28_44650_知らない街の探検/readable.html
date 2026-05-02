@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>知らない街の探検</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(190, 160, 255, 0.18), transparent 34%),
+        linear-gradient(180deg, #fbf9ff 0%, #ffffff 46%, #f7f3ff 100%);
+      color: #26212f;
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 18px 90px;
+    }
+
+    .top-nav {
+      margin-bottom: 22px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .top-nav a {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid rgba(105, 80, 160, 0.18);
+      color: #5b478c;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 5px 16px rgba(80, 60, 120, 0.06);
+    }
+
+    .article-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(80, 60, 120, 0.10);
+    }
+
+    .article-header {
+      padding: 42px 42px 30px;
+      background:
+        linear-gradient(135deg, rgba(96, 72, 150, 0.96), rgba(204, 185, 255, 0.92));
+      color: white;
+    }
+
+    .source {
+      display: inline-block;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.34);
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1.45;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+    }
+
+    .date {
+      margin-top: 16px;
+      font-size: 15px;
+      opacity: 0.92;
+      font-weight: 600;
+    }
+
+    .body {
+      padding: 40px 42px 52px;
+      font-size: 16px;
+    }
+
+    .body p {
+      margin: 0 0 1.1em;
+      white-space: pre-wrap;
+    }
+
+    .body figure {
+      margin: 30px auto;
+      text-align: center;
+    }
+
+    .body img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 14px;
+      box-shadow: 0 10px 24px rgba(50, 40, 80, 0.10);
+    }
+
+    .original {
+      margin-top: 38px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(105, 80, 160, 0.16);
+      font-size: 13px;
+      color: #777;
+      word-break: break-all;
+    }
+
+    .original a {
+      color: #6b4fa3;
+    }
+
+    .article-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 26px;
+    }
+
+    .article-nav-link,
+    .disabled {
+      display: block;
+      min-height: 92px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(105, 80, 160, 0.16);
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.07);
+    }
+
+    .article-nav-link:hover {
+      background: #f3edff;
+    }
+
+    .disabled {
+      color: #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-label {
+      display: block;
+      font-size: 13px;
+      color: #6b4fa3;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .nav-title {
+      display: block;
+      color: #282132;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .nav-date {
+      display: block;
+      margin-top: 5px;
+      color: #777;
+      font-size: 12px;
+    }
+
+    .bottom-nav {
+      margin-top: 28px;
+      text-align: center;
+    }
+
+    .bottom-nav a {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #6b4fa3;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 22px rgba(80, 60, 120, 0.22);
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        padding: 20px 12px 70px;
+      }
+
+      .article-header {
+        padding: 30px 24px 24px;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .body {
+        padding: 28px 24px 40px;
+        font-size: 15px;
+      }
+
+      .article-nav {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="top-nav">
+      <a href="../../../index.html">← タイムラインに戻る</a>
+      <a href="https://www.nogizaka46.com/s/n46/diary/detail/44650?ima=4954&amp;cd=MEMBER" target="_blank">Original URL</a>
+    </div>
+
+    <article class="article-card">
+      <header class="article-header">
+        <div class="source official">乃木坂46 公式ブログ</div>
+        <h1>知らない街の探検</h1>
+        <div class="date">2018.04.28 19:00</div>
+      </header>
+
+      <main class="body">
+        <p>みなさまこんにちは！！</p>
+<p>乃木坂46 ３期生の</p>
+<p>梅澤美波です！！</p>
+<figure><img src="images/image_001.jpeg" alt=""></figure>
+<p>おきてます〜（笑）</p>
+<p>久しぶりになってしまいました、、</p>
+<p>すみません(；；)</p>
+<p>この間いちごを食べようと思って</p>
+<p>冷蔵庫からいちごと練乳をとり</p>
+<p>リビングにきたら</p>
+<p>なぜか練乳が見当たらない、、</p>
+<p>自分の周りを探し回っても見当たらない、、</p>
+<p>確かに持ってきたはずなのに〜と思って</p>
+<p>ふと、いちごの隣を見たら</p>
+<p>そこにはマヨネーズがありました☺︎</p>
+<p>練乳と間違えて</p>
+<p>いちごとマヨネーズを持ってきていました</p>
+<p>（笑）</p>
+<p>こういう日もあるよね（笑）</p>
+<p>４／２２、</p>
+<p>お越しくださった皆様</p>
+<p>ありがとうございました！</p>
+<p>リハーサルしてるときから</p>
+<p>前日までずっと実感が湧かなくて</p>
+<p>生駒さんがいない乃木坂が</p>
+<p>どうしても想像できなくて</p>
+<p>ずっとそわそわしてたんです。</p>
+<p>リハーサルの時に見た</p>
+<p>生駒さんのソロのダンスに泣きそうになったり</p>
+<p>力強さに圧倒されました</p>
+<p>当日になって</p>
+<p>武道館のステージに立ってリハーサルして</p>
+<p>ああ、生駒さん卒業されるんだ</p>
+<p>本当にいなくなっちゃうんだ</p>
+<p>って、すっごい寂しくなった</p>
+<p>どんどん色んな感情が湧き上がってきました</p>
+<p>生駒さんが３期生と披露したい！</p>
+<p>って言ってくださった</p>
+<p>AKB48さんの初日も、</p>
+<p>こんなに近くで踊れるのも最初で最後なんだな、って</p>
+<p>踊ってる時は楽しさと寂しさで</p>
+<p>心がぐるぐるしてました。</p>
+<p>生駒さんがセンターに立つ乃木坂を好きになって</p>
+<p>毎日の生活に楽しみをくれたのが乃木坂で</p>
+<p>卒業を送り出す立場になっていて。</p>
+<p>今出来ることは</p>
+<p>生駒さんが安心してグループを卒業できるように力をつけることだなって思いました。</p>
+<p>私が生駒さんと同じグループとして活動出来たのは</p>
+<p>１年と８ヶ月。</p>
+<p>長いようで短い時間だったけど</p>
+<p>生駒さんから学ぶことは沢山ありました。</p>
+<p>普段の活動から見せてくれる</p>
+<p>言葉にしなくても分かる</p>
+<p>こうあるべきだという姿勢とか</p>
+<p>どの現場に言っても色んな方から</p>
+<p>笑顔で囲まれる生駒さんの姿、</p>
+<p>生駒さんの全てを見て</p>
+<p>どれだけのことをしてきて</p>
+<p>どれだけの影響を乃木坂に残してきた人なのか</p>
+<p>近くにいればすぐ分かりました</p>
+<p>華奢で小柄な身体なのに</p>
+<p>その身体から放たれるパワーは</p>
+<p>本当にすごかった。</p>
+<p>わたしもこんな人になりたいって、</p>
+<p>そう思わせてくれました</p>
+<p>一緒に過ごしたこの時間を忘れずに</p>
+<p>生駒さんが愛した乃木坂の力に少しでもなれたらいいなって思います。</p>
+<p>５／６の全国握手会まであと少しですが</p>
+<p>最後まで生駒さんの姿を目に焼き付けたいと思います！</p>
+<figure><img src="images/image_002.jpeg" alt=""></figure>
+<p>赤い服買ったのー！</p>
+<p>握手会楽しみにしててね〜</p>
+<p>そして先日、</p>
+<p>舞台「七つの大罪The STAGE」</p>
+<p>キャスト先行の当落が発表されました！</p>
+<p>申し込んでくださった皆様、</p>
+<p>ありがとうございました！</p>
+<p>結果はどうだったかなあ( .. )</p>
+<p>楽しみに待っていてください☺︎</p>
+<p>そしてボンボンTVさんの</p>
+<p>YouTubeチャンネルに、</p>
+<p>メリオダス役の納谷健さん、</p>
+<p>バン役の有澤樟太郎さん、</p>
+<p>そして私が出演させていただいています！</p>
+<p>&quot;【あるある】こんなドラマは嫌だ！やってみた！&quot;</p>
+<p>の動画の後半です！</p>
+<p>ぜひチェックしてみてください！</p>
+<figure><img src="images/image_003.jpeg" alt=""></figure>
+<p>新幹線から撮った写真！</p>
+<p>めっちゃ綺麗だ〜見とれます</p>
+<p>４／２５は「シンクロニシティ」発売日です！！ぱちぱち</p>
+<p>早いですね〜∠(　˙-˙ )／</p>
+<p>私の参加楽曲は</p>
+<p>３期生曲「トキトキメキメキ」</p>
+<p>アンダー曲「新しい世界」</p>
+<p>の２曲です！</p>
+<p>そして３期生の１２人は</p>
+<p>個人PVも収録されています！</p>
+<p>私の監督さんは番場秀一さん！</p>
+<p>乃木坂の楽曲だと</p>
+<p>私が大好きでやまない「急斜面」、</p>
+<p>BUMP OF CHICKENさんや</p>
+<p>ゆずさん、スピッツさんや</p>
+<p>昔から大好きな曲、</p>
+<p>椎名林檎さんの「ギブス」など</p>
+<p>たくさんのMVを手掛けている方です！</p>
+<p>一緒にお仕事できて</p>
+<p>とても光栄です、、(；；)</p>
+<p>撮影がものすごく楽しくて</p>
+<p>優しいスタッフの皆様に囲まれ</p>
+<p>笑顔いっぱいの撮影現場でした！</p>
+<p>とてもシュールで面白くなっているかと思います！</p>
+<p>こちらもぜひチェックしてください！</p>
+<p>そしてもうひとつ！</p>
+<p>セブンイレブンさんと乃木恋の</p>
+<p>コラボキャンペーンで</p>
+<p>「乃木恋カフェ〜セブンストーリーズ〜」</p>
+<p>が５月１日から配信されます！</p>
+<p>私は大好きな若月さんと、</p>
+<p>EPISODE2 「好きになったら」</p>
+<p>に参加しています！</p>
+<p>若月さんとの撮影</p>
+<p>ほんっとに楽しかったなあ〜( .. )♡♡</p>
+<p>おたのしみに〜</p>
+<p>お知らせばかりになってごめんね( .. )</p>
+<p>舞台「星の王女さま」の</p>
+<p>愛知公演が始まりました！</p>
+<p>東京から少し空いたから</p>
+<p>お久しぶりって感じがします！</p>
+<p>この４公演終えたら</p>
+<p>もうこの作品とはお別れなのかあと思うと</p>
+<p>すごく寂しいですが</p>
+<p>後悔しないようにやり切ってきます！</p>
+<p>来られる方はお楽しみに！</p>
+<figure><img src="images/image_004.jpeg" alt=""></figure>
+<p>これは本当に今の写真！</p>
+<p>もうすぐ握手会だね〜</p>
+<p>めちゃくちゃ久しぶりだ！！</p>
+<p>３／３１の大阪全握以来だから</p>
+<p>１ヶ月空いたね〜( .. )</p>
+<p>舞台の感想とか</p>
+<p>シングルのMVの感想とか</p>
+<p>まだ何も聞けてないから楽しみだな〜</p>
+<p>皆様の近況だったりも</p>
+<p>ぜひ教えてねっ！</p>
+<p>話題ないよって人は</p>
+<p>なんでも振ってくれたら全力で返すね！（笑）</p>
+<p>４／２９が大阪全握！</p>
+<p>２０枚目最初の握手会！</p>
+<p>ぜひ遊びに来てねっ</p>
+<p>ペアは同い年のまあやさん！</p>
+<p>嬉しい〜楽しみだなあ〜</p>
+<p>ぜひ遊びに来てねっ</p>
+<p>まあやさんのファンの皆様、</p>
+<p>どうぞよろしくお願いします( .. )</p>
+<p>そして４／３０が大阪個握です！</p>
+<p>２日連続来てくれる方もいるのかな？</p>
+<p>楽しみにしてます∠(　˙-˙ )／</p>
+<p>私服お楽しみにね</p>
+<figure><img src="images/image_005.jpeg" alt=""></figure>
+<p>それではまたねっ</p>
+<p>おやすみ〜</p>
+<p>ゆっくり眠ってね〜</p>
+<p>新しいことへの挑戦はとても難しいけど発見があります</p>
+<p>悩んでいることも時間が解決してくれることもあるはず</p>
+<p>だから今は前を見て頑張ります</p>
+
+        <div class="original">
+          Source：梅澤美波 公式ブログ<br>
+          Original：<a href="https://www.nogizaka46.com/s/n46/diary/detail/44650?ima=4954&amp;cd=MEMBER" target="_blank">https://www.nogizaka46.com/s/n46/diary/detail/44650?ima=4954&amp;cd=MEMBER</a>
+        </div>
+      </main>
+    </article>
+
+    <nav class="article-nav">
+      
+    <a class="article-nav-link" href="../2018-04-18_44499_支えられて気づく/readable.html">
+      <span class="nav-label">← 前の記事</span>
+      <span class="nav-title">支えられて気づく</span>
+      <span class="nav-date">2018-04-18</span>
+    </a>
+    
+      
+    <a class="article-nav-link" href="../2018-05-06_44776_握手会たくさんありがとう/readable.html">
+      <span class="nav-label">次の記事 →</span>
+      <span class="nav-title">握手会たくさんありがとう</span>
+      <span class="nav-date">2018-05-06</span>
+    </a>
+    
+    </nav>
+
+    <div class="bottom-nav">
+      <a href="../../../index.html">タイムラインに戻る</a>
+    </div>
+  </div>
+</body>
+</html>
